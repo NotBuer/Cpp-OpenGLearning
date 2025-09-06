@@ -48,7 +48,7 @@
 *.hpp   text eol=lf
 *.cc    text eol=lf
 *.inl   text eol=lf
-*.cs    text eol=lf   # in case you mix C# tooling
+*.cs    text eol=lf
 *.glsl  text eol=lf
 *.vert  text eol=lf
 *.frag  text eol=lf
