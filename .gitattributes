@@ -1,5 +1,63 @@
-# Track Visual Studio precompiled header caches with Git LFS
-.vs/**/ipch/**/*.ipch filter=lfs diff=lfs merge=lfs -text
-# (Optional) You may also want to exclude the entire .vs folder from Git,
-# since it only contains local build cache files:
-.vs/ filter=lfs diff=lfs merge=lfs -text
+# =================================================================
+# Global line ending normalization
+# =================================================================
+* text=auto eol=lf
+
+# =================================================================
+# Git LFS tracking (large/binary assets)
+# =================================================================
+# Precompiled headers (can be huge, but usually ignored via .gitignore)
+*.ipch filter=lfs diff=lfs merge=lfs -text
+*.pch  filter=lfs diff=lfs merge=lfs -text
+
+# Media assets (if you ever add them)
+*.png  filter=lfs diff=lfs merge=lfs -text
+*.jpg  filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
+*.bmp  filter=lfs diff=lfs merge=lfs -text
+*.tga  filter=lfs diff=lfs merge=lfs -text
+*.gif  filter=lfs diff=lfs merge=lfs -text
+*.psd  filter=lfs diff=lfs merge=lfs -text
+
+# 3D / Game assets (optional, if applicable)
+*.fbx  filter=lfs diff=lfs merge=lfs -text
+*.obj  filter=lfs diff=lfs merge=lfs -text
+*.blend filter=lfs diff=lfs merge=lfs -text
+
+# Audio
+*.wav  filter=lfs diff=lfs merge=lfs -text
+*.mp3  filter=lfs diff=lfs merge=lfs -text
+*.ogg  filter=lfs diff=lfs merge=lfs -text
+
+# Video
+*.mp4  filter=lfs diff=lfs merge=lfs -text
+*.mov  filter=lfs diff=lfs merge=lfs -text
+
+# Archives / packages
+*.zip  filter=lfs diff=lfs merge=lfs -text
+*.7z   filter=lfs diff=lfs merge=lfs -text
+*.tar  filter=lfs diff=lfs merge=lfs -text
+*.gz   filter=lfs diff=lfs merge=lfs -text
+
+# =================================================================
+# Source code (always text, force LF)
+# =================================================================
+*.c     text eol=lf
+*.cpp   text eol=lf
+*.h     text eol=lf
+*.hpp   text eol=lf
+*.cc    text eol=lf
+*.inl   text eol=lf
+*.cs    text eol=lf   # in case you mix C# tooling
+*.glsl  text eol=lf
+*.vert  text eol=lf
+*.frag  text eol=lf
+*.cmake text eol=lf
+CMakeLists.txt text eol=lf
+
+# Project files (keep Windows CRLF for VS compatibility)
+*.sln   text eol=crlf
+*.vcxproj text eol=crlf
+*.vcxproj.filters text eol=crlf
+*.props text eol=crlf
+*.targets text eol=crlf

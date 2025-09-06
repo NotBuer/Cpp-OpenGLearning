@@ -1,3 +1,7 @@
+# =================================================================
+# C++ / Visual Studio .gitignore (extended best practices)
+# =================================================================
+
 # Prerequisites
 *.d
 
@@ -10,12 +14,14 @@
 # Precompiled Headers
 *.gch
 *.pch
+*.ipch
 
 # Linker files
 *.ilk
 
 # Debugger Files
 *.pdb
+*.idb
 
 # Compiled Dynamic libraries
 *.so
@@ -37,5 +43,61 @@
 *.out
 *.app
 
-# debug information files
+# Debug information files
 *.dwo
+
+# =================================================================
+# Visual Studio specific
+# =================================================================
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.sdf
+*.opensdf
+*.cachefile
+*.VC.db
+*.VC.opendb
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]uild/
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio cache/options
+.vs/
+
+# Generated test files
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# =================================================================
+# CMake
+# =================================================================
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+Makefile
+
+# =================================================================
+# Other IDEs
+# =================================================================
+*.idea/
+*.vscode/
+
+# =================================================================
+# Logs / OS cruft
+# =================================================================
+*.log
+*.tlog
+*.lastbuildstate
+*.swp
+*.DS_Store
+Thumbs.db
