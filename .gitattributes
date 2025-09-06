@@ -1,0 +1,5 @@
+# Track Visual Studio precompiled header caches with Git LFS
+.vs/**/ipch/**/*.ipch filter=lfs diff=lfs merge=lfs -text
+# (Optional) You may also want to exclude the entire .vs folder from Git,
+# since it only contains local build cache files:
+.vs/ filter=lfs diff=lfs merge=lfs -text
