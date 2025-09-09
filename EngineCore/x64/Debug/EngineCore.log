@@ -1,3 +1,7 @@
-﻿  glfw_callbacks.cpp
-D:\CPP\Cpp-OpenGLearning\EngineCore\src\glfw_callbacks.cpp(1,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+﻿  pch.cpp
+  GlfwCallbacks.cpp
+D:\CPP\Cpp-OpenGLearning\EngineCore\src\GlfwCallbacks.cpp(6,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Input.cpp
+  Window.cpp
+  Generating Code...
   EngineCore.vcxproj -> D:\CPP\Cpp-OpenGLearning\OpenGLearning\x64\Debug\EngineCore.lib

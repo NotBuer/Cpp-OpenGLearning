@@ -3,7 +3,8 @@
 #include <GLFW/glfw3.h>
 
 #include <iostream>
-#include "glfw_callbacks.hpp";
+#include "EngineCore/GlfwCallbacks.hpp"
+#include "EngineCore/Window.hpp"
 
 constexpr short window_w_default = 1280;
 constexpr short window_h_default = 720;
@@ -15,34 +16,26 @@ int main()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	GLFWwindow* window = glfwCreateWindow(window_w_default, window_h_default, "OpenGLearning", nullptr, nullptr);
-	if (window == nullptr)
-	{
-		std::cerr << "Failed to create GLFW window" << std::endl;
-		glfwTerminate();
-		return -1;
-	}
-
-	glfwMakeContextCurrent(window);
+	engine::Window window(window_w_default, window_h_default, "OpenGLearning");
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cerr << "Failed to initialize GLAD" << std::endl;
-		glfwDestroyWindow(window);
 		glfwTerminate();
 		return -1;
 	};
 
-	glfwSetFramebufferSizeCallback(window, engine::framebuffer_size_callback);
-
-	while (!glfwWindowShouldClose(window))
+	while (!window.shouldClose())
 	{
-		glfwSwapBuffers(window);
+		auto input = window.input();
+		
+		glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		window.swapBuffers();
 		glfwPollEvents();
 	}
 
-	glfwDestroyWindow(window);
 	glfwTerminate();
-
 	return 0;
 }
