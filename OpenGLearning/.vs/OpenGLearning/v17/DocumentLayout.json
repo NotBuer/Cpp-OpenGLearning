@@ -3,29 +3,8 @@
   "WorkspaceRootPath": "D:\\CPP\\Cpp-OpenGLearning\\OpenGLearning\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0435528F-91B4-4E26-9CE9-F488E841F5D2}|..\\EngineCore\\EngineCore.vcxproj|D:\\CPP\\Cpp-OpenGLearning\\EngineCore\\src\\Input.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8A0B9F4D-AF54-4FEF-B0D4-E118507F06A0}|OpenGLearning.vcxproj|D:\\CPP\\CPP-OPENGLEARNING\\ENGINECORE\\INCLUDE\\ENGINECORE\\WINDOW.HPP||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0435528F-91B4-4E26-9CE9-F488E841F5D2}|..\\EngineCore\\EngineCore.vcxproj|D:\\CPP\\Cpp-OpenGLearning\\EngineCore\\src\\GlfwCallbacks.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0435528F-91B4-4E26-9CE9-F488E841F5D2}|..\\EngineCore\\EngineCore.vcxproj|D:\\CPP\\Cpp-OpenGLearning\\EngineCore\\src\\Window.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8A0B9F4D-AF54-4FEF-B0D4-E118507F06A0}|OpenGLearning.vcxproj|D:\\CPP\\CPP-OPENGLEARNING\\ENGINECORE\\INCLUDE\\ENGINECORE\\INPUT.HPP||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{8A0B9F4D-AF54-4FEF-B0D4-E118507F06A0}|OpenGLearning.vcxproj|D:\\CPP\\Cpp-OpenGLearning\\OpenGLearning\\src\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{8A0B9F4D-AF54-4FEF-B0D4-E118507F06A0}|OpenGLearning.vcxproj|solutionrelative:src\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\crt\\src\\vcruntime\\delete_scalar.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0435528F-91B4-4E26-9CE9-F488E841F5D2}|..\\EngineCore\\EngineCore.vcxproj|D:\\CPP\\Cpp-OpenGLearning\\EngineCore\\include\\EngineCore\\GlfwCallbacks.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,124 +13,29 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 356,
-          "SelectedChildIndex": 1,
+          "DockedWidth": 507,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "Main.cpp",
               "DocumentMoniker": "D:\\CPP\\Cpp-OpenGLearning\\OpenGLearning\\src\\Main.cpp",
               "RelativeDocumentMoniker": "src\\Main.cpp",
               "ToolTip": "D:\\CPP\\Cpp-OpenGLearning\\OpenGLearning\\src\\Main.cpp",
               "RelativeToolTip": "src\\Main.cpp",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAACYAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAAAGwAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-09-06T18:12:23.878Z",
               "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Window.hpp",
-              "DocumentMoniker": "D:\\CPP\\Cpp-OpenGLearning\\EngineCore\\include\\EngineCore\\Window.hpp",
-              "RelativeDocumentMoniker": "..\\EngineCore\\include\\EngineCore\\Window.hpp",
-              "ToolTip": "D:\\CPP\\Cpp-OpenGLearning\\EngineCore\\include\\EngineCore\\Window.hpp",
-              "RelativeToolTip": "..\\EngineCore\\include\\EngineCore\\Window.hpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-09-06T21:02:24.764Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Input.hpp",
-              "DocumentMoniker": "D:\\CPP\\Cpp-OpenGLearning\\EngineCore\\include\\EngineCore\\Input.hpp",
-              "RelativeDocumentMoniker": "..\\EngineCore\\include\\EngineCore\\Input.hpp",
-              "ToolTip": "D:\\CPP\\Cpp-OpenGLearning\\EngineCore\\include\\EngineCore\\Input.hpp",
-              "RelativeToolTip": "..\\EngineCore\\include\\EngineCore\\Input.hpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-09-09T01:05:55.804Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "GlfwCallbacks.hpp",
-              "DocumentMoniker": "D:\\CPP\\Cpp-OpenGLearning\\EngineCore\\include\\EngineCore\\GlfwCallbacks.hpp",
-              "RelativeDocumentMoniker": "..\\EngineCore\\include\\EngineCore\\GlfwCallbacks.hpp",
-              "ToolTip": "D:\\CPP\\Cpp-OpenGLearning\\EngineCore\\include\\EngineCore\\GlfwCallbacks.hpp",
-              "RelativeToolTip": "..\\EngineCore\\include\\EngineCore\\GlfwCallbacks.hpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-09-08T23:48:43.199Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "delete_scalar.cpp",
-              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\crt\\src\\vcruntime\\delete_scalar.cpp",
-              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\crt\\src\\vcruntime\\delete_scalar.cpp",
-              "ViewState": "AgIAAAoAAAAAAAAAAAD4vyYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-09-09T23:01:41.701Z",
               "EditorCaption": ""
             }
           ]
         },
         {
-          "DockedWidth": 586,
-          "SelectedChildIndex": 1,
+          "DockedWidth": 435,
+          "SelectedChildIndex": -1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Window.cpp",
-              "DocumentMoniker": "D:\\CPP\\Cpp-OpenGLearning\\EngineCore\\src\\Window.cpp",
-              "RelativeDocumentMoniker": "..\\EngineCore\\src\\Window.cpp",
-              "ToolTip": "D:\\CPP\\Cpp-OpenGLearning\\EngineCore\\src\\Window.cpp",
-              "RelativeToolTip": "..\\EngineCore\\src\\Window.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-09-09T01:08:19.256Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Input.cpp",
-              "DocumentMoniker": "D:\\CPP\\Cpp-OpenGLearning\\EngineCore\\src\\Input.cpp",
-              "RelativeDocumentMoniker": "..\\EngineCore\\src\\Input.cpp",
-              "ToolTip": "D:\\CPP\\Cpp-OpenGLearning\\EngineCore\\src\\Input.cpp",
-              "RelativeToolTip": "..\\EngineCore\\src\\Input.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-09-09T01:08:18.885Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "GlfwCallbacks.cpp",
-              "DocumentMoniker": "D:\\CPP\\Cpp-OpenGLearning\\EngineCore\\src\\GlfwCallbacks.cpp",
-              "RelativeDocumentMoniker": "..\\EngineCore\\src\\GlfwCallbacks.cpp",
-              "ToolTip": "D:\\CPP\\Cpp-OpenGLearning\\EngineCore\\src\\GlfwCallbacks.cpp",
-              "RelativeToolTip": "..\\EngineCore\\src\\GlfwCallbacks.cpp",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-09-09T01:08:14.064Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
