@@ -5,23 +5,11 @@
 #include <iostream>
 #include "EngineCore/GlfwCallbacks.hpp"
 #include "EngineCore/Window.hpp"
+#include "EngineCore/Graphics/Shader.hpp"
+#include "EngineCore/IO/AssetPath.hpp"
 
 constexpr short window_w_default = 800;
 constexpr short window_h_default = 600;
-
-const char* vertexShaderSource = "#version 330 core\n"
-"layout (location = 0) in vec3 aPos;\n"
-"void main()\n"
-"{\n"
-"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-"}\0";
-
-const char* fragmentShaderSource = "#version 330 core\n"
-"out vec4 FragColor;\n"
-"void main()\n"
-"{\n"
-"   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-"}\0";
 
 int main()
 {
@@ -39,11 +27,18 @@ int main()
 		return -1;
 	};
 
-	float vertices[9] = {
-		-0.5f, -0.5f, 0.0f,
-		 0.5f, -0.5f, 0.05f,
-		 0.0f,  0.5f,  0.0f
+	float vertices[] = {
+        // positions          // colors
+		 0.5f,  0.5f,  0.0f,  1.0f, 0.0f, 0.0f, // Top-right 
+         0.5f, -0.5f,  0.0f,  0.0f, 1.0f, 0.0f, // Bottom-right
+		-0.5f, -0.5f,  0.0f,  0.0f, 0.0f, 1.0f, // Bottom-left
+		-0.5f,  0.5f,  0.0f,  1.0f, 1.0f, 1.0f  // Top-left
 	};
+
+    unsigned int indices[6] = {
+        0, 1, 3, // Top-right -> Bottom-right -> Top-left
+        1, 2, 3  // Bottom-right -> Bottom-left -> Top-left
+    };
 
     GLuint VAO;
     glGenVertexArrays(1, &VAO);
@@ -54,52 +49,22 @@ int main()
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    GLuint vertexShader;
-    vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-    glCompileShader(vertexShader);
+    GLuint EBO;
+    glGenBuffers(1, &EBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-    GLuint fragmentShader;
-    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-    glCompileShader(fragmentShader);
+	std::string vert_shader = engine::io::shader("basic.vert");
+	std::string frag_shader = engine::io::shader("basic.frag");
+	engine::graphics::Shader myShader(vert_shader.c_str(), frag_shader.c_str());
 
-    int success;
-    char infolog[512];
-
-    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
-        glGetShaderInfoLog(vertexShader, 512, NULL, infolog);
-        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infolog << std::endl;
-    }
-
-    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
-        glGetShaderInfoLog(fragmentShader, 512, NULL, infolog);
-        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infolog << std::endl;
-    }
-
-    GLuint shaderProgram;
-    shaderProgram = glCreateProgram();
-
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    glLinkProgram(shaderProgram);
-
-    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-    if (!success)
-    {
-        glGetProgramInfoLog(shaderProgram, 512, NULL, infolog);
-        std::cout << "ERROR::SHADER::PROGRAM::LINK_FAILED\n" << infolog << std::endl;
-    }
-
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    // Position attribute.
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+
+    // Color attribute.
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
 
 	while (!window.shouldClose())
 	{
@@ -108,10 +73,14 @@ int main()
 		glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-        glUseProgram(shaderProgram);
+		myShader.use();
+
+        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
         glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
 
 		window.swapBuffers();
 		glfwPollEvents();

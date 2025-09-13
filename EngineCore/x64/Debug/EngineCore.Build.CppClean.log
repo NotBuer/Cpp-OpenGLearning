@@ -1,10 +1,10 @@
-d:\cpp\cpp-openglearning\enginecore\x64\debug\enginecore.pch
 d:\cpp\cpp-openglearning\openglearning\x64\debug\enginecore.pdb
-d:\cpp\cpp-openglearning\openglearning\x64\debug\enginecore.idb
-d:\cpp\cpp-openglearning\enginecore\x64\debug\pch.obj
-d:\cpp\cpp-openglearning\enginecore\x64\debug\glfwcallbacks.obj
 d:\cpp\cpp-openglearning\enginecore\x64\debug\window.obj
 d:\cpp\cpp-openglearning\enginecore\x64\debug\input.obj
+d:\cpp\cpp-openglearning\enginecore\x64\debug\enginecore.pch
+d:\cpp\cpp-openglearning\enginecore\x64\debug\pch.obj
+d:\cpp\cpp-openglearning\enginecore\x64\debug\glfwcallbacks.obj
+d:\cpp\cpp-openglearning\enginecore\x64\debug\shader.obj
 d:\cpp\cpp-openglearning\openglearning\x64\debug\enginecore.lib
 d:\cpp\cpp-openglearning\enginecore\x64\debug\enginecore.tlog\cl.command.1.tlog
 d:\cpp\cpp-openglearning\enginecore\x64\debug\enginecore.tlog\cl.items.tlog

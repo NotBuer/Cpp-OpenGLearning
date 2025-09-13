@@ -3,8 +3,17 @@
   "WorkspaceRootPath": "D:\\CPP\\Cpp-OpenGLearning\\OpenGLearning\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{0435528F-91B4-4E26-9CE9-F488E841F5D2}|..\\EngineCore\\EngineCore.vcxproj|D:\\CPP\\Cpp-OpenGLearning\\EngineCore\\src\\Graphics\\Shader.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{8A0B9F4D-AF54-4FEF-B0D4-E118507F06A0}|OpenGLearning.vcxproj|D:\\CPP\\Cpp-OpenGLearning\\OpenGLearning\\src\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{8A0B9F4D-AF54-4FEF-B0D4-E118507F06A0}|OpenGLearning.vcxproj|solutionrelative:src\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A0B9F4D-AF54-4FEF-B0D4-E118507F06A0}|OpenGLearning.vcxproj|D:\\CPP\\Cpp-OpenGLearning\\assets\\shaders\\basic.vert||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A0B9F4D-AF54-4FEF-B0D4-E118507F06A0}|OpenGLearning.vcxproj|D:\\CPP\\Cpp-OpenGLearning\\assets\\shaders\\basic.frag||{8B382828-6202-11D1-8870-0000F87579D2}"
     }
   ],
   "DocumentGroupContainers": [
@@ -13,32 +22,71 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 507,
-          "SelectedChildIndex": 0,
+          "DockedWidth": 785,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Main.cpp",
               "DocumentMoniker": "D:\\CPP\\Cpp-OpenGLearning\\OpenGLearning\\src\\Main.cpp",
               "RelativeDocumentMoniker": "src\\Main.cpp",
               "ToolTip": "D:\\CPP\\Cpp-OpenGLearning\\OpenGLearning\\src\\Main.cpp",
               "RelativeToolTip": "src\\Main.cpp",
-              "ViewState": "AgIAAEYAAAAAAAAAAAAAAFMAAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAADMAAAAAAAAAAAApwE8AAABRAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-09-06T18:12:23.878Z",
               "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Shader.cpp",
+              "DocumentMoniker": "D:\\CPP\\Cpp-OpenGLearning\\EngineCore\\src\\Graphics\\Shader.cpp",
+              "RelativeDocumentMoniker": "..\\EngineCore\\src\\Graphics\\Shader.cpp",
+              "ToolTip": "D:\\CPP\\Cpp-OpenGLearning\\EngineCore\\src\\Graphics\\Shader.cpp",
+              "RelativeToolTip": "..\\EngineCore\\src\\Graphics\\Shader.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-09-13T00:10:00.44Z",
               "EditorCaption": ""
             }
           ]
         },
         {
-          "DockedWidth": 435,
-          "SelectedChildIndex": -1,
+          "DockedWidth": 229,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "basic.vert",
+              "DocumentMoniker": "D:\\CPP\\Cpp-OpenGLearning\\assets\\shaders\\basic.vert",
+              "RelativeDocumentMoniker": "..\\assets\\shaders\\basic.vert",
+              "ToolTip": "D:\\CPP\\Cpp-OpenGLearning\\assets\\shaders\\basic.vert",
+              "RelativeToolTip": "..\\assets\\shaders\\basic.vert",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-09-13T00:27:00.594Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "basic.frag",
+              "DocumentMoniker": "D:\\CPP\\Cpp-OpenGLearning\\assets\\shaders\\basic.frag",
+              "RelativeDocumentMoniker": "..\\assets\\shaders\\basic.frag",
+              "ToolTip": "D:\\CPP\\Cpp-OpenGLearning\\assets\\shaders\\basic.frag",
+              "RelativeToolTip": "..\\assets\\shaders\\basic.frag",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-09-13T00:26:54.952Z",
+              "EditorCaption": ""
             }
           ]
         }

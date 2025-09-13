@@ -1,1 +1,5 @@
-﻿  EngineCore.vcxproj -> D:\CPP\Cpp-OpenGLearning\OpenGLearning\x64\Debug\EngineCore.lib
+﻿  Shader.cpp
+D:\CPP\Cpp-OpenGLearning\EngineCore\src\Graphics\Shader.cpp(95,60): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+  (compiling source file '/src/Graphics/Shader.cpp')
+  
+  EngineCore.vcxproj -> D:\CPP\Cpp-OpenGLearning\OpenGLearning\x64\Debug\EngineCore.lib
