@@ -80,7 +80,7 @@ namespace engine::graphics
 		glUniform1f(glGetUniformLocation(Id, name.c_str()), value);
 	}
 
-	void Shader::checkShaderCompilationErrors(unsigned int id, ShaderType type, int &success, char *infoLog)
+	void Shader::checkShaderCompilationErrors(unsigned int id, ShaderType type, int& success, char* infoLog)
 	{
 		glGetShaderiv(id, GL_COMPILE_STATUS, &success);
 		if (!success)
@@ -90,7 +90,7 @@ namespace engine::graphics
 		}
 	}
 
-	void Shader::checkShaderProgramLinkingErrors(unsigned int id, int &success, char *infoLog)
+	void Shader::checkShaderProgramLinkingErrors(unsigned int id, int& success, char* infoLog)
 	{
 		glGetProgramiv(id, GL_LINK_STATUS, &success);
 		if (!success)

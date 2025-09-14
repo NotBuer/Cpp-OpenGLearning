@@ -114,7 +114,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);ASSETS_DIR=R"($(ProjectDir)..\assets)"</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\EngineCore\include;$(ProjectDir)..\external\glad\include;$(ProjectDir)..\external\GLFW\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\EngineCore\include;$(ProjectDir)..\external\glad\include;$(ProjectDir)..\external\GLFW\include;$(ProjectDir)..\external\stb</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -136,7 +136,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);ASSETS_DIR=R"($(ProjectDir)..\assets)"</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\EngineCore\include;$(ProjectDir)..\external\glad\include;$(ProjectDir)..\external\GLFW\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\EngineCore\include;$(ProjectDir)..\external\glad\include;$(ProjectDir)..\external\GLFW\include;$(ProjectDir)..\external\stb</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -166,6 +166,9 @@
     <None Include="..\assets\shaders\basic.frag" />
     <None Include="..\assets\shaders\basic.vert" />
     <None Include="..\assets\shaders\common.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\assets\sprites\grass-sprite-test.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -32,6 +32,8 @@ namespace engine::graphics
 		void checkShaderCompilationErrors(unsigned int id, ShaderType type, int& success, char* infoLog);
 		void checkShaderProgramLinkingErrors(unsigned int id, int& success, char* infolog);
 
+		const int& getShaderId() const { return Id; }
+
 	private:
 		unsigned int Id;
 	};

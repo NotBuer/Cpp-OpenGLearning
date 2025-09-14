@@ -19,6 +19,9 @@
     <Filter Include="assets\shaders">
       <UniqueIdentifier>{61291498-9e9f-4117-a0c5-31604064fbae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="assets\sprites">
+      <UniqueIdentifier>{98b4e8ce-c40d-4997-b567-c847ca670b63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -38,5 +41,10 @@
     <None Include="..\assets\shaders\common.glsl">
       <Filter>assets\shaders</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\assets\sprites\grass-sprite-test.png">
+      <Filter>assets\sprites</Filter>
+    </Image>
   </ItemGroup>
 </Project>

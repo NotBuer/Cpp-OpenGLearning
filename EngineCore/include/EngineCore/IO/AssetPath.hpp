@@ -17,4 +17,9 @@ namespace engine::io
 		return std::string(kAssetsRoot) + "/shaders/" + fileName;
 	}
 
+	inline std::string sprites(const char* fileName)
+	{
+		return std::string(kAssetsRoot) + "/sprites/" + fileName;
+	}
+
 }
