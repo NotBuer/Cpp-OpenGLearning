@@ -46,5 +46,8 @@
     <Image Include="..\assets\sprites\grass-sprite-test.png">
       <Filter>assets\sprites</Filter>
     </Image>
+    <Image Include="..\assets\sprites\face-sprite-test.png">
+      <Filter>assets\sprites</Filter>
+    </Image>
   </ItemGroup>
 </Project>

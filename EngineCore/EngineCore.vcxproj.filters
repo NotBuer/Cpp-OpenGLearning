@@ -33,6 +33,9 @@
     <ClInclude Include="include\EngineCore\IO\AssetPath.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\EngineCore\Graphics\Texture2D.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GlfwCallbacks.cpp">
@@ -50,7 +53,7 @@
     <ClCompile Include="src\Graphics\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="stb_image.cpp">
+    <ClCompile Include="src\Graphics\Texture2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

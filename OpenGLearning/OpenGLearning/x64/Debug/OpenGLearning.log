@@ -1,8 +1,0 @@
-﻿  Main.cpp
-D:\CPP\Cpp-OpenGLearning\EngineCore\include\EngineCore\Graphics\Shader.hpp(35,1): warning C4172: returning address of local variable or temporary 
-  OpenGLearning.vcxproj -> D:\CPP\Cpp-OpenGLearning\OpenGLearning\x64\Debug\OpenGLearning.exe
-  D:\CPP\Cpp-OpenGLearning\OpenGLearning\..\assets\shaders\basic.frag
-  D:\CPP\Cpp-OpenGLearning\OpenGLearning\..\assets\shaders\basic.vert
-  D:\CPP\Cpp-OpenGLearning\OpenGLearning\..\assets\shaders\common.glsl
-  D:\CPP\Cpp-OpenGLearning\OpenGLearning\..\assets\sprites\grass-sprite-test.png
-  4 File(s) copied

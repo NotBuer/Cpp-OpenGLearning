@@ -6,8 +6,9 @@ in vec3 ourColor;
 in vec2 texCoord;
 
 uniform sampler2D u_tex;
+uniform sampler2D u_tex2;
 
 void main() 
 {
-	outColor = texture(u_tex, texCoord);
+	outColor = mix(texture(u_tex, texCoord), texture(u_tex2, texCoord), 0.3);
 }

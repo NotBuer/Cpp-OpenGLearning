@@ -112,7 +112,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)include;$(ProjectDir)..\external\glad\include;$(ProjectDir)..\external\GLFW\include;$(ProjectDir)..\external\stb</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)include;$(ProjectDir)..\external\glad\include;$(ProjectDir)..\external\GLFW\include;$(ProjectDir)..\external\stb;$(ProjectDir)..\external\glm</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -131,7 +131,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)include;$(ProjectDir)..\external\glad\include;$(ProjectDir)..\external\GLFW\include;$(ProjectDir)..\external\stb</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)include;$(ProjectDir)..\external\glad\include;$(ProjectDir)..\external\GLFW\include;$(ProjectDir)..\external\stb;$(ProjectDir)..\external\glm</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -143,6 +143,7 @@
   <ItemGroup>
     <ClInclude Include="include\EngineCore\GlfwCallbacks.hpp" />
     <ClInclude Include="include\EngineCore\Graphics\Shader.hpp" />
+    <ClInclude Include="include\EngineCore\Graphics\Texture2D.hpp" />
     <ClInclude Include="include\EngineCore\Input.hpp" />
     <ClInclude Include="include\EngineCore\IO\AssetPath.hpp" />
     <ClInclude Include="include\EngineCore\Window.hpp" />
@@ -158,8 +159,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\Graphics\Shader.cpp" />
+    <ClCompile Include="src\Graphics\Texture2D.cpp" />
     <ClCompile Include="src\Input.cpp" />
-    <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="src\Window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
