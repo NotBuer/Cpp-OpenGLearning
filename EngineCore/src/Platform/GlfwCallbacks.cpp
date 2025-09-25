@@ -3,15 +3,15 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include <EngineCore/GlfwCallbacks.hpp>;
-#include <EngineCore/Input.hpp>
+#include <EngineCore/Platform/GlfwCallbacks.hpp>;
+#include <EngineCore/Core/Input.hpp>
 
-namespace engine
+namespace engine::platform
 {
 
-	static inline InputState* stateFrom(GLFWwindow* w)
+	static inline engine::core::InputState* stateFrom(GLFWwindow* w)
 	{
-		return static_cast<InputState*>(glfwGetWindowUserPointer(w));
+		return static_cast<engine::core::InputState*>(glfwGetWindowUserPointer(w));
 	}
 
 	void register_glfw_callbacks(GLFWwindow* window)

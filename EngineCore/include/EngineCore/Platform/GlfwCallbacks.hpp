@@ -2,7 +2,7 @@
 
 struct GLFWwindow;
 
-namespace engine
+namespace engine::platform
 {
 	void register_glfw_callbacks(GLFWwindow* window);
 

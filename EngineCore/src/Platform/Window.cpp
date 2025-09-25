@@ -1,12 +1,11 @@
 #include "pch.h"
-#include "EngineCore/Window.hpp"
-#include "EngineCore/GlfwCallbacks.hpp"
+#include "EngineCore/Platform/Window.hpp"
+#include "EngineCore/Platform/GlfwCallbacks.hpp"
 
-namespace engine
+namespace engine::platform
 {
-
 	Window::Window(int width, int height, const char* title)
-		: _state(std::make_unique<InputState>())
+		: _state(std::make_unique<engine::core::InputState>())
 	{
 		_win = glfwCreateWindow(width, height, title, nullptr, nullptr);
 		if (!_win) throw std::runtime_error("Failed to create GLFW window.");
@@ -29,5 +28,4 @@ namespace engine
 			_win = nullptr;
 		}
 	}
-
 }

@@ -1,7 +1,8 @@
+#pragma once
 #include "pch.h"
-#include "EngineCore/Input.hpp"
+#include "EngineCore/Core/Input.hpp"
 
-namespace engine
+namespace engine::core
 {
 	Input::Input(InputState* s) : _s(s) {}
 

@@ -2,7 +2,7 @@
 #include <array>
 #include <cstdint>
 
-namespace engine
+namespace engine::core
 {
 
 	struct InputState
