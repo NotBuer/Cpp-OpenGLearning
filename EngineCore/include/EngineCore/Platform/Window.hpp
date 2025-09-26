@@ -14,10 +14,10 @@ namespace engine::platform
 		GLFWwindow* handle()         const { return _win; }
 		engine::core::Input input()	 const { return engine::core::Input::Input(_state.get()); }
 		bool shouldClose()	         const { return glfwWindowShouldClose(_win); }
-		void swapBuffers()		           { glfwSwapBuffers(_win); }
+		void swapBuffers() { glfwSwapBuffers(_win); }
 
 	private:
-		GLFWwindow*	_win = nullptr;
+		GLFWwindow* _win = nullptr;
 		std::unique_ptr<engine::core::InputState> _state;
 	};
 

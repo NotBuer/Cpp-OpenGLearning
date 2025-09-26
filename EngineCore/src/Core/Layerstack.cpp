@@ -27,6 +27,7 @@ namespace engine::core
 		
 		if (it != end())
 		{
+			layer->OnDetach();
 			m_layers.erase(it);
 		}
 	}

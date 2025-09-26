@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 namespace engine::core
 {
@@ -13,6 +14,8 @@ namespace engine::core
 		virtual void OnUpdate();
 		virtual void OnRender();
 		virtual void OnEvent();
+
+		const std::string& getName() { return m_name; }
 
 	private:
 		std::string m_name;

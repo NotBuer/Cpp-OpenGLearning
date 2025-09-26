@@ -3,7 +3,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include <EngineCore/Platform/GlfwCallbacks.hpp>;
+#include <EngineCore/Platform/GlfwCallbacks.hpp>
 #include <EngineCore/Core/Input.hpp>
 
 namespace engine::platform

@@ -12,17 +12,20 @@
 //constexpr short window_h_default = 720;
 
 #include <iostream>
-#include "EngineCore/Core/Application.hpp"
+#include "GameApp.hpp"
 
 using engine::core::Application;
 
 int main()
 {
-	Application game = Application(engine::core::ApplicationSpecs{ .width = 1280, .height = 720, .title = "NotTerrarian" });
-
+	GameApp game(engine::core::ApplicationSpecs{ .width = 1280, .height = 720, .title = "NotTerrarian" });
 	game.Run();
-
 	return 0;
+
+	//Application game = Application(engine::core::ApplicationSpecs{ .width = 1280, .height = 720, .title = "NotTerrarian" });
+	//game.Run();
+	//game.Close();
+	//return 0;
 
 	//glfwInit();
 	//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);

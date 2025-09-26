@@ -19,7 +19,6 @@ namespace engine::core
 		m_specs = std::move(s);
 		m_window = std::make_unique<engine::platform::Window>(m_specs.width, m_specs.height, m_specs.title.c_str());
 		m_layerstack = std::make_unique<engine::core::Layerstack>();
-		m_layerstack->PushLayer(new Layer("Default Layer"));
 
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 		{
@@ -35,13 +34,22 @@ namespace engine::core
 
 	void Application::Run()
 	{
-		std::cout << "Application working, thanks God!" << std::endl;
-		m_running = true;
+		//while (!m_window->shouldClose())
+		//{
+		//	const auto& layers = m_layerstack->getLayers();
+
+		//	for (Layer* l : layers)
+		//		l->OnUpdate();
+
+		//	for (Layer* l : layers)
+		//		l->OnRender();
+
+		//	m_window->swapBuffers();
+		//}
 	}
 
 	void Application::Close()
 	{
 		glfwTerminate();
-		m_running = false;
 	}
 }

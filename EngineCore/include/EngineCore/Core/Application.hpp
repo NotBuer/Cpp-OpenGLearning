@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+#include <memory>
 #include "EngineCore/Platform/Window.hpp"
 #include "EngineCore/Core/Layerstack.hpp"
 
@@ -15,19 +17,20 @@ namespace engine::core
 	{
 	public:
 		explicit Application(ApplicationSpecs s);
-		~Application();
+		virtual ~Application();
 
 		void Run();
 		void Close();
 
 		const ApplicationSpecs& getSpecs() const { return m_specs; }
-		const bool isRunning() const { return m_running;}
+
+	protected:
+		engine::platform::Window& window() { return *m_window; }
+		Layerstack& layerstack() { return *m_layerstack; }
 
 	private:
 		ApplicationSpecs m_specs;
 		std::unique_ptr<engine::platform::Window> m_window = nullptr;
 		std::unique_ptr<Layerstack> m_layerstack = nullptr;
-		bool m_running = false;
 	};
-
 }

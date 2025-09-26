@@ -155,6 +155,8 @@
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">CompileAsC</CompileAs>
     </ClCompile>
+    <ClCompile Include="src\Layers\DefaultLayer.cpp" />
+    <ClCompile Include="src\GameApp.cpp" />
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +172,10 @@
   <ItemGroup>
     <Image Include="..\assets\sprites\face-sprite-test.png" />
     <Image Include="..\assets\sprites\grass-sprite-test.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Layers\DefaultLayer.hpp" />
+    <ClInclude Include="src\GameApp.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -13,6 +13,8 @@ namespace engine::core
 		void PushLayer(Layer* layer);
 		void PopLayer(Layer* layer);
 
+		const std::vector<Layer*>& getLayers() const { return m_layers; }
+
 		std::vector<Layer*>::iterator begin() { return m_layers.begin(); }
 		std::vector<Layer*>::iterator end() { return m_layers.end(); }
 
