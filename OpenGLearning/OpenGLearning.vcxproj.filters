@@ -36,6 +36,9 @@
     <ClCompile Include="src\Layers\DefaultLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Layers\HUDLayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\assets\shaders\basic.frag">
@@ -61,6 +64,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Layers\DefaultLayer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Layers\HUDLayer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

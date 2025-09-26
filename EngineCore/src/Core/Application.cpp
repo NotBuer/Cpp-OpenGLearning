@@ -34,18 +34,18 @@ namespace engine::core
 
 	void Application::Run()
 	{
-		//while (!m_window->shouldClose())
-		//{
-		//	const auto& layers = m_layerstack->getLayers();
+		while (!m_window->shouldClose())
+		{
+			const auto& layers = m_layerstack->getLayers();
 
-		//	for (Layer* l : layers)
-		//		l->OnUpdate();
+			for (Layer* l : layers)
+				l->OnUpdate();
 
-		//	for (Layer* l : layers)
-		//		l->OnRender();
+			for (Layer* l : layers)
+				l->OnRender();
 
-		//	m_window->swapBuffers();
-		//}
+			m_window->swapBuffers();
+		}
 	}
 
 	void Application::Close()
