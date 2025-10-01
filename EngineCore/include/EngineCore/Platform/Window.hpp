@@ -1,5 +1,5 @@
 #pragma once
-#include <GLFW/glfw3.h>
+#include "EngineCore/Renderer/detail/GL.hpp"
 #include "EngineCore/Core/Input.hpp"
 
 namespace engine::platform

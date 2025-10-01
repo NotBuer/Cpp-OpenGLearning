@@ -7,4 +7,3 @@ public:
 	explicit GameApp(const engine::core::ApplicationSpecs& specs);
 	~GameApp() override = default;
 };
-

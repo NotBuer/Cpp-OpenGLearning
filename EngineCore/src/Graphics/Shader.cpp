@@ -1,11 +1,9 @@
 #include "pch.h"
+#include "EngineCore/Renderer/detail/GL.hpp"
 #include "EngineCore/Graphics/Shader.hpp"
-
-#include <glad/glad.h>
 
 namespace engine::graphics
 {
-
 	Shader::Shader(const char* vPath, const char* fPath)
 	{
 		std::string vertexCode;
@@ -60,7 +58,7 @@ namespace engine::graphics
 
 	Shader::~Shader() {}
 
-	void Shader::use() const
+	void Shader::Bind() const
 	{
 		glUseProgram(Id);
 	}

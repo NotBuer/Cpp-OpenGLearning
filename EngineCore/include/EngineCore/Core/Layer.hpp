@@ -15,9 +15,9 @@ namespace engine::core
 		virtual void OnRender();
 		virtual void OnEvent();
 
-		const std::string& getName() { return m_name; }
+		const std::string& getName() { return m_Name; }
 
 	private:
-		std::string m_name;
+		std::string m_Name;
 	};
 }

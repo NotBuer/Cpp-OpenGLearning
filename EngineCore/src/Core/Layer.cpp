@@ -3,7 +3,7 @@
 
 namespace engine::core
 {
-	Layer::Layer(const std::string& name) : m_name(name)
+	Layer::Layer(const std::string& name) : m_Name(name)
 	{
 
 	}
@@ -12,26 +12,26 @@ namespace engine::core
 
 	void Layer::OnAttach()
 	{
-		std::cout << "Layer: " << m_name << " -> default OnAttach!" << std::endl;
+		std::cout << "Layer: " << m_Name << " -> default OnAttach!" << std::endl;
 	}
 
 	void Layer::OnDetach()
 	{
-		std::cout << "Layer: " << m_name << "-> default OnDetach" << std::endl;
+		std::cout << "Layer: " << m_Name << "-> default OnDetach" << std::endl;
 	}
 
 	void Layer::OnUpdate()
 	{
-		std::cout << "Layer: " << m_name << "-> default" << std::endl;
+		std::cout << "Layer: " << m_Name << "-> default" << std::endl;
 	}
 
 	void Layer::OnRender()
 	{
-		std::cout << "Layer: " << m_name << "-> default" << std::endl;
+		std::cout << "Layer: " << m_Name << "-> default" << std::endl;
 	}
 
 	void Layer::OnEvent()
 	{
-		std::cout << "Layer: " << m_name << "-> default" << std::endl;
+		std::cout << "Layer: " << m_Name << "-> default" << std::endl;
 	}
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#define GLFW_INCLUDE_NONE
 #include <cstdint>
 #include <cstdlib>
 #include <array>
@@ -10,3 +11,4 @@
 #include <sstream>
 #include <iostream>
 #include <vector>
+#include <cassert>

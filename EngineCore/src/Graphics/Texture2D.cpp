@@ -9,7 +9,6 @@
 
 namespace engine::graphics
 {
-
 	Texture2D::~Texture2D()
 	{
 		if (_id) glDeleteTextures(1, &_id);
@@ -80,5 +79,4 @@ namespace engine::graphics
 		glActiveTexture(GL_TEXTURE0 + unit);
 		glBindTexture(GL_TEXTURE_2D, _id);
 	}
-
 }

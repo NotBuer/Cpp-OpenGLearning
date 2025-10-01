@@ -150,6 +150,9 @@
     <ClInclude Include="include\EngineCore\Core\Input.hpp" />
     <ClInclude Include="include\EngineCore\IO\AssetPath.hpp" />
     <ClInclude Include="include\EngineCore\Platform\Window.hpp" />
+    <ClInclude Include="include\EngineCore\Renderer\detail\GL.hpp" />
+    <ClInclude Include="include\EngineCore\Renderer\RenderCommand.hpp" />
+    <ClInclude Include="include\EngineCore\Renderer\Renderer2D.hpp" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +171,8 @@
     <ClCompile Include="src\Graphics\Texture2D.cpp" />
     <ClCompile Include="src\Core\Input.cpp" />
     <ClCompile Include="src\Platform\Window.cpp" />
+    <ClCompile Include="src\Renderer\RenderCommand.cpp" />
+    <ClCompile Include="src\Renderer\Renderer2D.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

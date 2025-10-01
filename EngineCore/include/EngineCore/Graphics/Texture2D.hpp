@@ -1,6 +1,6 @@
 #pragma once
 #include <optional>
-#include <glad/glad.h>
+#include "EngineCore/Renderer/detail/GL.hpp"
 
 namespace engine::graphics
 {

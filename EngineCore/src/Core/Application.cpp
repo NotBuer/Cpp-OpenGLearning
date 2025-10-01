@@ -1,11 +1,8 @@
 #include "pch.h"
-
-#define GLFW_INCLUDE_NONE
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
+#include "EngineCore/Renderer/detail/GL.hpp"
 #include "EngineCore/Core/Application.hpp"
 #include "EngineCore/Platform/Window.hpp"
+#include "EngineCore/Renderer/Renderer2D.hpp"
 
 namespace engine::core
 {
@@ -41,10 +38,16 @@ namespace engine::core
 			for (Layer* l : layers)
 				l->OnUpdate();
 
+			engine::renderer::Renderer2D::ClearFrame({ 0.25f, 0.25f, 0.25f, 1.0f });
+			engine::renderer::Renderer2D::BeginFrame();
+
 			for (Layer* l : layers)
 				l->OnRender();
 
+			engine::renderer::Renderer2D::EndFrame();
+
 			m_window->swapBuffers();
+			glfwPollEvents(); // TODO: Remove directly glfw call on site.
 		}
 	}
 
