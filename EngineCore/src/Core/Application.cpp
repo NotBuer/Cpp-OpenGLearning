@@ -33,15 +33,13 @@ namespace engine::core
 	{
 		while (!m_window->shouldClose())
 		{
-			const auto& layers = m_layerstack->getLayers();
-
-			for (Layer* l : layers)
+			for (const auto& l : m_layerstack->getLayers())
 				l->OnUpdate();
 
 			engine::renderer::Renderer2D::ClearFrame({ 0.25f, 0.25f, 0.25f, 1.0f });
 			engine::renderer::Renderer2D::BeginFrame();
 
-			for (Layer* l : layers)
+			for (const auto& l : m_layerstack->getLayers())
 				l->OnRender();
 
 			engine::renderer::Renderer2D::EndFrame();

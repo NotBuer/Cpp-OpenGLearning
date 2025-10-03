@@ -10,15 +10,15 @@ namespace engine::core
 		Layerstack();
 		~Layerstack();
 
-		void PushLayer(Layer* layer);
+		void PushLayer(std::unique_ptr<Layer> layer);
 		void PopLayer(Layer* layer);
 
-		const std::vector<Layer*>& getLayers() const { return m_layers; }
+		const std::vector<std::unique_ptr<Layer>>& getLayers() const { return m_layers; }
 
-		std::vector<Layer*>::iterator begin() { return m_layers.begin(); }
-		std::vector<Layer*>::iterator end() { return m_layers.end(); }
+		std::vector<std::unique_ptr<Layer>>::iterator begin() { return m_layers.begin(); }
+		std::vector<std::unique_ptr<Layer>>::iterator end() { return m_layers.end(); }
 
 	private:
-		std::vector<Layer*> m_layers;
+		std::vector<std::unique_ptr<Layer>> m_layers;
 	};
 }

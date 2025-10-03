@@ -11,23 +11,22 @@ namespace engine::core
 
 	Layerstack::~Layerstack()
 	{
-		for (Layer* layer : m_layers)
-			delete layer;
+
 	}
 
-	void Layerstack::PushLayer(Layer* layer)
+	void Layerstack::PushLayer(std::unique_ptr<Layer> layer)
 	{
 		layer->OnAttach();
-		m_layers.push_back(layer);
+		m_layers.emplace_back(std::move(layer));
 	}
 
 	void Layerstack::PopLayer(Layer* layer)
 	{
-		auto it = std::find(begin(), end(), layer);
-		
-		if (it != end())
+		auto it = std::find_if(m_layers.begin(), m_layers.end(),
+			[layer](const std::unique_ptr<Layer>& p) { return p.get() == layer; });
+		if (it != m_layers.end())
 		{
-			layer->OnDetach();
+			(*it)->OnDetach();
 			m_layers.erase(it);
 		}
 	}
