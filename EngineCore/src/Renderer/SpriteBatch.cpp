@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "EngineCore/Renderer/detail/GL.hpp"
 #include "EngineCore/Renderer/SpriteBatch.hpp"
-#include "EngineCore/Renderer/RenderCommand.hpp"
 #include "EngineCore/IO/AssetPath.hpp"
 
 namespace engine::renderer

@@ -56,10 +56,11 @@ void DefaultLayer::OnRender()
 	//m_Immediate3D->End();
 
 	// 2D pass.
-	RenderPassDesc world2D{ false, false, {} };
+	RenderPassDesc world2D{ .clearColor = false, .clearDepth = false, .clearValue = {0.2f, 0.3f, 0.3f, 1.0f} };
 	m_RenderDevice.BeginPass(world2D);
 
 	m_SpriteBatch->Begin();
+
 	m_SpriteBatch->shader().Bind();
 
 	m_GrassTex->bind(0);
@@ -68,7 +69,7 @@ void DefaultLayer::OnRender()
 	m_SpriteBatch->shader().setInt("u_tex", 0);
 	m_SpriteBatch->shader().setInt("u_tex2", 1);
 	
-	//m_RenderDevice.BindProgram(m_SpriteBatch->shader().id());
+	m_RenderDevice.BindProgram(m_SpriteBatch->shader().id());
 
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
