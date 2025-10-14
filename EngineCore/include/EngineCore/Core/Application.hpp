@@ -16,8 +16,14 @@ namespace engine::core
 	class Application
 	{
 	public:
-		explicit Application(ApplicationSpecs s);
+		explicit Application(const ApplicationSpecs& s);
 		virtual ~Application();
+
+		// Non-copyable/non-movable
+		Application(const Application&) = delete;				// Copy constructor.
+		Application& operator=(const Application&) = delete;	// Copy assignment operator.
+		Application(Application&&) = delete;					// Move constructor.
+		Application& operator=(Application&&) = delete;			// Move assignment operator.
 
 		void Run();
 		void Close();
@@ -25,8 +31,8 @@ namespace engine::core
 		const ApplicationSpecs& getSpecs() const { return m_specs; }
 
 	protected:
-		engine::platform::Window& window() { return *m_window; }
-		Layerstack& layerstack() { return *m_layerstack; }
+		engine::platform::Window& window()	{ return *m_window; }
+		Layerstack& layerstack()			{ return *m_layerstack; }
 
 	private:
 		ApplicationSpecs m_specs;

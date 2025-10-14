@@ -48,10 +48,19 @@
     <ClInclude Include="include\EngineCore\Renderer\RenderCommand.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\EngineCore\Renderer\Renderer2D.hpp">
+    <ClInclude Include="include\EngineCore\Renderer\SpriteBatch.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\EngineCore\Renderer\detail\GL.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\Renderer\RenderCommon.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\Renderer\RenderDevice.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\Renderer\Immediate3D.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -86,7 +95,13 @@
     <ClCompile Include="src\Renderer\RenderCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\Renderer2D.cpp">
+    <ClCompile Include="src\Renderer\SpriteBatch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\RenderDevice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Immediate3D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

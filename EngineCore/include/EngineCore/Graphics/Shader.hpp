@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include <ostream>
+#include <vec4.hpp>
+#include <mat4x4.hpp>
 
 namespace engine::graphics
 {
@@ -21,22 +23,30 @@ namespace engine::graphics
 	{
 	public:
 		Shader() = default;
-		Shader(const char* vertexPath, const char* fragmentPath);
 		~Shader();
+
+		// Non-copyable, movable
+		Shader(const Shader&) = delete;
+		Shader& operator=(const Shader&) = delete;
+		Shader(Shader&&) noexcept;
+		Shader& operator=(Shader&&) noexcept;
+
+		static std::string LoadFromSource(const char* shaderPath);
+		bool Compile(std::string_view vsSrc, std::string_view fsSrc, std::string* errorLog = nullptr);
+		void Destroy();
 
 		void Bind() const;
 
-		void setBool(const std::string& name, bool value) const;
-		void setInt(const std::string& name, int value) const;
-		void setFloat(const std::string& name, float value) const;
+		void setBool(const char* name, bool value) const;
+		void setInt(const char* name, int value) const;
+		void setFloat(const char* name, float value) const;
+		void setMat4(const char* name, const glm::mat4& matrix) const;
+		void setVec4(const char* name, const glm::vec4& vector) const;
 
-		void checkShaderCompilationErrors(unsigned int id, ShaderType type, int& success, char* infoLog);
-		void checkShaderProgramLinkingErrors(unsigned int id, int& success, char* infolog);
-
-		const int& getShaderId() const { return Id; }
+		const int& id() const { return m_program; }
 
 	private:
-		unsigned int Id;
+		unsigned m_program = 0;
 	};
 
 }
