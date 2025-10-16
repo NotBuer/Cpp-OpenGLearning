@@ -23,7 +23,6 @@ namespace engine::renderer
 		void SetCullFace(bool enabled);
 
 		void BindVertexArray(uint32_t vao);
-		void BindProgram(uint32_t program);
 
 		void DrawIndexed(uint32_t indexCount);
 		void DrawArrays(Primitive primitive, uint32_t first, uint32_t count);

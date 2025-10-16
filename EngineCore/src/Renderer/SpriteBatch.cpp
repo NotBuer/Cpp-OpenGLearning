@@ -72,10 +72,12 @@ namespace engine::renderer
 		StartBatch();
 	}
 
-	void SpriteBatch::StartBatch()
+	void SpriteBatch::End()
 	{
-		m_Vertices.clear();
-		m_Indices.clear();
+		if (!m_Begun) return;
+		Upload();
+		Flush();
+		m_Begun = false;
 	}
 
 	void SpriteBatch::DrawQuad(const glm::vec2& min, const glm::vec2& size, const glm::vec4& color)
@@ -105,12 +107,10 @@ namespace engine::renderer
 		m_Indices.push_back(base + 0);
 	}
 
-	void SpriteBatch::End()
+	void SpriteBatch::StartBatch()
 	{
-		if (!m_Begun) return;
-		Upload();
-		Flush();
-		m_Begun = false;
+		m_Vertices.clear();
+		m_Indices.clear();
 	}
 
 	void SpriteBatch::Upload()

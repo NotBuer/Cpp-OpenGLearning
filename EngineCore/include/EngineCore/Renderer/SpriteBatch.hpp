@@ -6,19 +6,13 @@
 #include <cstdint>
 #include "EngineCore/Graphics/Shader.hpp"
 #include "EngineCore/Renderer/RenderDevice.hpp"
+#include "EngineCore/Renderer/QuadVertex.hpp"
 
 // Forward declaration
 namespace engine::renderer { class Shader; }
 
 namespace engine::renderer
 {
-	struct QuadVertex
-	{
-		glm::vec3 pos;
-		glm::vec3 color;
-		glm::vec2 uv;
-	};
-
 	class SpriteBatch
 	{
 	public:
@@ -31,8 +25,9 @@ namespace engine::renderer
 		void SetProjection(const glm::mat4& proj);
 
 		void Begin();
-		void DrawQuad(const glm::vec2& min, const glm::vec2& size, const glm::vec4& color);
 		void End();
+
+		void DrawQuad(const glm::vec2& min, const glm::vec2& size, const glm::vec4& color);
 
 		const graphics::Shader& shader() const { return *m_Shader; }
 		const glm::mat4& proj() const { return m_Proj; }

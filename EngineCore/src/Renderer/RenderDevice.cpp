@@ -67,11 +67,6 @@ namespace engine::renderer
 		glBindVertexArray(vao);
 	}
 
-	void RenderDevice::BindProgram(uint32_t program)
-	{
-		glUseProgram(program);
-	}
-
 	void RenderDevice::DrawIndexed(uint32_t indexCount)
 	{
 		glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indexCount), GL_UNSIGNED_INT, nullptr);

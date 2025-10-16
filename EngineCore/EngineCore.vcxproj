@@ -152,9 +152,11 @@
     <ClInclude Include="include\EngineCore\Platform\Window.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\detail\GL.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\Immediate3D.hpp" />
+    <ClInclude Include="include\EngineCore\Renderer\QuadVertex.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\RenderCommon.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\RenderDevice.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\SpriteBatch.hpp" />
+    <ClInclude Include="include\EngineCore\Renderer\VoxelVertex.hpp" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>

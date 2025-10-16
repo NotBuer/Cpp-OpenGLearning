@@ -17,8 +17,11 @@ public:
 
 private:
 	engine::renderer::RenderDevice m_RenderDevice;
-	engine::renderer::SpriteBatch* m_SpriteBatch = nullptr;
-	engine::renderer::Immediate3D* m_Immediate3D = nullptr;
+
+	engine::renderer::RenderPassDesc world3D{ true, true, {0.15f,0.15f,0.18f,1.f} };
+
+	std::unique_ptr<engine::renderer::SpriteBatch> m_SpriteBatch = nullptr;
+	std::unique_ptr<engine::renderer::Immediate3D> m_Immediate3D = nullptr;
 
 	std::optional<engine::graphics::Texture2D> m_GrassTex;
 	std::optional<engine::graphics::Texture2D> m_FaceTex;
