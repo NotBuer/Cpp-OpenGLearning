@@ -9,9 +9,10 @@
 #include "EngineCore/Graphics/Shader.hpp"
 #include "EngineCore/Graphics/Texture2D.hpp"
 
-DefaultLayer::DefaultLayer(const std::string& name) : 
+DefaultLayer::DefaultLayer(const std::string& name) :
 	engine::core::Layer(name),
 	m_RenderDevice({}),
+	//m_PerspectiveCam()
 	m_SpriteBatch(std::make_unique<engine::renderer::SpriteBatch>(m_RenderDevice)),
 	m_Immediate3D(std::make_unique<engine::renderer::Immediate3D>(m_RenderDevice))
 {
@@ -50,7 +51,7 @@ void DefaultLayer::OnUpdate()
 void DefaultLayer::OnRender()
 {
 	// 3D world pass.
-	//engine::renderer::RenderPassDesc world3D{ true, true, {0.15f,0.15f,0.18f,1.f} };
+	engine::renderer::RenderPassDesc world3D{ true, true, {0.15f,0.15f,0.18f,1.f} };
 	m_RenderDevice.BeginPass(world3D);
 	m_RenderDevice.SetCullFace(true);
 
@@ -70,7 +71,7 @@ void DefaultLayer::OnRender()
 	glUniformMatrix4fv(glGetUniformLocation(m_Immediate3D->shader().id(), "view"), 1, GL_FALSE, glm::value_ptr(view));
 	glUniformMatrix4fv(glGetUniformLocation(m_Immediate3D->shader().id(), "projection"), 1, GL_FALSE, glm::value_ptr(proj));
 
-	m_Immediate3D->DrawCube({ -0.5f, -0.5f, -0.5f }, {1, 1, 1}, { 0.0f, 0.0f, 0.0f, 1.0f });
+	m_Immediate3D->DrawCube({ -0.5f, -0.5f, -0.5f }, { 1, 1, 1 }, { 0.0f, 0.0f, 0.0f, 1.0f });
 
 	m_Immediate3D->End();
 

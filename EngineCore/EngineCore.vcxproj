@@ -150,8 +150,11 @@
     <ClInclude Include="include\EngineCore\Core\Input.hpp" />
     <ClInclude Include="include\EngineCore\IO\AssetPath.hpp" />
     <ClInclude Include="include\EngineCore\Platform\Window.hpp" />
+    <ClInclude Include="include\EngineCore\Renderer\Camera.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\detail\GL.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\Immediate3D.hpp" />
+    <ClInclude Include="include\EngineCore\Renderer\OrthographicCamera.hpp" />
+    <ClInclude Include="include\EngineCore\Renderer\PerspectiveCamera.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\QuadVertex.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\RenderCommon.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\RenderDevice.hpp" />
@@ -175,7 +178,10 @@
     <ClCompile Include="src\Graphics\Texture2D.cpp" />
     <ClCompile Include="src\Core\Input.cpp" />
     <ClCompile Include="src\Platform\Window.cpp" />
+    <ClCompile Include="src\Renderer\Camera.cpp" />
     <ClCompile Include="src\Renderer\Immediate3D.cpp" />
+    <ClCompile Include="src\Renderer\OrthographicCamera.cpp" />
+    <ClCompile Include="src\Renderer\PerspectiveCamera.cpp" />
     <ClCompile Include="src\Renderer\RenderDevice.cpp" />
     <ClCompile Include="src\Renderer\SpriteBatch.cpp" />
   </ItemGroup>

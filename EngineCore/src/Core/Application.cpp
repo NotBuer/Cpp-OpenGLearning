@@ -30,7 +30,7 @@ namespace engine::core
 	{
 		while (!m_window->shouldClose())
 		{
-			glfwPollEvents(); // TODO: Remove directly glfw call on site.
+			glfwPollEvents();
 
 			for (const auto& l : m_layerstack->getLayers())
 				l->OnUpdate();
