@@ -11,7 +11,7 @@
 class DefaultLayer final : public engine::core::Layer
 {
 public:
-	DefaultLayer(const std::string& name);
+	DefaultLayer(const std::string& name, const engine::platform::Window& window);
 
 	void OnAttach() override;
 	void OnDetach() override;

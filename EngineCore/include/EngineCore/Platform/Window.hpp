@@ -15,6 +15,15 @@ namespace engine::platform
 		bool shouldClose()		 const { return glfwWindowShouldClose(_win); }
 		void swapBuffers()			   { glfwSwapBuffers(_win); }
 
+		void onResize(uint16_t width, uint16_t height)
+		{
+			m_currentFbWidth = width;
+			m_currentFbHeight = height;
+		}
+
+		const uint16_t getFramebufferWidth() const { return m_currentFbWidth == 0 ? 1 : m_currentFbWidth; }
+		const uint16_t getFramebufferHeight() const { return m_currentFbHeight == 0 ? 1 : m_currentFbHeight; }
+
 		engine::events::InputState& inputState();
 
 		struct GlfwCallbackCtx;
@@ -25,5 +34,8 @@ namespace engine::platform
 
 		// Opaque pointer (GLFW User Pointer)
 		GlfwCallbackCtx* _ctx = nullptr;
+
+		uint16_t m_currentFbWidth = 0;
+		uint16_t m_currentFbHeight = 0;
 	};
 }

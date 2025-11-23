@@ -3,7 +3,9 @@
 
 namespace engine::core
 {
-	Layer::Layer(const std::string& name) : m_Name(name)
+	Layer::Layer(const std::string& name, const engine::platform::Window& window) : 
+		m_Name(name), 
+		m_Window(window)
 	{
 
 	}

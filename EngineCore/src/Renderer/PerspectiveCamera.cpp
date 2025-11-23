@@ -39,7 +39,7 @@ namespace engine::renderer
 	void PerspectiveCamera::AddYawPitch(float yawDeg, float pitchDeg)
 	{
 		m_yawDeg += yawDeg;
-		m_pitchDeg = std::clamp(m_pitchDeg + pitchDeg, -89.9f, 89.9f);
+		m_pitchDeg = glm::clamp(m_pitchDeg + pitchDeg, -89.9f, 89.9f);
 		RecalcView();
 		RecalcViewProj();
 	}

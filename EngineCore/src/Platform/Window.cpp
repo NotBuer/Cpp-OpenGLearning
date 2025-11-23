@@ -105,9 +105,9 @@ namespace engine::platform
 
 	struct Window::GlfwCallbackCtx
 	{
+		engine::platform::Window* window = nullptr;
 		engine::events::EventBus* bus = nullptr;
 		engine::events::InputState* input = nullptr;
-		std::uint32_t sequence = 0;
 	};
 
 	static void KeyCb(GLFWwindow* w, int key, int sc, int action, int mods);
@@ -132,6 +132,7 @@ namespace engine::platform
 
 		// Allocate and set the context for callbacks
 		_ctx = new GlfwCallbackCtx();
+		_ctx->window = this;
 		_ctx->bus = &bus;
 		_ctx->input = _state.get();
 
@@ -146,6 +147,8 @@ namespace engine::platform
 		glfwSetScrollCallback(_win, &ScrollCb);
 		glfwSetWindowFocusCallback(_win, &FocusCb);
 		glfwSetFramebufferSizeCallback(_win, &FbSizeCb);
+
+		onResize(width, height);
 	}
 
 	Window::~Window()
@@ -323,7 +326,7 @@ namespace engine::platform
 
 		logf("[Window] Focus %s", focused ? "gained" : "lost");
 	}
-
+	 
 	static void FbSizeCb(GLFWwindow* w, int fbW, int fbH)
 	{
 		using namespace engine::events;
@@ -339,6 +342,7 @@ namespace engine::platform
 			e.payload.wr.fbWidth = fbW;
 			e.payload.wr.fbHeight = fbH;
 			ctx->bus->pushImmediate(e);
+			ctx->window->onResize(fbW, fbH);
 		}
 
 		logf("[Window] Framebuffer resized %dx%d", fbW, fbH);

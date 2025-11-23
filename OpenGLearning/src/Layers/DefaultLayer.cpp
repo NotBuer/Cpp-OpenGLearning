@@ -8,15 +8,16 @@
 #include "EngineCore/IO/AssetPath.hpp"
 #include "EngineCore/Graphics/Shader.hpp"
 #include "EngineCore/Graphics/Texture2D.hpp"
+#include "EngineCore/Platform/Time.hpp"
 
-DefaultLayer::DefaultLayer(const std::string& name) :
-	engine::core::Layer(name),
+DefaultLayer::DefaultLayer(const std::string& name, const engine::platform::Window& window) :
+	engine::core::Layer(name, window),
 	m_RenderDevice({}),
 	//m_PerspectiveCam()
 	m_SpriteBatch(std::make_unique<engine::renderer::SpriteBatch>(m_RenderDevice)),
 	m_Immediate3D(std::make_unique<engine::renderer::Immediate3D>(m_RenderDevice))
 {
-
+	
 }
 
 void DefaultLayer::OnAttach()
@@ -26,7 +27,11 @@ void DefaultLayer::OnAttach()
 	m_SpriteBatch->Init();
 	m_Immediate3D->Init();
 
-	glm::mat4 proj = glm::perspective(glm::radians(45.0f), 1280.0f / 720.0f, 0.1f, 100.0f);
+	glm::mat4 proj = glm::perspective(
+		glm::radians(45.0f), 
+		static_cast<float>(window().getFramebufferWidth() / window().getFramebufferHeight()), 
+		0.1f, 100.0f);
+
 	m_SpriteBatch->SetProjection(proj);
 	m_Immediate3D->SetProjection(proj);
 
@@ -50,6 +55,9 @@ void DefaultLayer::OnUpdate()
 
 void DefaultLayer::OnRender()
 {
+#pragma region 3D_PASS
+	float aspectRatio = static_cast<float>(window().getFramebufferWidth()) / static_cast<float>(window().getFramebufferHeight());
+
 	// 3D world pass.
 	engine::renderer::RenderPassDesc world3D{ true, true, {0.15f,0.15f,0.18f,1.f} };
 	m_RenderDevice.BeginPass(world3D);
@@ -61,10 +69,13 @@ void DefaultLayer::OnRender()
 	m_Immediate3D->shader().setInt("u_tex", 0);
 	m_Immediate3D->shader().setInt("u_tex2", 1);
 
-	glm::mat4 model = glm::rotate(glm::mat4(1.0f), (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+	glm::mat4 model = glm::rotate(
+		glm::mat4(1.0f), static_cast<float>(engine::platform::Time::nowSeconds()) * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
 	glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -5.0f));
-	glm::mat4 proj = glm::perspective(glm::radians(45.0f), 1280.0f / 720.0f, 0.1f, 100.0f);
 
+	glm::mat4 proj = glm::perspective(glm::radians(45.0f), aspectRatio, 0.1f, 100.0f);
+
+	m_Immediate3D->SetProjection(proj);
 	m_Immediate3D->Begin(view, proj);
 
 	glUniformMatrix4fv(glGetUniformLocation(m_Immediate3D->shader().id(), "model"), 1, GL_FALSE, glm::value_ptr(model));
@@ -75,7 +86,8 @@ void DefaultLayer::OnRender()
 
 	m_Immediate3D->End();
 
-	model = glm::rotate(glm::mat4(1.0f), ((float)glfwGetTime() / 2) * glm::radians(-75.0f), glm::vec3(0.0f, 1.3f, 0.25f));
+	model = glm::rotate(
+		glm::mat4(1.0f), (static_cast<float>(engine::platform::Time::nowSeconds()) / 2) * glm::radians(-75.0f), glm::vec3(0.0f, 1.3f, 0.25f));
 	view = glm::translate(glm::mat4(1.0f), glm::vec3(-2.0f, 1.0f, -10.0f));
 
 	m_Immediate3D->Begin(view, proj);;
@@ -87,7 +99,9 @@ void DefaultLayer::OnRender()
 	m_Immediate3D->DrawCube({ -0.25f, -0.25f, -0.25f }, { 0.5f, 0.5f, 0.5f }, { 0.0f, 0.0f, 0.0f, 1.0f });
 
 	m_Immediate3D->End();
+#pragma endregion
 
+#pragma region 2D_PASS
 	// 2D pass.
 	//engine::renderer::RenderPassDesc world2D{ .clearColor = true, .clearDepth = true, .clearValue = {0.2f, 0.3f, 0.3f, 1.0f} };
 	//m_RenderDevice.BeginPass(world2D);
@@ -103,7 +117,12 @@ void DefaultLayer::OnRender()
 	//m_SpriteBatch->shader().setInt("u_tex", 0);
 	//m_SpriteBatch->shader().setInt("u_tex2", 1);
 
-	//model = glm::rotate(glm::mat4(1.0f), (float)glfwGetTime() * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	//glm::mat4 model = glm::rotate(
+	//	glm::mat4(1.0f), static_cast<float>(engine::platform::Time::nowSeconds()) * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+	//glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -5.0f));
+
+	//model = glm::rotate(
+	//	glm::mat4(1.0f), static_cast<float>(engine::platform::Time::nowSeconds()) * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	//view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -3.0f));
 	//
 	//glUniformMatrix4fv(glGetUniformLocation(m_SpriteBatch->shader().id(), "model"), 1, GL_FALSE, glm::value_ptr(model));
@@ -113,4 +132,5 @@ void DefaultLayer::OnRender()
 	//m_SpriteBatch->DrawQuad({ -0.5f, -0.5f }, { 1, 1 }, { 0.0f, 0.0f, 0.0f, 1.0f });
 
 	//m_SpriteBatch->End();
+#pragma endregion
 }
