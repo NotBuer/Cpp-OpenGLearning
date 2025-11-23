@@ -29,27 +29,27 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <EnableASAN>true</EnableASAN>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <EnableASAN>false</EnableASAN>
@@ -144,11 +144,19 @@
     <ClInclude Include="include\EngineCore\Core\Application.hpp" />
     <ClInclude Include="include\EngineCore\Core\Layer.hpp" />
     <ClInclude Include="include\EngineCore\Core\Layerstack.hpp" />
-    <ClInclude Include="include\EngineCore\Platform\GlfwCallbacks.hpp" />
+    <ClInclude Include="include\EngineCore\Events\CaptureState.hpp" />
+    <ClInclude Include="include\EngineCore\Events\Categories.hpp" />
+    <ClInclude Include="include\EngineCore\Events\EventBus.hpp" />
+    <ClInclude Include="include\EngineCore\Events\Header.hpp" />
+    <ClInclude Include="include\EngineCore\Events\InputState.hpp" />
+    <ClInclude Include="include\EngineCore\Events\Modifiers.hpp" />
+    <ClInclude Include="include\EngineCore\Events\Payloads.hpp" />
+    <ClInclude Include="include\EngineCore\Events\Slot.hpp" />
+    <ClInclude Include="include\EngineCore\Events\Types.hpp" />
     <ClInclude Include="include\EngineCore\Graphics\Shader.hpp" />
     <ClInclude Include="include\EngineCore\Graphics\Texture2D.hpp" />
-    <ClInclude Include="include\EngineCore\Core\Input.hpp" />
     <ClInclude Include="include\EngineCore\IO\AssetPath.hpp" />
+    <ClInclude Include="include\EngineCore\Platform\Time.hpp" />
     <ClInclude Include="include\EngineCore\Platform\Window.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\Camera.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\detail\GL.hpp" />
@@ -163,6 +171,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\EngineCore\Events\Dispatcher.hpp" />
     <ClCompile Include="src\Core\Application.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -170,13 +179,13 @@
     </ClCompile>
     <ClCompile Include="src\Core\Layer.cpp" />
     <ClCompile Include="src\Core\Layerstack.cpp" />
-    <ClCompile Include="src\Platform\GlfwCallbacks.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
+    <ClCompile Include="src\Events\Dispatcher.cpp" />
+    <ClCompile Include="src\Events\EventBus.cpp" />
+    <ClCompile Include="src\Events\Header.cpp" />
+    <ClCompile Include="src\Events\InputState.cpp" />
     <ClCompile Include="src\Graphics\Shader.cpp" />
     <ClCompile Include="src\Graphics\Texture2D.cpp" />
-    <ClCompile Include="src\Core\Input.cpp" />
+    <ClCompile Include="src\Platform\Time.cpp" />
     <ClCompile Include="src\Platform\Window.cpp" />
     <ClCompile Include="src\Renderer\Camera.cpp" />
     <ClCompile Include="src\Renderer\Immediate3D.cpp" />

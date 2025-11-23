@@ -3,6 +3,8 @@
 #include <memory>
 #include "EngineCore/Platform/Window.hpp"
 #include "EngineCore/Core/Layerstack.hpp"
+#include "EngineCore/Events/Dispatcher.hpp"
+#include "EngineCore/Events/CaptureState.hpp"
 
 namespace engine::core
 {
@@ -11,6 +13,14 @@ namespace engine::core
 		int width = 1280;
 		int height = 720;
 		std::string title = "Default title";
+	};
+
+	class Impl
+	{
+		public:
+			events::EventBus events;
+			events::Dispatcher dispatch;
+			events::CaptureState capture;
 	};
 
 	class Application
@@ -38,5 +48,6 @@ namespace engine::core
 		ApplicationSpecs m_specs;
 		std::unique_ptr<engine::platform::Window> m_window = nullptr;
 		std::unique_ptr<Layerstack> m_layerstack = nullptr;
+		std::unique_ptr<Impl> m_impl = nullptr;
 	};
 }

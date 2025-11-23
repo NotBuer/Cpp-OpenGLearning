@@ -30,8 +30,10 @@ namespace engine::core
 		std::cout << "Layer: " << m_Name << "-> default" << std::endl;
 	}
 
-	void Layer::OnEvent()
+	bool Layer::OnEvent(const engine::events::EventSlot& e)
 	{
+		(void)e;
 		std::cout << "Layer: " << m_Name << "-> default" << std::endl;
+		return false;
 	}
 }

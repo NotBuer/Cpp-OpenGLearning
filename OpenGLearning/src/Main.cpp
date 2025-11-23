@@ -1,4 +1,3 @@
-#include <iostream>
 #include "GameApp.hpp"
 
 using engine::core::Application;
