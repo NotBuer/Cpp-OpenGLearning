@@ -21,6 +21,7 @@ namespace engine::renderer
 		void SetDepthTest(bool enabled);
 		void SetBlend(bool enabled);
 		void SetCullFace(bool enabled);
+		void setViewPort(const Viewport& viewport);
 
 		void BindVertexArray(uint32_t vao);
 

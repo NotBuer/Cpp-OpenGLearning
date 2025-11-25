@@ -18,8 +18,8 @@ namespace engine::renderer
 
 	void RenderDevice::BeginPass(const RenderPassDesc& d)
 	{
-		SetDepthTest(d.clearDepth); // heuristic: if we clear depth, we likely render 3D
-		SetBlend(d.clearDepth);     // heuristic: UI/2D often blends, 3D opaque often not
+		SetDepthTest(d.clearDepth);
+		SetBlend(d.clearDepth);
 
 		if (d.clearColor || d.clearDepth)
 		{
@@ -60,6 +60,11 @@ namespace engine::renderer
 	void RenderDevice::SetCullFace(bool enabled)
 	{
 		if (enabled) glEnable(GL_CULL_FACE); else glDisable(GL_CULL_FACE);
+	}
+
+	void RenderDevice::setViewPort(const Viewport& viewport)
+	{
+		glViewport(viewport.x, viewport.y, viewport.width, viewport.height);
 	}
 
 	void RenderDevice::BindVertexArray(uint32_t vao)

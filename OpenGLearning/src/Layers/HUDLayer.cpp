@@ -17,3 +17,9 @@ void HUDLayer::OnRender()
 {
 
 }
+
+bool HUDLayer::OnEvent(const engine::events::EventSlot& e)
+{
+	std::printf("HUDLayer received event of type: %d\n", e.header.type);
+	return true;
+}

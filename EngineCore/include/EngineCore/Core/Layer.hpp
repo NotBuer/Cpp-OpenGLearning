@@ -16,7 +16,6 @@ namespace engine::core
 		virtual void OnDetach();
 		virtual void OnUpdate();
 		virtual void OnRender();
-
 		virtual bool OnEvent(const engine::events::EventSlot& e);
 
 		const std::string& name() { return m_Name; }

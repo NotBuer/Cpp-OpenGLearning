@@ -17,6 +17,7 @@ public:
 	void OnDetach() override;
 	void OnUpdate() override;
 	void OnRender() override;
+	bool OnEvent(const engine::events::EventSlot& e) override;
 
 private:
 	engine::renderer::RenderDevice m_RenderDevice;

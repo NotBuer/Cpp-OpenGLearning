@@ -17,7 +17,7 @@ DefaultLayer::DefaultLayer(const std::string& name, const engine::platform::Wind
 	m_SpriteBatch(std::make_unique<engine::renderer::SpriteBatch>(m_RenderDevice)),
 	m_Immediate3D(std::make_unique<engine::renderer::Immediate3D>(m_RenderDevice))
 {
-	
+
 }
 
 void DefaultLayer::OnAttach()
@@ -28,8 +28,8 @@ void DefaultLayer::OnAttach()
 	m_Immediate3D->Init();
 
 	glm::mat4 proj = glm::perspective(
-		glm::radians(45.0f), 
-		static_cast<float>(window().getFramebufferWidth() / window().getFramebufferHeight()), 
+		glm::radians(45.0f),
+		static_cast<float>(window().getFramebufferWidth() / window().getFramebufferHeight()),
 		0.1f, 100.0f);
 
 	m_SpriteBatch->SetProjection(proj);
@@ -56,12 +56,18 @@ void DefaultLayer::OnUpdate()
 void DefaultLayer::OnRender()
 {
 #pragma region 3D_PASS
-	float aspectRatio = static_cast<float>(window().getFramebufferWidth()) / static_cast<float>(window().getFramebufferHeight());
+	uint16_t width = (window().getFramebufferWidth());
+	uint16_t height = (window().getFramebufferHeight());
+	float aspectRatio = static_cast<float>(width) / static_cast<float>(height);
 
 	// 3D world pass.
-	engine::renderer::RenderPassDesc world3D{ true, true, {0.15f,0.15f,0.18f,1.f} };
+	engine::renderer::RenderPassDesc world3D{
+		.clearColor = true, .clearDepth = true,
+		.clearValue = {0.15f, 0.15f, 0.18f, 1.f},
+		.viewport = {0, 0, width, height}};
 	m_RenderDevice.BeginPass(world3D);
 	m_RenderDevice.SetCullFace(true);
+	m_RenderDevice.setViewPort(world3D.viewport);
 
 	m_Immediate3D->shader().Bind();
 	m_GrassTex->bind(0);
@@ -103,9 +109,14 @@ void DefaultLayer::OnRender()
 
 #pragma region 2D_PASS
 	// 2D pass.
-	//engine::renderer::RenderPassDesc world2D{ .clearColor = true, .clearDepth = true, .clearValue = {0.2f, 0.3f, 0.3f, 1.0f} };
+	//engine::renderer::RenderPassDesc world2D{ 
+	//	.clearColor = true, .clearDepth = true, 
+	//	.clearValue = {0.2f, 0.3f, 0.3f, 1.0f}, 
+	//	.viewport = {0, 0, width, height}
+	//};
 	//m_RenderDevice.BeginPass(world2D);
 	//m_RenderDevice.SetCullFace(false);
+	//m_RenderDevice.setViewPort(world2D.viewport);
 
 	//m_SpriteBatch->Begin();
 
@@ -113,7 +124,7 @@ void DefaultLayer::OnRender()
 
 	//m_GrassTex->bind(0);
 	//m_FaceTex->bind(1);
-	//
+
 	//m_SpriteBatch->shader().setInt("u_tex", 0);
 	//m_SpriteBatch->shader().setInt("u_tex2", 1);
 
@@ -124,7 +135,7 @@ void DefaultLayer::OnRender()
 	//model = glm::rotate(
 	//	glm::mat4(1.0f), static_cast<float>(engine::platform::Time::nowSeconds()) * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	//view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -3.0f));
-	//
+
 	//glUniformMatrix4fv(glGetUniformLocation(m_SpriteBatch->shader().id(), "model"), 1, GL_FALSE, glm::value_ptr(model));
 	//glUniformMatrix4fv(glGetUniformLocation(m_SpriteBatch->shader().id(), "view"), 1, GL_FALSE, glm::value_ptr(view));
 	//glUniformMatrix4fv(glGetUniformLocation(m_SpriteBatch->shader().id(), "projection"), 1, GL_FALSE, glm::value_ptr(m_SpriteBatch->proj()));
@@ -133,4 +144,10 @@ void DefaultLayer::OnRender()
 
 	//m_SpriteBatch->End();
 #pragma endregion
+}
+
+bool DefaultLayer::OnEvent(const engine::events::EventSlot& e)
+{
+	std::printf("DefaultLayer received event of type: %d\n", e.header.type);
+	return true;
 }

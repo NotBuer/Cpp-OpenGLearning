@@ -8,5 +8,5 @@ public:
 
 	void OnUpdate() override;
 	void OnRender() override;
+	bool OnEvent(const engine::events::EventSlot& e) override;
 };
-

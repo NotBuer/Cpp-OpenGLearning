@@ -102,6 +102,7 @@ namespace engine::events
 				if (last->header.type == e.header.type)
 				{
 					*last = e; // overwrite previous same-type event
+					return;
 				}
 			}
 		}

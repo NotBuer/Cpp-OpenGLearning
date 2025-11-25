@@ -21,8 +21,8 @@ namespace engine::platform
 			m_currentFbHeight = height;
 		}
 
-		const uint16_t getFramebufferWidth() const { return m_currentFbWidth == 0 ? 1 : m_currentFbWidth; }
-		const uint16_t getFramebufferHeight() const { return m_currentFbHeight == 0 ? 1 : m_currentFbHeight; }
+		const uint16_t& getFramebufferWidth() const { return m_currentFbWidth == 0 ? 1 : m_currentFbWidth; }
+		const uint16_t& getFramebufferHeight() const { return m_currentFbHeight == 0 ? 1 : m_currentFbHeight; }
 
 		engine::events::InputState& inputState();
 
