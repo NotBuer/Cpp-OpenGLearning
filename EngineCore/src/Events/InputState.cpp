@@ -1,11 +1,26 @@
 #include "pch.h"
 #include "EngineCore/Events/InputState.hpp"
+#include "EngineCore/Platform/GlfwAdpter.hpp"
 
 namespace engine::events
 { 
-	void InputState::setKeyDown(int key, bool down) noexcept
+	using KeyCode = engine::platform::KeyCode;
+
+	[[nodiscard]] static inline std::size_t to_index(KeyCode key) noexcept
 	{
-		if (key >= 0 && key < MaxKeys) m_keys[static_cast<std::size_t>(key)] = down ? 1u : 0u;
+		return static_cast<std::size_t>(static_cast<std::uint16_t>(key));
+	}
+
+	[[nodiscard]] static inline bool is_valid_key(KeyCode key, std::size_t index) noexcept
+	{
+		return (key != KeyCode::Unknown) && (index > 0 && index < InputState::MaxKeys);
+	}
+
+	void InputState::setKeyDown(KeyCode key, bool down) noexcept
+	{
+		std::size_t index = to_index(key);
+		if (!is_valid_key(key, index)) return;
+		m_keys[index] = down ? 1u : 0u;
 	}
 
 	void InputState::setMouseDown(int button, bool down) noexcept
@@ -26,30 +41,33 @@ namespace engine::events
 	void InputState::finalizeFrame() noexcept
 	{
 		m_deltaX = m_cursorX - m_prevX;
-		m_deltaY = m_cursorY - m_prevY;
-		m_prevX = m_cursorX; m_prevY = m_cursorY;
+		m_deltaY = m_prevY - m_cursorY; // reversed since y-coordinates go from bottom to top.
+		m_prevX = m_cursorX; 
+		m_prevY = m_cursorY;
 
 		m_prevKeys = m_keys;
 		m_prevMouse = m_mouse;
 	}
 
-	bool InputState::isKeyDown(int key) const noexcept
+	bool InputState::isKeyDown(KeyCode key) const noexcept
 	{
-		return (key >= 0 && key < MaxKeys) ? m_keys[static_cast<std::size_t>(key)] != 0u : false;
+		std::size_t index = to_index(key);
+		if (!is_valid_key(key, index)) return false;
+		return m_keys[index] != 0u;
 	}
 
-	bool InputState::wasKeyPressed(int key) const noexcept
+	bool InputState::wasKeyPressed(KeyCode key) const noexcept
 	{
-		if (key < 0 || key > MaxKeys) return false;
-		auto i = static_cast<std::size_t>(key);
-		return (m_keys[i] != 0u) && (m_prevKeys[i] == 0u);
+		std::size_t index = to_index(key);
+		if (!is_valid_key(key, index)) return false;
+		return m_keys[index] != 0u && m_prevKeys[index] == 0;
 	}
 
-	bool InputState::wasKeyReleased(int key) const noexcept
+	bool InputState::wasKeyReleased(KeyCode key) const noexcept
 	{
-		if (key < 0 || key > MaxKeys) return false;
-		auto i = static_cast<std::size_t>(key);
-		return (m_keys[i] == 0u) && (m_prevKeys[i] != 0u);
+		std::size_t index = to_index(key);
+		if (!is_valid_key(key, index)) return false;
+		return (m_keys[index] == 0u) && (m_prevKeys[index] != 0u);
 	}
 
 	bool InputState::isMouseDown(int btn) const noexcept

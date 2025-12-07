@@ -1,9 +1,12 @@
 #pragma once
 #include <cstdint>
 #include <array>
+#include "EngineCore/Platform/GlfwAdpter.hpp"
 
 namespace engine::events
 {
+	using KeyCode = engine::platform::KeyCode;
+
 	// Polled input snapshot for a frame.
 	class InputState
 	{
@@ -12,7 +15,7 @@ namespace engine::events
 		static constexpr int MaxMouse = 8;
 
 		// Update from callbacks.
-		void setKeyDown(int key, bool down) noexcept;
+		void setKeyDown(KeyCode key, bool down) noexcept;
 		void setMouseDown(int button, bool down) noexcept;
 		void setCursorPos(double x, double y) noexcept;
 		void addScroll(double dx, double dy) noexcept;
@@ -21,9 +24,9 @@ namespace engine::events
 		void finalizeFrame() noexcept;
 
 		// Queries used by gameplay systems.
-		[[nodiscard]] bool isKeyDown(int key) const noexcept;
-		[[nodiscard]] bool wasKeyPressed(int key) const noexcept;
-		[[nodiscard]] bool wasKeyReleased(int key) const noexcept;
+		[[nodiscard]] bool isKeyDown(KeyCode key) const noexcept;
+		[[nodiscard]] bool wasKeyPressed(KeyCode key) const noexcept;
+		[[nodiscard]] bool wasKeyReleased(KeyCode key) const noexcept;
 		[[nodiscard]] bool isMouseDown(int btn) const noexcept;
 
 		[[nodiscard]] double cursorX() const noexcept { return m_cursorX; }

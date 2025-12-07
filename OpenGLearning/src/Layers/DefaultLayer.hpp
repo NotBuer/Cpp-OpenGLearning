@@ -7,6 +7,7 @@
 #include "EngineCore/Renderer/Camera.hpp"
 #include "EngineCore/Renderer/PerspectiveCamera.hpp"
 #include "EngineCore/Renderer/OrthographicCamera.hpp"
+#include "EngineCore/Events/Context.hpp"
 
 class DefaultLayer final : public engine::core::Layer
 {
@@ -15,16 +16,16 @@ public:
 
 	void OnAttach() override;
 	void OnDetach() override;
-	void OnUpdate() override;
+	void OnUpdate(float dt) override;
 	void OnRender() override;
-	bool OnEvent(const engine::events::EventSlot& e) override;
+	bool OnEvent(const engine::events::EventSlot& e, engine::events::EventContext& ctx) override;
 
 private:
 	engine::renderer::RenderDevice m_RenderDevice;
 	engine::renderer::RenderPassDesc world3D{ true, true, {0.15f,0.15f,0.18f,1.f} };
 
-	//engine::renderer::PerspectiveCamera m_PerspectiveCam;
-	//engine::renderer::OrthographicCamera m_OrthographicCam;
+	std::unique_ptr<engine::renderer::PerspectiveCamera> m_PerspectiveCam = nullptr;
+	std::unique_ptr<engine::renderer::OrthographicCamera> m_OrthographicCam = nullptr;
 
 	std::unique_ptr<engine::renderer::SpriteBatch> m_SpriteBatch = nullptr;
 	std::unique_ptr<engine::renderer::Immediate3D> m_Immediate3D = nullptr;

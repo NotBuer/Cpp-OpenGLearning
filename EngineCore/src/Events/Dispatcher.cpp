@@ -3,6 +3,7 @@
 #include "EngineCore/Events/CaptureState.hpp"
 #include "EngineCore/Core/Layerstack.hpp"
 #include "EngineCore/Core/Layer.hpp"
+#include "EngineCore/Events/Context.hpp"
 
 namespace engine::events
 {
@@ -13,15 +14,15 @@ namespace engine::events
 
 	bool Dispatcher::dispatch(const EventSlot& e, engine::core::Layerstack& layers, CaptureState& capture) noexcept
 	{
+		EventContext ctx{ capture };
+
 		const std::uint16_t cats = e.header.categories;
 
 		// Capture routing.
-		if (capture.owner && intersects(capture.captured, cats))
+		if (capture.owner && capture.isCaptured(cats))
 		{
-			auto* target = static_cast<engine::core::Layer const*>(capture.owner);
-			auto* mutableTarget = const_cast<engine::core::Layer*>(target);
-			const bool handled = mutableTarget->OnEvent(e);
-			return handled;
+			engine::core::Layer* target = capture.owner;
+			return target->OnEvent(e, ctx);
 		}
 
 		// Top -> bottom (UI/Overlay first).
@@ -29,13 +30,15 @@ namespace engine::events
 		for (std::size_t i = 0; i < n; i++)
 		{
 			engine::core::Layer* L = layers.at(i);
+
 			if (!L) continue;
-			if (L->OnEvent(e)) // Handled
+
+			if (L->OnEvent(e, ctx)) 
 			{
-				return true;
+				return true; // Handled
 			}
 		}
 
-		return false;
+		return false; // Unhandled
 	}
 }

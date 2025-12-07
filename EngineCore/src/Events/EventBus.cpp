@@ -79,7 +79,7 @@ namespace engine::events
 	EventBus::Impl::Impl()
 	{
 		imm.cap = kImmCap - 1u; frame.cap = kFrameCap - 1u;
-		imm.mask = imm.cap; frame.mask = frame.cap;
+		imm.mask = imm.cap - 1u; frame.mask = frame.cap - 1u;
 		imm.buf = new EventSlot[imm.cap]; frame.buf = new EventSlot[frame.cap];
 	}
 
@@ -128,7 +128,7 @@ namespace engine::events
 
 		if (!m_impl->frame.push(e))
 		{
-			// Drop policy: MouseMoved/MouseDelta are lossy;
+			// Drop policy: MouseMoved/MouseDelta are lossy.
 			if (t == EventType::MouseMoved || t == EventType::MouseDelta)
 			{
 				++m_droppedFrame; ++m_impl->droppedFr;

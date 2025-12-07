@@ -2,6 +2,7 @@
 #include "EngineCore/Renderer/detail/GL.hpp"
 #include "EngineCore/Core/Application.hpp"
 #include "EngineCore/Platform/Window.hpp"
+#include "EngineCore/Platform/Time.hpp"
 
 namespace engine::core
 {
@@ -31,8 +32,15 @@ namespace engine::core
 
 	void Application::Run()
 	{
+		using engine::platform::Time;
+		double lastTime = Time::nowSeconds();
+
 		while (!m_window->shouldClose())
 		{
+			double now = Time::nowSeconds();
+			float deltaTime = static_cast<float>(now - lastTime);
+			lastTime = now;
+
 			glfwPollEvents();
 
 			// Drain immediate (resize/focus/close).
@@ -43,7 +51,7 @@ namespace engine::core
 
 			// Layers OnUpdate hook.
 			for (const auto& l : m_layerstack->getLayers())
-				l->OnUpdate();
+				l->OnUpdate(deltaTime);
 
 			// Drain frame (keyboard/mouse/text/scroll).
 			m_impl->events.drainFrame(m_impl->dispatch, layerstack(), m_impl->capture);

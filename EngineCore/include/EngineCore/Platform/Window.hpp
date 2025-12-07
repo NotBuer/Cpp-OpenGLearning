@@ -24,7 +24,8 @@ namespace engine::platform
 		const uint16_t& getFramebufferWidth() const { return m_currentFbWidth == 0 ? 1 : m_currentFbWidth; }
 		const uint16_t& getFramebufferHeight() const { return m_currentFbHeight == 0 ? 1 : m_currentFbHeight; }
 
-		engine::events::InputState& inputState();
+		engine::events::InputState& inputState() { return *_state; }
+		const engine::events::InputState& inputState() const { return *_state; }
 
 		struct GlfwCallbackCtx;
 

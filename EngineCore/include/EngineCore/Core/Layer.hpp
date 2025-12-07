@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "EngineCore/Platform/Window.hpp"
+#include "EngineCore/Events/Context.hpp"
 
 namespace engine { namespace events { struct EventSlot; } }
 
@@ -14,9 +15,9 @@ namespace engine::core
 
 		virtual void OnAttach();
 		virtual void OnDetach();
-		virtual void OnUpdate();
+		virtual void OnUpdate(float dt);
 		virtual void OnRender();
-		virtual bool OnEvent(const engine::events::EventSlot& e);
+		virtual bool OnEvent(const engine::events::EventSlot& e, engine::events::EventContext& ctx);
 
 		const std::string& name() { return m_Name; }
 		const engine::platform::Window& window() const { return m_Window; }

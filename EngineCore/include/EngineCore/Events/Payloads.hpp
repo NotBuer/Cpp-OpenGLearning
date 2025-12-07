@@ -1,17 +1,20 @@
 #pragma once
 #include <cstdint>
 #include "Modifiers.hpp"
+#include "EngineCore/Platform/GlfwAdpter.hpp"
 
 namespace engine::events
 {
+	using KeyCode = engine::platform::KeyCode;
+
 	// Window/Application.
 	struct WindowClose { /* empty */ };
 	struct WindowFocusChanged { bool focused; std::uint8_t _pad[7]{}; };
 	struct WindowResized { int fbWidth; int fbHeight; };
 
 	// Keyboard/Text.
-	struct KeyPressed { int key; int scancode; std::uint16_t mods; std::uint8_t repeat; std::uint8_t _pad{}; };
-	struct KeyReleased { int key; int scancode; std::uint16_t mods; std::uint16_t _pad{}; };
+	struct KeyPressed { KeyCode key; int scancode; std::uint16_t mods; std::uint8_t repeat; std::uint8_t _pad{}; };
+	struct KeyReleased { KeyCode key; int scancode; std::uint16_t mods; std::uint16_t _pad{}; };
 	struct TextInput { std::uint32_t codepoint; std::uint32_t _pad{}; };
 
 	// Mouse.
@@ -19,7 +22,7 @@ namespace engine::events
 	struct MouseButtonReleased { int button; std::uint16_t mods; std::uint16_t _pad{}; };
 	struct MouseMoved { double x; double y; };		// logical pixels.
 	struct MouseDelta { double dx; double dy; };	// relative (locked).
-	struct MouseScrolled { double dx; double dy; }; // high-precision/
+	struct MouseScrolled { double dx; double dy; }; // high-precision.
 
 	// Size checks: each payload <= 32 bytes.
 	static_assert(sizeof(WindowClose)			<= 32);

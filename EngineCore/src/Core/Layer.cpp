@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "EngineCore/Core/Layer.hpp"
+#include "EngineCore/Events/Context.hpp"
 
 namespace engine::core
 {
@@ -22,7 +23,7 @@ namespace engine::core
 		std::cout << "Layer: " << m_Name << "-> default OnDetach" << std::endl;
 	}
 
-	void Layer::OnUpdate()
+	void Layer::OnUpdate(float dt)
 	{
 		std::cout << "Layer: " << m_Name << "-> default" << std::endl;
 	}
@@ -32,10 +33,12 @@ namespace engine::core
 		std::cout << "Layer: " << m_Name << "-> default" << std::endl;
 	}
 
-	bool Layer::OnEvent(const engine::events::EventSlot& e)
+	bool Layer::OnEvent(const engine::events::EventSlot& e, engine::events::EventContext& ctx)
 	{
-		(void)e;
 		std::cout << "Layer: " << m_Name << "-> default" << std::endl;
+
+		(void)e;
+		(void)ctx;
 		return false;
 	}
 }

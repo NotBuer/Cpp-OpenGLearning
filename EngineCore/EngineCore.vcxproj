@@ -146,7 +146,9 @@
     <ClInclude Include="include\EngineCore\Core\Layerstack.hpp" />
     <ClInclude Include="include\EngineCore\Events\CaptureState.hpp" />
     <ClInclude Include="include\EngineCore\Events\Categories.hpp" />
+    <ClInclude Include="include\EngineCore\Events\Context.hpp" />
     <ClInclude Include="include\EngineCore\Events\EventBus.hpp" />
+    <ClInclude Include="include\EngineCore\Platform\GlfwAdpter.hpp" />
     <ClInclude Include="include\EngineCore\Events\Header.hpp" />
     <ClInclude Include="include\EngineCore\Events\InputState.hpp" />
     <ClInclude Include="include\EngineCore\Events\Modifiers.hpp" />

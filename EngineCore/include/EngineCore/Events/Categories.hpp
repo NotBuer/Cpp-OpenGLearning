@@ -27,7 +27,7 @@ namespace engine::events
 		return static_cast<Category>(static_cast<std::uint16_t>(a) & static_cast<std::uint16_t>(b));
 	}
 
-	constexpr Category& operator!=(Category& a, Category b) { a = a | b; return a; }
+	constexpr Category& operator|=(Category& a, Category b) { a = a | b; return a; }
 	constexpr Category& operator&=(Category& a, Category b) { a = a & b; return a; }
 
 	[[nodiscard]] constexpr bool any(Category c) { return static_cast<std::uint16_t>(c) != 0; }

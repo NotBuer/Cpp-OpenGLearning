@@ -2,9 +2,11 @@
 #include "EngineCore/Platform/Window.hpp"
 #include "EngineCore/Events/Slot.hpp"
 #include "EngineCore/Platform/Time.hpp"
+#include "EngineCore/Platform/GlfwAdpter.hpp"
 
 namespace engine::platform
 {
+	// TODO: Create a real robust logging system...
 	static void logf(const char* fmt, ...)
 	{
 		va_list args;
@@ -12,95 +14,6 @@ namespace engine::platform
 		std::vfprintf(stdout, fmt, args);
 		std::fputc('\n', stdout);
 		va_end(args);
-	}
-
-	static inline const char* action_name(int action)
-	{
-		switch (action)
-		{
-			case GLFW_PRESS:		return "PRESSED";
-			case GLFW_RELEASE:		return "RELEASED";
-			case GLFW_REPEAT:		return "REPEATED";
-			default:				return "UNKNOWN";
-		}
-	}
-
-	static std::string key_name(int key, int scancode)
-	{
-		if (const char* printable = glfwGetKeyName(key, scancode))
-		{
-			return std::string(printable);
-		}
-
-		switch (key)
-		{
-			case GLFW_KEY_SPACE:			return "SPACE";
-			case GLFW_KEY_ENTER:			return "ENTER";
-			case GLFW_KEY_TAB:				return "TAB";
-			case GLFW_KEY_BACKSPACE:		return "BACKSPACE";
-			case GLFW_KEY_ESCAPE:			return "ESCAPE";
-			case GLFW_KEY_LEFT_SHIFT:		return "LEFT SHIFT";
-			case GLFW_KEY_RIGHT_SHIFT:		return "RIGHT SHIFT";
-			case GLFW_KEY_LEFT_CONTROL:		return "LEFT CONTROL";
-			case GLFW_KEY_RIGHT_CONTROL:	return "RIGHT CONTROL";
-			case GLFW_KEY_LEFT_ALT:			return "LEFT ALT";
-			case GLFW_KEY_RIGHT_ALT:		return "RIGHT ALT";
-			case GLFW_KEY_LEFT_SUPER:		return "LEFT SUPER";
-			case GLFW_KEY_RIGHT_SUPER:		return "RIGHT SUPER";
-			case GLFW_KEY_CAPS_LOCK:		return "CAPS LOCK";
-			case GLFW_KEY_UP:				return "UP";
-			case GLFW_KEY_DOWN:				return "DOWN";
-			case GLFW_KEY_LEFT:				return "LEFT";
-			case GLFW_KEY_RIGHT:			return "RIGHT";
-			default: {
-				char buf[32];
-				std::snprintf(buf, sizeof(buf), "KeyCode(%d)", key);
-				return std::string(buf);
-			}
-		}
-	}
-
-	static std::string mouse_button_name(int button)
-	{
-		switch (button)
-		{
-			case GLFW_MOUSE_BUTTON_LEFT:		return "MOUSE LEFT BUTTON";
-			case GLFW_MOUSE_BUTTON_RIGHT:		return "MOUSE RIGHT BUTTON";
-			case GLFW_MOUSE_BUTTON_MIDDLE:		return "MOUSE MIDDLE BUTTON";
-			default: {
-				char buf[32];
-				std::snprintf(buf, sizeof(buf), "MouseButton(%d)", button);
-				return std::string(buf);
-			}
-		}
-	}
-
-	static std::string mods_string(int glfwMods)
-	{
-		std::string s;
-		if (glfwMods & GLFW_MOD_SHIFT)		s += "Shift+";
-		if (glfwMods & GLFW_MOD_CONTROL)	s += "Ctrl+";
-		if (glfwMods & GLFW_MOD_ALT)		s += "Alt+";
-		if (glfwMods & GLFW_MOD_SUPER)		s += "Super+";
-		if (glfwMods & GLFW_MOD_CAPS_LOCK)	s += "CapsLock+";
-		if (glfwMods & GLFW_MOD_NUM_LOCK)	s += "NumLock+";
-		if (!s.empty()) s.pop_back();
-		return s;
-	}
-
-	// TODO: later remember to add newer mods here too.
-	static std::uint16_t mods_bits(int glfwMods) noexcept
-	{
-		using Mods = engine::events::Mods;
-		using U16 = std::uint16_t;
-		U16 mods = 0;
-		if (glfwMods & GLFW_MOD_SHIFT)		mods |= static_cast<U16>(Mods::Shift);
-		if (glfwMods & GLFW_MOD_CONTROL)	mods |= static_cast<U16>(Mods::Control);
-		if (glfwMods & GLFW_MOD_ALT)		mods |= static_cast<U16>(Mods::Alt);
-		if (glfwMods & GLFW_MOD_SUPER)		mods |= static_cast<U16>(Mods::Super);
-		if (glfwMods & GLFW_MOD_CAPS_LOCK)	mods |= static_cast<U16>(Mods::CapsLock);
-		if (glfwMods & GLFW_MOD_NUM_LOCK)	mods |= static_cast<U16>(Mods::NumLock);
-		return mods;
 	}
 
 	struct Window::GlfwCallbackCtx
@@ -136,6 +49,14 @@ namespace engine::platform
 		_ctx->bus = &bus;
 		_ctx->input = _state.get();
 
+		// TODO:
+		// Later on when come the time to implement ImGUI,
+		// Move this vsync setting to final user settings, with other things related to settings serialization/deserialization on startup time.
+		// For now making it off by default for testing performance.
+		glfwSwapInterval(0);
+
+		glfwSetInputMode(_win, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
 		glfwMakeContextCurrent(_win);
 		glfwSetWindowUserPointer(_win, _ctx);
 
@@ -162,11 +83,6 @@ namespace engine::platform
 		delete _ctx; _ctx = nullptr;
 	}
 
-	engine::events::InputState& Window::inputState()
-	{
-		return *_state;
-	}
-
 	static inline double Now() { return engine::platform::Time::nowSeconds(); }
 
 	static void KeyCb(GLFWwindow* w, int key, int sc, int action, int mods)
@@ -174,7 +90,9 @@ namespace engine::platform
 		using namespace engine::events;
 		if (auto* ctx = Ctx(w))
 		{
-			ctx->input->setKeyDown(key, action != GLFW_RELEASE);
+			engine::platform::KeyCode keyCode = engine::platform::key_code(key);
+
+			ctx->input->setKeyDown(keyCode, action != GLFW_RELEASE);
 
 			const bool isRelease = (action == GLFW_RELEASE);
 			EventSlot e{};
@@ -187,13 +105,13 @@ namespace engine::platform
 
 			if (isRelease)
 			{
-				e.payload.kr.key = key;
+				e.payload.kr.key = keyCode;
 				e.payload.kr.scancode = sc;
 				e.payload.kr.mods = mods_bits(mods);
 			}
 			else
 			{
-				e.payload.kp.key = key;
+				e.payload.kp.key = keyCode;
 				e.payload.kp.scancode = sc;
 				e.payload.kp.mods = mods_bits(mods);
 				e.payload.kp.repeat = (action == GLFW_REPEAT) ? 1u : 0u;
@@ -233,6 +151,7 @@ namespace engine::platform
 		using namespace engine::events;
 		if (auto* ctx = Ctx(w))
 		{
+			ctx->input->setMouseDown(button, action == GLFW_PRESS);
 			EventSlot e{};
 			const bool isRelease = (action == GLFW_RELEASE);
 			e.header.type = static_cast<std::uint16_t>(isRelease ? EventType::MouseButtonReleased : EventType::MouseButtonPressed);
@@ -254,7 +173,7 @@ namespace engine::platform
 			ctx->bus->pushFrame(e);
 		}
 
-		const std::string btn = mouse_button_name(button);
+		const std::string btn = mousebutton_name(button);
 		const char* act = action_name(action);
 		const std::string m = mods_string(mods);
 
