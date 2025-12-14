@@ -66,8 +66,15 @@ namespace engine::renderer
 
 	void SpriteBatch::SetProjection(const glm::mat4& proj) { m_Proj = proj; }
 
-	void SpriteBatch::Begin()
+	void SpriteBatch::Begin(const glm::mat4& view, const glm::mat4& proj)
 	{
+		m_View = view;
+		m_Proj = proj;
+
+		m_Device->SetDepthTest(false);
+		m_Device->SetBlend(false);
+		m_Device->setCullFace(true);
+
 		m_Begun = true;
 		StartBatch();
 	}
@@ -87,7 +94,7 @@ namespace engine::renderer
 		if (m_Vertices.size() + 4 > MaxVerts || m_Indices.size() + 6 > MaxIndices)
 		{
 			End();
-			Begin();
+			Begin(m_View, m_Proj);
 		}
 
 		float x = min.x, y = min.y;

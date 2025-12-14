@@ -57,7 +57,7 @@ namespace engine::renderer
 		if (enabled) glEnable(GL_BLEND); else glDisable(GL_BLEND);
 	}
 
-	void RenderDevice::SetCullFace(bool enabled)
+	void RenderDevice::setCullFace(bool enabled)
 	{
 		if (enabled) glEnable(GL_CULL_FACE); else glDisable(GL_CULL_FACE);
 	}

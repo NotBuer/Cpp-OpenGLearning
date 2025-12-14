@@ -24,7 +24,7 @@ namespace engine::renderer
 
 		void SetProjection(const glm::mat4& proj);
 
-		void Begin();
+		void Begin(const glm::mat4& view, const glm::mat4& proj);
 		void End();
 
 		void DrawQuad(const glm::vec2& min, const glm::vec2& size, const glm::vec4& color);
@@ -45,7 +45,7 @@ namespace engine::renderer
 		std::vector<QuadVertex> m_Vertices;
 		std::vector<std::uint32_t> m_Indices;
 
-		glm::mat4 m_Proj{ 1.0f };
+		glm::mat4 m_View{ 1.0f }, m_Proj{ 1.0f };
 		bool m_Begun{ false };
 
 		static constexpr std::uint32_t MaxQuads = 1000;

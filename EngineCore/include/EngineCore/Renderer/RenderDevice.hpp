@@ -20,7 +20,7 @@ namespace engine::renderer
 		void Clear(const glm::vec4& color, bool depth);
 		void SetDepthTest(bool enabled);
 		void SetBlend(bool enabled);
-		void SetCullFace(bool enabled);
+		void setCullFace(bool enabled);
 		void setViewPort(const Viewport& viewport);
 
 		void BindVertexArray(uint32_t vao);

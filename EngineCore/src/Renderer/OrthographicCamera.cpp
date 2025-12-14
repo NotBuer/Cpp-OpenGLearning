@@ -10,6 +10,8 @@ namespace engine::renderer
 		m_height(height),
 		m_near(near),
 		m_far(far),
+		m_position(0.0f),
+		m_rotation(0.0f),
 		m_view(1.0f),
 		m_proj(1.0f),
 		m_viewProj(1.0f)
@@ -27,6 +29,16 @@ namespace engine::renderer
 		RecalcViewProj();
 	}
 
+	void OrthographicCamera::SetPosition(const glm::vec3& p)
+	{
+		m_position = p;
+	}
+
+	void OrthographicCamera::SetRotation(float radians)
+	{
+		m_rotation = radians;
+	}
+
 	const glm::mat4& OrthographicCamera::view() const { return m_view; }
 	const glm::mat4& OrthographicCamera::proj() const { return m_proj; }
 	const glm::mat4& OrthographicCamera::viewProj() const { return m_viewProj; }
@@ -34,6 +46,15 @@ namespace engine::renderer
 	void OrthographicCamera::RecalcProj()
 	{
 		m_proj = glm::ortho(0.0f, m_width, 0.0f, m_height, m_near, m_far);
+	}
+
+	void OrthographicCamera::RecalcView()
+	{
+		glm::mat4 transform{ 1.0f };
+		transform = glm::translate(transform, m_position);
+		transform = glm::rotate(transform, m_rotation, glm::vec3(0.f, 0.f, 1.f));
+
+		m_view = glm::inverse(transform);
 	}
 
 	void OrthographicCamera::RecalcViewProj()
