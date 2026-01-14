@@ -3,7 +3,7 @@
 
 namespace engine::renderer
 {
-	class PerspectiveCamera final : Camera 
+	class PerspectiveCamera final : public Camera 
 	{
 	public:
 		PerspectiveCamera(float fovDeg, float aspect, float near, float far);

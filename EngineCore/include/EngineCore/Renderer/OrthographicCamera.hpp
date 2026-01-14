@@ -3,7 +3,7 @@
 
 namespace engine::renderer
 {
-	class OrthographicCamera final : Camera
+	class OrthographicCamera final : public Camera
 	{
 	public:
 		OrthographicCamera(float width, float height, float near = -1.f, float far = 1.f);
@@ -12,8 +12,6 @@ namespace engine::renderer
 		void SetViewPort(float width, float height, float near = -1.f, float far = 1.f);
 		void SetPosition(const glm::vec3& p);
 		void SetRotation(float radians);
-
-		// TODO: Continue with the orthographic camera movement implementation.
 
 		const glm::mat4& view() const override;
 		const glm::mat4& proj() const override;
@@ -29,7 +27,7 @@ namespace engine::renderer
 		float m_near;
 		float m_far;
 
-		glm::vec3 m_position;
+		glm::vec3 m_pos;
 		float m_rotation;
 
 		glm::mat4 m_view;
