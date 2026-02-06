@@ -182,10 +182,10 @@ void DefaultLayer::OnRender()
 	//	glm::mat4(1.0f), static_cast<float>(engine::platform::Time::nowSeconds()) * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
 	//view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -5.0f));
 
-	//glm::mat4 model = glm::rotate(
-	//	glm::mat4(1.0f), static_cast<float>(engine::platform::Time::nowSeconds()) * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	glm::mat4 model = glm::rotate(
+		glm::mat4(1.0f), static_cast<float>(engine::platform::Time::nowSeconds()) * glm::radians(-55.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 
-	glm::mat4 model = {1.0f};
+	//glm::mat4 model = {1.0f};
 
 	m_SpriteBatch->SetProjection(proj);
 	m_SpriteBatch->Begin(view, proj);

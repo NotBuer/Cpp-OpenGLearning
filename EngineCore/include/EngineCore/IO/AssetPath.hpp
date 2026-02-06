@@ -1,9 +1,6 @@
 #pragma once
 #include <string>
 
-namespace engine::io
-{
-
 // If OpenGLearning defines ASSETS_DIR macro (e.g., R"($(ProjectDir)..\assets)"),
 // use it; otherwise default to "assets".
 #ifdef ASSETS_DIR
@@ -14,6 +11,8 @@ namespace engine::io
 	#pragma message("ASSETS_DIR not defined; using default 'assets'")
 #endif // !ASSETS_DIR
 
+namespace engine::io
+{
 	inline std::string shader(const char* fileName)
 	{
 		return std::string(kAssetsRoot) + "/shaders/" + fileName;

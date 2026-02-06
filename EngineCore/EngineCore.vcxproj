@@ -142,6 +142,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\EngineCore\Core\Application.hpp" />
+    <ClInclude Include="include\EngineCore\Core\Assert.hpp" />
+    <ClInclude Include="include\EngineCore\Core\BuildConfig.hpp" />
     <ClInclude Include="include\EngineCore\Core\Layer.hpp" />
     <ClInclude Include="include\EngineCore\Core\Layerstack.hpp" />
     <ClInclude Include="include\EngineCore\Events\CaptureState.hpp" />
@@ -170,9 +172,13 @@
     <ClInclude Include="include\EngineCore\Renderer\RenderDevice.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\SpriteBatch.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\VoxelVertex.hpp" />
+    <ClInclude Include="include\EngineCore\Scene\Containers\SparseSet.hpp" />
+    <ClInclude Include="include\EngineCore\Scene\Entities\EntityId.hpp" />
+    <ClInclude Include="include\EngineCore\Scene\Scene.hpp" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Scene\Scene.cpp" />
     <ClInclude Include="include\EngineCore\Events\Dispatcher.hpp" />
     <ClCompile Include="src\Core\Application.cpp" />
     <ClCompile Include="pch.cpp">
