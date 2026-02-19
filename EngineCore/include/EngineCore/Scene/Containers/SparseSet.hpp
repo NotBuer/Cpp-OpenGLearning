@@ -1,6 +1,7 @@
 #pragma once
 #include <cstddef>
 #include <array>
+#include <span>
 #include "EngineCore/Scene/Entities/EntityId.hpp"
 
 namespace engine::scene 
@@ -12,7 +13,16 @@ namespace engine::scene
 	class SparseSet
 	{
 	public:
-		// TODO: Ctor that initializes sparse to kInvalidIndex and dense's to kMaxEntities.
+		SparseSet()
+			: m_count(0)
+		{
+			m_sparse.fill(kInvalidIndex);
+			m_dense_entities.fill(kInvalidEntity);
+			m_dense_components.fill(T{});
+		}
+
+		static_assert(std::is_default_constructible_v<T>, "SparseSet<T> requires T to be default-constructible.");
+		static_assert(std::is_copy_assignable_v<T>, "SparseSet<T> requires T to be copy-assignable for std::array::fill.");
 
 		void validate() const;
 
@@ -20,14 +30,14 @@ namespace engine::scene
 		// Create 3 entities, add component to only one, confirm has() returns correctly.
 		bool has(EntityId e) const
 		{
-			if (e.index >= sparse.size()) return false;
+			if (e.index >= m_sparse.size()) return false;
 
-			const std::int32_t denseIndex = sparse[e.index];
+			const std::int32_t denseIndex = m_sparse[e.index];
 			if (denseIndex == kInvalidIndex) return false;
 			if (denseIndex < 0) return false;
-			if (static_cast<std::size_t>(denseIndex) >= count) return false;
+			if (static_cast<std::size_t>(denseIndex) >= m_count) return false;
 
-			if (dense_entities[static_cast<std::size_t>(denseIndex)] != e) return false;
+			if (m_dense_entities[static_cast<std::size_t>(denseIndex)] != e) return false;
 
 			return true;
 		}
@@ -36,17 +46,19 @@ namespace engine::scene
 		// After adding 3 entities, dump arrays and confirm mapping matches the expectation.
 		T& add(EntityId e, T value)
 		{
-			if (e.index >= sparse.size()) throw std::out_of_range("EntityId index out of range in SparseSet::add");
+			if (e.index >= m_sparse.size()) throw std::out_of_range("EntityId index out of range in SparseSet::add");
 			if (has(e)) throw std::runtime_error("Component already exists for entity in SparseSet::add");
 
-			if (count >= kMaxEntities) throw std::runtime_error("SparseSet capacity exceeded in SparseSet::add");
+			if (m_count >= kMaxEntities) throw std::runtime_error("SparseSet capacity exceeded in SparseSet::add");
 
-			dense_entities[count] = e;
-			dense_components[count] = value;
-			sparse[e.index] = static_cast<std::int32_t>(count);
-			count++;
+			m_dense_entities[m_count] = e;
+			m_dense_components[m_count] = value;
+			m_sparse[e.index] = static_cast<std::int32_t>(m_count);
+			m_count++;
 
-			return dense_components[static_cast<std::size_t>(sparse[e.index])];
+			validate();
+
+			return m_dense_components[static_cast<std::size_t>(m_sparse[e.index])];
 		}
 
 		// TODO: Test by:
@@ -54,71 +66,68 @@ namespace engine::scene
 		T* tryGet(EntityId e) noexcept
 		{
 			if (!has(e)) return nullptr;
-			return &dense_components[static_cast<std::size_t>(sparse[e.index])];
+			return &m_dense_components[static_cast<std::size_t>(m_sparse[e.index])];
 		}
 
 		const T* tryGet(EntityId e) const noexcept
 		{
 			if (!has(e)) return nullptr;
-			return &dense_components[static_cast<std::size_t>(sparse[e.index])];
+			return &m_dense_components[static_cast<std::size_t>(m_sparse[e.index])];
 		}
 
 		void remove(EntityId e)
 		{
 			if (!has(e)) return;
 
-			EntityId last = dense_entities[count - 1];
+			const std::uint32_t denseIndex = static_cast<std::uint32_t>(m_sparse[e.index]);
+			const std::uint32_t lastIndex = m_count - 1;
 
-			// Move last element to the removed element's place.
-
-			if (dense_entities[sparse[e.index]] == e) {
-				dense_entities[sparse[e.index]] = dense_entities[count - 1];
-				dense_components[sparse[e.index]] = dense_components[count - 1];
-
+			if (denseIndex != lastIndex)
+			{
+				const EntityId movedEntity = m_dense_entities[lastIndex];
+				m_dense_entities[denseIndex] = movedEntity;
+				m_dense_components[denseIndex] = m_dense_components[lastIndex];
+				m_sparse[movedEntity.index] = static_cast<std::int32_t>(denseIndex);
 			}
 
-			// 0, 1, 2
-			// 1 removed
-			// 
+			m_sparse[e.index] = kInvalidIndex;
+			m_count--;
 
-			sparse[e.index]
+			validate();
 		}
 
-		std::size_t size() const { return count; }
+		[[nodiscard]] std::span<const T> components() const { return { m_dense_components.data(), m_count }; }
 
-		void clear()
-		{
-
-		}
+		[[nodiscard]] std::size_t size() const { return m_count; }
 
 	private:
-		std::array<T, kMaxEntities> dense_components;
-		std::array<EntityId, kMaxEntities> dense_entities;
-		std::array<std::int32_t, kMaxEntities> sparse;
+		std::array<T, kMaxEntities> m_dense_components;
+		std::array<EntityId, kMaxEntities> m_dense_entities;
+		std::array<std::int32_t, kMaxEntities> m_sparse;
 
-		std::size_t count = 0;
+		std::size_t m_count = 0;
 
-		// dense_entities[denseIndex] = entity.
-		// dense_components[denseIndex] = component.
-		// sparse[entityIndex] = dense index (or invalid index if missing).
+		// m_dense_entities[denseIndex] = entity.
+		// m_dense_components[denseIndex] = component.
+		// m_sparse[entityIndex] = dense index (or invalid index if missing).
 	};
 
 	template<typename T>
 	inline void SparseSet<T>::validate() const
 	{
-		ENGINE_ASSERT(count <= kMaxEntities);
+		ENGINE_ASSERT(m_count <= kMaxEntities);
 
-		ENGINE_ASSERT(dense_entities.size() == dense_components.size());
+		ENGINE_ASSERT(m_dense_entities.size() == m_dense_components.size());
 
-		// Dense to Sparse
-		for (std::size_t i = 0; i < count; i++)
+		// Dense to Sparse mapping
+		for (std::size_t i = 0; i < m_count; i++)
 		{
-			ENGINE_ASSERT(dense_entities[i].index < kMaxEntities);
+			ENGINE_ASSERT(m_dense_entities[i].index < kMaxEntities);
 
-			EntityId e = dense_entities[i];
+			EntityId e = m_dense_entities[i];
 
-			ENGINE_ASSERT(sparse[e.index] == i);
-			ENGINE_ASSERT(sparse[e.index] < count)
+			ENGINE_ASSERT(m_sparse[e.index] == i);
+			ENGINE_ASSERT(m_sparse[e.index] < m_count)
 
 			// Assertion explanation example:
 			// 
@@ -129,23 +138,23 @@ namespace engine::scene
 			// [E5][E2][E9]
 			//
 			// Sparse:
-			//	- sparse[5] = 0
-			//	- sparse[2] = 1
-			//	- sparse[9] = 2
+			//	- m_sparse[5] = 0
+			//	- m_sparse[2] = 1
+			//	- m_sparse[9] = 2
 			//
 			// Iterations:
-			// 0 -> dense_entities[0] = E5 -> sparse[5] = 0
-			// 1 -> dense_entities[1] = E2 -> sparse[2] = 1
-			// 2 -> dense_entities[2] = E9 -> sparse[9] = 2
+			// 0 -> m_dense_entities[0] = E5 -> m_sparse[5] = 0
+			// 1 -> m_dense_entities[1] = E2 -> m_sparse[2] = 1
+			// 2 -> m_dense_entities[2] = E9 -> m_sparse[9] = 2
 		}
 
-		// Sparse to Dense
+		// Sparse to Dense mapping
 		for (std::size_t i = 0; i < kMaxEntities; i++)
 		{
-			if (sparse[i] == kInvalidIndex) continue;
+			if (m_sparse[i] == kInvalidIndex) continue;
 
-			ENGINE_ASSERT(sparse[i] < count);
-			ENGINE_ASSERT(dense_entities[sparse[i]].index == i)
+			ENGINE_ASSERT(m_sparse[i] < m_count);
+			ENGINE_ASSERT(m_dense_entities[m_sparse[i]].index == i)
 
 			// Assertion explanation example:
 			// 
@@ -159,9 +168,9 @@ namespace engine::scene
 			// [0] [1] [2] [3] [4]
 			//
 			// Iterations:
-			// 0 -> sparse[0] = 0 -> dense_entities[0] = E0 -> E0.index == 0
-			// 1 -> sparse[1] = 1 -> dense_entities[1] = E1 -> E1.index == 1
-			// 2 -> sparse[2] = 2 -> dense_entities[2] = E2 -> E2.index == 2
+			// 0 -> m_sparse[0] = 0 -> m_dense_entities[0] = E0 -> E0.index == 0
+			// 1 -> m_sparse[1] = 1 -> m_dense_entities[1] = E1 -> E1.index == 1
+			// 2 -> m_sparse[2] = 2 -> m_dense_entities[2] = E2 -> E2.index == 2
 			// ...
 		}
 	}
