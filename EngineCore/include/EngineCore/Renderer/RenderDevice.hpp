@@ -27,5 +27,8 @@ namespace engine::renderer
 
 		void DrawIndexed(uint32_t indexCount);
 		void DrawArrays(Primitive primitive, uint32_t first, uint32_t count);
+
+	private:
+		bool m_Initialized = false;
 	};
 }

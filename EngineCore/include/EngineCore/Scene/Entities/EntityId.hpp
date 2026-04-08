@@ -1,7 +1,7 @@
 #pragma once
 #include <cstdint>
 
-namespace engine::scene
+namespace engine::scene::entities
 {
 	struct EntityId
 	{

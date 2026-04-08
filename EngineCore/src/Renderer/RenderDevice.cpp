@@ -6,6 +6,8 @@ namespace engine::renderer
 {
 	void RenderDevice::Init()
 	{
+		if (m_Initialized) return;
+
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -14,6 +16,8 @@ namespace engine::renderer
 		glFrontFace(GL_CCW);
 
 		glDisable(GL_DEPTH_TEST);
+
+		m_Initialized = true;
 	}
 
 	void RenderDevice::BeginPass(const RenderPassDesc& d)

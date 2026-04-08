@@ -8,6 +8,9 @@
 #include "EngineCore/Renderer/PerspectiveCamera.hpp"
 #include "EngineCore/Renderer/OrthographicCamera.hpp"
 #include "EngineCore/Events/Context.hpp"
+#include "EngineCore/Scene/Scene.hpp"
+#include "EngineCore/Renderer/RenderView.hpp"
+#include "EngineCore/Renderer/SceneRenderer.hpp"
 
 class DefaultLayer final : public engine::core::Layer
 {
@@ -21,7 +24,12 @@ public:
 	bool OnEvent(const engine::events::EventSlot& e, engine::events::EventContext& ctx) override;
 
 private:
+	std::unique_ptr<engine::scene::Scene> m_Scene = nullptr;
+	engine::renderer::RenderView m_RenderView;
+
 	engine::renderer::RenderDevice m_RenderDevice;
+	engine::renderer::SceneRenderer m_SceneRenderer{ m_RenderDevice };
+
 	engine::renderer::RenderPassDesc world3D{ true, true, {0.15f,0.15f,0.18f,1.f} };
 
 	std::unique_ptr<engine::renderer::PerspectiveCamera> m_PerspectiveCam = nullptr;

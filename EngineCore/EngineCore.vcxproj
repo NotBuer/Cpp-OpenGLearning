@@ -170,14 +170,19 @@
     <ClInclude Include="include\EngineCore\Renderer\QuadVertex.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\RenderCommon.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\RenderDevice.hpp" />
+    <ClInclude Include="include\EngineCore\Renderer\SceneRenderer.hpp" />
+    <ClInclude Include="include\EngineCore\Renderer\RenderView.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\SpriteBatch.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\VoxelVertex.hpp" />
+    <ClInclude Include="include\EngineCore\Scene\Components\Transform.hpp" />
     <ClInclude Include="include\EngineCore\Scene\Containers\SparseSet.hpp" />
     <ClInclude Include="include\EngineCore\Scene\Entities\EntityId.hpp" />
+    <ClInclude Include="include\EngineCore\Scene\Registries\TransformRegistry.hpp" />
     <ClInclude Include="include\EngineCore\Scene\Scene.hpp" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Renderer\SceneRenderer.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClInclude Include="include\EngineCore\Events\Dispatcher.hpp" />
     <ClCompile Include="src\Core\Application.cpp" />

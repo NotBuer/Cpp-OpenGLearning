@@ -17,6 +17,7 @@ namespace engine::renderer
 		m_viewProj(1.0f)
 	{
 		RecalcProj();
+		RecalcView();
 		RecalcViewProj();
 	}
 
