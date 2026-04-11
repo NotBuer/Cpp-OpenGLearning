@@ -56,7 +56,7 @@ void DefaultLayer::OnAttach()
 	ENGINE_ASSERT(m_Scene->isAlive(entity));
 	ENGINE_ASSERT(m_Scene->hasComponent<components::Transform>(entity));
 
-	m_Scene->destroy(entity);
+	m_Scene->destroyEntity(entity);
 
 	ENGINE_ASSERT(!m_Scene->isAlive(entity));
 	ENGINE_ASSERT(!m_Scene->hasComponent<components::Transform>(entity));

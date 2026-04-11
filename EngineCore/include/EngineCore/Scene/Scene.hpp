@@ -6,9 +6,6 @@
 #include "EngineCore/Scene/Entities/EntityId.hpp"
 #include "EngineCore/Scene/Entities/EntityManager.hpp"
 
-namespace entities = engine::scene::entities;
-namespace components = engine::scene::components;
-
 namespace engine::scene
 {
 	class Scene
@@ -22,7 +19,7 @@ namespace engine::scene
 		template<typename T>
 		auto& registry()
 		{
-			if constexpr (std::is_same_v<T, components::Transform>)
+			if constexpr (std::is_same_v<T, engine::scene::components::Transform>)
 			{
 				return m_transforms;
 			}
@@ -36,7 +33,7 @@ namespace engine::scene
 		template<typename T>
 		const auto& registry() const
 		{
-			if constexpr (std::is_same_v<T, components::Transform>)
+			if constexpr (std::is_same_v<T, engine::scene::components::Transform>)
 			{
 				return m_transforms;
 			}
@@ -48,14 +45,14 @@ namespace engine::scene
 		}
 
 		template<typename T>
-		bool hasComponent(entities::EntityId id) const
+		bool hasComponent(engine::scene::entities::EntityId id) const
 		{
 			if (!isAlive(id)) return false;
 			return registry<T>().has(id);
 		}
 
 		template<typename T>
-		T& getComponent(entities::EntityId id)
+		T& getComponent(engine::scene::entities::EntityId id)
 		{
 			if (!isAlive(id))
 				throw std::runtime_error("Cannot get component from a dead entity.");
@@ -68,12 +65,12 @@ namespace engine::scene
 		}
 
 		template<typename T>
-		const T& getComponent(entities::EntityId id) const
+		const T& getComponent(engine::scene::entities::EntityId id) const
 		{
 			if (!isAlive(id))
 				throw std::runtime_error("Cannot get component from a dead entity.");
 
-			auto* component = registry<T>().tryGet(id)
+			auto* component = registry<T>().tryGet(id);
 			if (component == nullptr)
 				throw std::runtime_error("Entity does not have the requested component.");
 
@@ -81,7 +78,7 @@ namespace engine::scene
 		}
 
 		template<typename T>
-		T& addComponent(entities::EntityId id, const T& value)
+		T& addComponent(engine::scene::entities::EntityId id, const T& value)
 		{
 			if (!isAlive(id))
 				throw std::runtime_error("Cannot add component to a dead entity.");
@@ -90,7 +87,7 @@ namespace engine::scene
 		}
 
 		template<typename T>
-		void removeComponent(entities::EntityId id)
+		void removeComponent(engine::scene::entities::EntityId id)
 		{
 			if (!isAlive(id))
 				return;
@@ -100,15 +97,15 @@ namespace engine::scene
 
 		const std::string& getName() const { return m_name; }
 
-		entities::EntityId createEntity();
-		void destroyEntity(entities::EntityId id);
-		bool isAlive(entities::EntityId id) const;
+		engine::scene::entities::EntityId createEntity();
+		void destroyEntity(engine::scene::entities::EntityId id);
+		bool isAlive(engine::scene::entities::EntityId id) const;
 
 	private:
 		std::string m_name;
 
 		engine::scene::entities::EntityManager m_entityManager;
 
-		engine::scene::containers::SparseSet<components::Transform> m_transforms;
+		engine::scene::containers::SparseSet<engine::scene::components::Transform> m_transforms;
 	};
 }
