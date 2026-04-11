@@ -12,6 +12,9 @@
 #include "EngineCore/Platform/GlfwAdpter.hpp"
 #include "EngineCore/Events/Types.hpp"
 
+namespace entities = engine::scene::entities;
+namespace components = engine::scene::components;
+
 DefaultLayer::DefaultLayer(const std::string& name, const engine::platform::Window& window) :
 	engine::core::Layer(name, window),
 	m_Scene(std::make_unique<engine::scene::Scene>("Default Scene")),
@@ -46,6 +49,22 @@ void DefaultLayer::OnAttach()
 	//m_RenderDevice.Init();
 
 	m_RenderView.reserve(64, 1000);
+
+	auto entity = m_Scene->createEntity();
+	m_Scene->addComponent<components::Transform>(entity, components::Transform{});
+
+	ENGINE_ASSERT(m_Scene->isAlive(entity));
+	ENGINE_ASSERT(m_Scene->hasComponent<components::Transform>(entity));
+
+	m_Scene->destroy(entity);
+
+	ENGINE_ASSERT(!m_Scene->isAlive(entity));
+	ENGINE_ASSERT(!m_Scene->hasComponent<components::Transform>(entity));
+
+	auto otherEntity = m_Scene->createEntity();
+
+	ENGINE_ASSERT(entity != otherEntity);
+	ENGINE_ASSERT(!m_Scene->isAlive(entity));
 
 	//m_SpriteBatch->Init();
 	//m_Immediate3D->Init();

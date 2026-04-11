@@ -177,12 +177,14 @@
     <ClInclude Include="include\EngineCore\Scene\Components\Transform.hpp" />
     <ClInclude Include="include\EngineCore\Scene\Containers\SparseSet.hpp" />
     <ClInclude Include="include\EngineCore\Scene\Entities\EntityId.hpp" />
-    <ClInclude Include="include\EngineCore\Scene\Registries\TransformRegistry.hpp" />
+    <ClInclude Include="include\EngineCore\Scene\Entities\EntityLimits.hpp" />
+    <ClInclude Include="include\EngineCore\Scene\Entities\EntityManager.hpp" />
     <ClInclude Include="include\EngineCore\Scene\Scene.hpp" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Renderer\SceneRenderer.cpp" />
+    <ClCompile Include="src\Scene\Entities\EntityManager.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClInclude Include="include\EngineCore\Events\Dispatcher.hpp" />
     <ClCompile Include="src\Core\Application.cpp" />

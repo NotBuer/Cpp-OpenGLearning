@@ -4,6 +4,7 @@
 #include "EngineCore/Scene/Components/Transform.hpp"
 #include "EngineCore/Renderer/RenderView.hpp"
 #include "EngineCore/Scene/Entities/EntityId.hpp"
+#include "EngineCore/Scene/Entities/EntityManager.hpp"
 
 namespace entities = engine::scene::entities;
 namespace components = engine::scene::components;
@@ -88,8 +89,14 @@ namespace engine::scene
 
 		const std::string& getName() const { return m_name; }
 
+		entities::EntityId createEntity();
+		void destroy(entities::EntityId id);
+		bool isAlive(entities::EntityId id) const;
+
 	private:
 		std::string m_name;
+
+		engine::scene::entities::EntityManager m_entityManager;
 
 		engine::scene::containers::SparseSet<components::Transform> m_transforms;
 	};

@@ -1,4 +1,5 @@
 #pragma once
+#include "EngineCore/Renderer/RenderCommon.hpp"
 #include "EngineCore/Renderer/RenderView.hpp"
 
 namespace engine::renderer { class RenderDevice; }
