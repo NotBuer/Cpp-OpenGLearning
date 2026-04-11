@@ -50,14 +50,17 @@ namespace engine::scene
 		template<typename T>
 		bool hasComponent(entities::EntityId id) const
 		{
+			if (!isAlive(id)) return false;
 			return registry<T>().has(id);
 		}
 
 		template<typename T>
 		T& getComponent(entities::EntityId id)
 		{
-			auto* component = registry<T>().tryGet(id);
+			if (!isAlive(id))
+				throw std::runtime_error("Cannot get component from a dead entity.");
 
+			auto* component = registry<T>().tryGet(id);
 			if (component == nullptr)
 				throw std::runtime_error("Entity does not have the requested component.");
 
@@ -67,8 +70,10 @@ namespace engine::scene
 		template<typename T>
 		const T& getComponent(entities::EntityId id) const
 		{
-			auto* component = registry<T>().tryGet(id);
+			if (!isAlive(id))
+				throw std::runtime_error("Cannot get component from a dead entity.");
 
+			auto* component = registry<T>().tryGet(id)
 			if (component == nullptr)
 				throw std::runtime_error("Entity does not have the requested component.");
 
@@ -87,13 +92,16 @@ namespace engine::scene
 		template<typename T>
 		void removeComponent(entities::EntityId id)
 		{
+			if (!isAlive(id))
+				return;
+
 			registry<T>().remove(id);
 		}
 
 		const std::string& getName() const { return m_name; }
 
 		entities::EntityId createEntity();
-		void destroy(entities::EntityId id);
+		void destroyEntity(entities::EntityId id);
 		bool isAlive(entities::EntityId id) const;
 
 	private:

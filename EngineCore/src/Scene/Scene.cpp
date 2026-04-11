@@ -33,14 +33,17 @@ namespace engine::scene
 		return m_entityManager.create();
 	}
 
-	void Scene::destroy(entities::EntityId id)
+	void Scene::destroyEntity(entities::EntityId id)
 	{
-		m_entityManager.destroy(id);
+		if (!isAlive(id))
+			return;
 
 		// TODO: This is an intended tech debt.
 		// Leaving the removal of components "manually" for now.
 		// Later on will implement a better way to do it as the components grows.
 		removeComponent<components::Transform>(id);
+
+		m_entityManager.destroy(id);
 	}
 
 	bool Scene::isAlive(entities::EntityId id) const
