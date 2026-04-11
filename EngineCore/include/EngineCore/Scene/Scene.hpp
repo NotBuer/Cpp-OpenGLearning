@@ -20,7 +20,7 @@ namespace engine::scene
 		void buildRenderView(engine::renderer::RenderView& out) const;
 
 		template<typename T>
-		decltype(auto) registry()
+		auto& registry()
 		{
 			if constexpr (std::is_same_v<T, components::Transform>)
 			{
@@ -34,7 +34,7 @@ namespace engine::scene
 		}
 
 		template<typename T>
-		decltype(auto) registry() const
+		const auto& registry() const
 		{
 			if constexpr (std::is_same_v<T, components::Transform>)
 			{
@@ -78,6 +78,9 @@ namespace engine::scene
 		template<typename T>
 		T& addComponent(entities::EntityId id, const T& value)
 		{
+			if (!isAlive(id))
+				throw std::runtime_error("Cannot add component to a dead entity.");
+
 			return registry<T>().add(id, value);
 		}
 

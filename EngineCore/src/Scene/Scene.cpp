@@ -8,7 +8,8 @@ namespace components = engine::scene::components;
 namespace engine::scene
 {
 	Scene::Scene(const std::string& name) : 
-		m_name{ name }
+		m_name{ name },
+		m_entityManager{}
 	{
 		std::cout << "Scene '" << m_name << "' created.\n";
 	}

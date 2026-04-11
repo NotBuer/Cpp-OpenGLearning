@@ -11,9 +11,7 @@ namespace engine::scene::entities
 		EntityManager();
 
 		EntityId create();
-
 		void destroy(EntityId id);
-
 		bool isAlive(EntityId id) const;
 
 	private:
