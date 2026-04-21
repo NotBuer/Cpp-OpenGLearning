@@ -35,7 +35,7 @@ private:
 	std::unique_ptr<engine::renderer::PerspectiveCamera> m_PerspectiveCam = nullptr;
 	std::unique_ptr<engine::renderer::OrthographicCamera> m_OrthographicCam = nullptr;
 
-	std::unique_ptr<engine::renderer::SpriteBatch> m_SpriteBatch = nullptr;
+	//std::unique_ptr<engine::renderer::SpriteBatch> m_SpriteBatch = nullptr;
 	std::unique_ptr<engine::renderer::Immediate3D> m_Immediate3D = nullptr;
 
 	std::optional<engine::graphics::Texture2D> m_GrassTex;

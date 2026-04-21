@@ -10,6 +10,7 @@
 #include <cstring>
 #include <string_view>
 
+#include <span>
 #include <array>
 #include <memory>
 #include <stdexcept>

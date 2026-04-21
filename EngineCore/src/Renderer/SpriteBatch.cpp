@@ -2,6 +2,7 @@
 #include "EngineCore/Renderer/detail/GL.hpp"
 #include "EngineCore/Renderer/SpriteBatch.hpp"
 #include "EngineCore/IO/AssetPath.hpp"
+#include "EngineCore/Renderer/QuadVertex.hpp"
 
 namespace engine::renderer
 {
@@ -14,7 +15,7 @@ namespace engine::renderer
 
 	SpriteBatch::~SpriteBatch() { Shutdown(); }
 
-	void SpriteBatch::Init()
+	void SpriteBatch::Init(bool useShaders)
 	{
 		// Buffers.
 		glGenVertexArrays(1, &m_VAO);
@@ -33,19 +34,21 @@ namespace engine::renderer
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(QuadVertex), (const void*)offsetof(QuadVertex, pos));
 
 		glEnableVertexAttribArray(1); // color
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(QuadVertex), (const void*)offsetof(QuadVertex, color));
+		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(QuadVertex), (const void*)offsetof(QuadVertex, color));
 
 		glEnableVertexAttribArray(2); // uv
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(QuadVertex), (const void*)offsetof(QuadVertex, uv));
 
-		// Shader.
-		std::string log;
-		if (!m_Shader->Compile(
-			engine::graphics::Shader::LoadFromSource(engine::io::shader("basic.vert").c_str()), 
-			engine::graphics::Shader::LoadFromSource(engine::io::shader("basic.frag").c_str()),
-			&log))
+		if (useShaders)
 		{
-			std::cerr << "SHADER COMPILE ERROR: " << log << std::endl;
+			std::string log;
+			if (!m_Shader->Compile(
+				engine::graphics::Shader::LoadFromSource(engine::io::shader("basic.vert").c_str()),
+				engine::graphics::Shader::LoadFromSource(engine::io::shader("basic.frag").c_str()),
+				&log))
+			{
+				std::cerr << "SHADER COMPILE ERROR: " << log << std::endl;
+			}
 		}
 
 		m_Vertices.reserve(MaxVerts);
@@ -66,6 +69,7 @@ namespace engine::renderer
 
 	void SpriteBatch::SetProjection(const glm::mat4& proj) { m_Proj = proj; }
 
+	//[[deprecated("This function is obsolete due to the new architecture changes")]] 
 	void SpriteBatch::Begin(const glm::mat4& view, const glm::mat4& proj)
 	{
 		m_View = view;
@@ -112,6 +116,30 @@ namespace engine::renderer
 		m_Indices.push_back(base + 2);
 		m_Indices.push_back(base + 3);
 		m_Indices.push_back(base + 0);
+	}
+
+	void SpriteBatch::DrawQuads(std::span<const QuadVertex> quads)
+	{
+		StartBatch();
+
+		for (const QuadVertex& quad : quads)
+		{
+			float x = quad.pos.x, y = quad.pos.y;
+			float w = 1, h = 1; // Not using any other scale than 1 for now...
+			std::uint32_t base = static_cast<std::uint32_t>(m_Vertices.size());
+
+			m_Vertices.push_back({ { x,		y,	   0.f }, quad.color, {0.f, 0.f} });
+			m_Vertices.push_back({ { x + w, y,	   0.f }, quad.color, {1.f, 0.f} });
+			m_Vertices.push_back({ { x + w, y + h, 0.f }, quad.color, {1.f, 1.f} });
+			m_Vertices.push_back({ { x,		y + h, 0.f }, quad.color, {0.f, 1.f} });
+
+			m_Indices.push_back(base + 0);
+			m_Indices.push_back(base + 1);
+			m_Indices.push_back(base + 2);
+			m_Indices.push_back(base + 2);
+			m_Indices.push_back(base + 3);
+			m_Indices.push_back(base + 0);
+		}
 	}
 
 	void SpriteBatch::StartBatch()

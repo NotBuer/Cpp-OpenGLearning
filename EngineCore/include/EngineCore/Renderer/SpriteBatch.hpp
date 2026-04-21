@@ -4,6 +4,7 @@
 #include <vec4.hpp>
 #include <vector>
 #include <cstdint>
+#include <span>
 #include "EngineCore/Graphics/Shader.hpp"
 #include "EngineCore/Renderer/RenderDevice.hpp"
 #include "EngineCore/Renderer/QuadVertex.hpp"
@@ -19,15 +20,18 @@ namespace engine::renderer
 		explicit SpriteBatch(RenderDevice& device);
 		~SpriteBatch();
 
-		void Init();
+		void Init(bool useShaders = true);
 		void Shutdown();
 
 		void SetProjection(const glm::mat4& proj);
 
+		//[[deprecated("This function is obsolete due to the new architecture changes")]]
 		void Begin(const glm::mat4& view, const glm::mat4& proj);
+
 		void End();
 
 		void DrawQuad(const glm::vec2& min, const glm::vec2& size, const glm::vec4& color);
+		void DrawQuads(std::span<const QuadVertex> quads);
 
 		const graphics::Shader& shader() const { return *m_Shader; }
 		const glm::mat4& proj() const { return m_Proj; }

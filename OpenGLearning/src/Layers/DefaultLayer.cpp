@@ -34,7 +34,7 @@ DefaultLayer::DefaultLayer(const std::string& name, const engine::platform::Wind
 			static_cast<float>(window.getFramebufferHeight())
 		)
 	),
-	m_SpriteBatch(std::make_unique<engine::renderer::SpriteBatch>(m_RenderDevice)),
+	//m_SpriteBatch(std::make_unique<engine::renderer::SpriteBatch>(m_RenderDevice)),
 	m_Immediate3D(std::make_unique<engine::renderer::Immediate3D>(m_RenderDevice))
 {
 	m_RenderView.camera = engine::renderer::CameraData{
@@ -48,23 +48,17 @@ void DefaultLayer::OnAttach()
 {
 	//m_RenderDevice.Init();
 
-	m_RenderView.reserve(64, 1000);
+	m_RenderView.reserve(255);
 
-	auto entity = m_Scene->createEntity();
-	m_Scene->addComponent<components::Transform>(entity, components::Transform{});
+	auto entity1 = m_Scene->createEntity();
+	auto entity2 = m_Scene->createEntity();
+	auto entity3 = m_Scene->createEntity();
+	auto entity4 = m_Scene->createEntity();
 
-	ENGINE_ASSERT(m_Scene->isAlive(entity));
-	ENGINE_ASSERT(m_Scene->hasComponent<components::Transform>(entity));
-
-	m_Scene->destroyEntity(entity);
-
-	ENGINE_ASSERT(!m_Scene->isAlive(entity));
-	ENGINE_ASSERT(!m_Scene->hasComponent<components::Transform>(entity));
-
-	auto otherEntity = m_Scene->createEntity();
-
-	ENGINE_ASSERT(entity != otherEntity);
-	ENGINE_ASSERT(!m_Scene->isAlive(entity));
+	m_Scene->addComponent(entity1, components::Transform(glm::vec3{ -0.5f, -0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1.0f)));
+	m_Scene->addComponent(entity2, components::Transform(glm::vec3{ -0.5f,  0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1.0f)));
+	m_Scene->addComponent(entity3, components::Transform(glm::vec3{  0.5f, -0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1.0f)));
+	m_Scene->addComponent(entity4, components::Transform(glm::vec3{  0.5f,  0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1.0f)));
 
 	//m_SpriteBatch->Init();
 	//m_Immediate3D->Init();
@@ -89,10 +83,10 @@ void DefaultLayer::OnDetach()
 	m_PerspectiveCam = nullptr;
 	m_OrthographicCam = nullptr;
 
-	m_SpriteBatch->Shutdown();
+	//m_SpriteBatch->Shutdown();
 	m_Immediate3D->ShutDown();
 
-	m_SpriteBatch = nullptr;
+	//m_SpriteBatch = nullptr;
 	m_Immediate3D = nullptr;
 }
 

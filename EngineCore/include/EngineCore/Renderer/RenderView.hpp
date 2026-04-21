@@ -1,8 +1,10 @@
 #pragma once
 #include <cstdint>
 #include <vector>
+#include <vec2.hpp>
 #include <vec3.hpp>
 #include <mat4x4.hpp>
+#include "EngineCore/Renderer/QuadVertex.hpp"
 
 namespace engine::renderer
 {
@@ -17,15 +19,16 @@ namespace engine::renderer
 	struct RenderView
 	{
 		CameraData camera{};
-
+		std::vector<QuadVertex> quads;
+		
 		void clear()
 		{
-
+			quads.clear();
 		}
 
-		void reserve(std::size_t lights, std::size_t draws)
+		void reserve(size_t draws)
 		{
-
+			quads.reserve(draws);
 		}
 	};
 }

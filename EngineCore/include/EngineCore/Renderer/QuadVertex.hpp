@@ -7,7 +7,7 @@ namespace engine::renderer
 	struct QuadVertex
 	{
 		glm::vec3 pos;
-		glm::vec3 color;
+		glm::vec4 color;
 		glm::vec2 uv;
 	};
 }
