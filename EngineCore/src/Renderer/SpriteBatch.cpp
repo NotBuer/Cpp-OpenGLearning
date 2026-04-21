@@ -70,14 +70,17 @@ namespace engine::renderer
 	void SpriteBatch::SetProjection(const glm::mat4& proj) { m_Proj = proj; }
 
 	//[[deprecated("This function is obsolete due to the new architecture changes")]] 
-	void SpriteBatch::Begin(const glm::mat4& view, const glm::mat4& proj)
+	void SpriteBatch::Begin(const glm::mat4& view, const glm::mat4& proj, bool useDeviceDefaults)
 	{
 		m_View = view;
 		m_Proj = proj;
 
-		m_Device->SetDepthTest(false);
-		m_Device->SetBlend(false);
-		m_Device->setCullFace(true);
+		if (useDeviceDefaults)
+		{
+			m_Device->SetDepthTest(false);
+			m_Device->SetBlend(false);
+			m_Device->setCullFace(true);
+		}
 
 		m_Begun = true;
 		StartBatch();
@@ -120,7 +123,13 @@ namespace engine::renderer
 
 	void SpriteBatch::DrawQuads(std::span<const QuadVertex> quads)
 	{
-		StartBatch();
+		if (!m_Begun) return;
+
+		if (m_Vertices.size() + 4 > MaxVerts || m_Indices.size() + 6 > MaxIndices)
+		{
+			End();
+			Begin(m_View, m_Proj);
+		}
 
 		for (const QuadVertex& quad : quads)
 		{

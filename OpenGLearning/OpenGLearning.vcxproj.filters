@@ -50,6 +50,8 @@
     <None Include="..\assets\shaders\common.glsl">
       <Filter>assets\shaders</Filter>
     </None>
+    <None Include="..\assets\shaders\basic-ecs.frag" />
+    <None Include="..\assets\shaders\basic-ecs.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\assets\sprites\grass-sprite-test.png">

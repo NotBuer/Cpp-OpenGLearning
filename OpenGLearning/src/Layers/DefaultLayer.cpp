@@ -33,9 +33,9 @@ DefaultLayer::DefaultLayer(const std::string& name, const engine::platform::Wind
 			static_cast<float>(window.getFramebufferWidth()),
 			static_cast<float>(window.getFramebufferHeight())
 		)
-	),
+	)//,
 	//m_SpriteBatch(std::make_unique<engine::renderer::SpriteBatch>(m_RenderDevice)),
-	m_Immediate3D(std::make_unique<engine::renderer::Immediate3D>(m_RenderDevice))
+	//m_Immediate3D(std::make_unique<engine::renderer::Immediate3D>(m_RenderDevice))
 {
 	m_RenderView.camera = engine::renderer::CameraData{
 		.view = m_OrthographicCam->view(),
@@ -51,14 +51,14 @@ void DefaultLayer::OnAttach()
 	m_RenderView.reserve(255);
 
 	auto entity1 = m_Scene->createEntity();
-	auto entity2 = m_Scene->createEntity();
-	auto entity3 = m_Scene->createEntity();
-	auto entity4 = m_Scene->createEntity();
+	//auto entity2 = m_Scene->createEntity();
+	//auto entity3 = m_Scene->createEntity();
+	//auto entity4 = m_Scene->createEntity();
 
 	m_Scene->addComponent(entity1, components::Transform(glm::vec3{ -0.5f, -0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1.0f)));
-	m_Scene->addComponent(entity2, components::Transform(glm::vec3{ -0.5f,  0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1.0f)));
-	m_Scene->addComponent(entity3, components::Transform(glm::vec3{  0.5f, -0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1.0f)));
-	m_Scene->addComponent(entity4, components::Transform(glm::vec3{  0.5f,  0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1.0f)));
+	//m_Scene->addComponent(entity2, components::Transform(glm::vec3{ -0.5f,  0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1.0f)));
+	//m_Scene->addComponent(entity3, components::Transform(glm::vec3{  0.5f, -0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1.0f)));
+	//m_Scene->addComponent(entity4, components::Transform(glm::vec3{  0.5f,  0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1.0f)));
 
 	//m_SpriteBatch->Init();
 	//m_Immediate3D->Init();
@@ -84,10 +84,10 @@ void DefaultLayer::OnDetach()
 	m_OrthographicCam = nullptr;
 
 	//m_SpriteBatch->Shutdown();
-	m_Immediate3D->ShutDown();
+	//m_Immediate3D->ShutDown();
 
 	//m_SpriteBatch = nullptr;
-	m_Immediate3D = nullptr;
+	//m_Immediate3D = nullptr;
 }
 
 void DefaultLayer::OnUpdate(float dt)
@@ -119,7 +119,9 @@ void DefaultLayer::OnUpdate(float dt)
 		(static_cast<float>(input.deltaY()) * sensitivity * dt)
 	);
 
+	m_RenderView.camera.proj = m_OrthographicCam->proj();
 	m_RenderView.camera.view = m_OrthographicCam->view();
+	m_RenderView.camera.position = m_OrthographicCam->position();
 }
 
 void DefaultLayer::OnRender()

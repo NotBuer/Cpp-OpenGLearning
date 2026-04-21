@@ -17,13 +17,12 @@ namespace engine::renderer
 		const glm::mat4& view() const override;
 		const glm::mat4& proj() const override;
 		const glm::mat4& viewProj() const override;
+		const glm::vec3& position() const override;
 
 		float fov() const;
 		float aspect() const;
 		float near() const;
 		float far() const;
-
-		const glm::vec3& position() const;
 		
 	private:
 		void RecalcProj();

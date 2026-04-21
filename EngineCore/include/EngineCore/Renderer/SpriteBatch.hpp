@@ -26,7 +26,7 @@ namespace engine::renderer
 		void SetProjection(const glm::mat4& proj);
 
 		//[[deprecated("This function is obsolete due to the new architecture changes")]]
-		void Begin(const glm::mat4& view, const glm::mat4& proj);
+		void Begin(const glm::mat4& view, const glm::mat4& proj, bool useDeviceDefaults = true);
 
 		void End();
 
@@ -52,7 +52,7 @@ namespace engine::renderer
 		glm::mat4 m_View{ 1.0f }, m_Proj{ 1.0f };
 		bool m_Begun{ false };
 
-		static constexpr std::uint32_t MaxQuads = 1000;
+		static constexpr std::uint32_t MaxQuads = 1024;
 		static constexpr std::uint32_t MaxVerts = MaxQuads * 4;
 		static constexpr std::uint32_t MaxIndices = MaxQuads * 6;
 	};

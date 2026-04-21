@@ -30,10 +30,10 @@ namespace engine::scene
 			float x = transform.position.x, y = transform.position.y;
 			float w = transform.scale.x, h = transform.scale.y;
 
-			out.quads.push_back(engine::renderer::QuadVertex{ .pos{x,	  y,	 0.f}, .color{0.f, 0.f, 0.f, 1.f}, .uv{0.f, 0.f} });
-			out.quads.push_back(engine::renderer::QuadVertex{ .pos{x + w, y,	 0.f}, .color{0.f, 0.f, 0.f, 1.f}, .uv{1.f, 0.f} });
-			out.quads.push_back(engine::renderer::QuadVertex{ .pos{x + w, y + h, 0.f}, .color{0.f, 0.f, 0.f, 1.f}, .uv{1.f, 1.f} });
-			out.quads.push_back(engine::renderer::QuadVertex{ .pos{x,	  y + h, 0.f}, .color{0.f, 0.f, 0.f, 1.f}, .uv{0.f, 1.f} });
+			out.quads.push_back(engine::renderer::QuadVertex{ .pos{x + w,	  y + h,	 0.f}, .color{1.f, 0.f, 0.f, 1.f}, .uv{0.f, 0.f} });
+			//out.quads.push_back(engine::renderer::QuadVertex{ .pos{x + w, y,	 0.f}, .color{1.f,  0.f, 0.f, 1.f}, .uv{1.f, 0.f} });
+			//out.quads.push_back(engine::renderer::QuadVertex{ .pos{x + w, y + h, 0.f}, .color{0.f,  0.f, 1.f, 1.f}, .uv{1.f, 1.f} });
+			//out.quads.push_back(engine::renderer::QuadVertex{ .pos{x,	  y + h, 0.f}, .color{1.f, 0.5f, 0.f, 1.f}, .uv{0.f, 1.f} });
 		}
 	}
 

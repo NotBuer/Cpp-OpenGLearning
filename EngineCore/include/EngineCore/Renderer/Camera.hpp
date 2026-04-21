@@ -11,6 +11,7 @@ namespace engine::renderer
 		virtual const glm::mat4& view() const = 0;
 		virtual const glm::mat4& proj() const = 0;
 		virtual const glm::mat4& viewProj() const = 0;
+		virtual const glm::vec3& position() const = 0;
 
 	protected: 
 		Camera() = default;

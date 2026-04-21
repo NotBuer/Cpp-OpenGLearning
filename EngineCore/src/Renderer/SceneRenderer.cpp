@@ -21,8 +21,8 @@ namespace engine::renderer
 
 	void SceneRenderer::render(const engine::renderer::RenderView& renderView)
 	{
+		m_SpriteBatch->Begin(renderView.camera.view, renderView.camera.proj, false);
 		m_SpriteBatch->SetProjection(renderView.camera.proj);
-
 		m_SpriteBatch->DrawQuads(renderView.quads);
 	}
 

@@ -47,6 +47,7 @@ namespace engine::renderer
 	const glm::mat4& OrthographicCamera::view() const { return m_view; }
 	const glm::mat4& OrthographicCamera::proj() const { return m_proj; }
 	const glm::mat4& OrthographicCamera::viewProj() const { return m_viewProj; }
+	const glm::vec3& OrthographicCamera::position() const { return m_pos; }
 
 	void OrthographicCamera::RecalcProj()
 	{
