@@ -58,15 +58,15 @@ namespace engine::renderer
 		RecalcViewProj();
 	}
 
-	const glm::mat4& PerspectiveCamera::view() const { return m_view; }
-	const glm::mat4& PerspectiveCamera::proj() const { return m_proj; }
-	const glm::mat4& PerspectiveCamera::viewProj() const { return m_viewProj; }
+	[[nodiscard]] const glm::mat4& PerspectiveCamera::view() const noexcept { return m_view; }
+	[[nodiscard]] const glm::mat4& PerspectiveCamera::proj() const noexcept { return m_proj; }
+	[[nodiscard]] const glm::mat4& PerspectiveCamera::viewProj() const noexcept { return m_viewProj; }
+	[[nodiscard]] const glm::vec3& PerspectiveCamera::position() const noexcept { return m_pos; }
 
 	float PerspectiveCamera::fov() const { return m_fov; }
 	float PerspectiveCamera::aspect() const { return m_aspect; }
 	float PerspectiveCamera::near() const { return m_near; }
 	float PerspectiveCamera::far() const { return m_far; }
-	const glm::vec3& PerspectiveCamera::position() const { return m_pos; }
 
 	void PerspectiveCamera::RecalcProj()
 	{

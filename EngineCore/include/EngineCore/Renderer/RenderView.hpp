@@ -4,7 +4,7 @@
 #include <vec2.hpp>
 #include <vec3.hpp>
 #include <mat4x4.hpp>
-#include "EngineCore/Renderer/QuadVertex.hpp"
+#include "EngineCore/Renderer/QuadCommand.hpp"
 
 namespace engine::renderer
 {
@@ -19,7 +19,7 @@ namespace engine::renderer
 	struct RenderView
 	{
 		CameraData camera{};
-		std::vector<QuadVertex> quads;
+		std::vector<QuadCommand> quads;
 		
 		void clear()
 		{

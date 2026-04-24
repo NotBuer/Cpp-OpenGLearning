@@ -44,10 +44,10 @@ namespace engine::renderer
 		RecalcViewProj();
 	}
 
-	const glm::mat4& OrthographicCamera::view() const { return m_view; }
-	const glm::mat4& OrthographicCamera::proj() const { return m_proj; }
-	const glm::mat4& OrthographicCamera::viewProj() const { return m_viewProj; }
-	const glm::vec3& OrthographicCamera::position() const { return m_pos; }
+	[[nodiscard]] const glm::mat4& OrthographicCamera::view() const noexcept { return m_view; }
+	[[nodiscard]] const glm::mat4& OrthographicCamera::proj() const noexcept { return m_proj; }
+	[[nodiscard]] const glm::mat4& OrthographicCamera::viewProj() const noexcept { return m_viewProj; }
+	[[nodiscard]] const glm::vec3& OrthographicCamera::position() const noexcept { return m_pos; }
 
 	void OrthographicCamera::RecalcProj()
 	{

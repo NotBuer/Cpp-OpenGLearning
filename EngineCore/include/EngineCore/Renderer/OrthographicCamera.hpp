@@ -13,10 +13,10 @@ namespace engine::renderer
 		void SetPosition(const glm::vec3& p);
 		void SetRotation(float radians);
 
-		const glm::mat4& view() const override;
-		const glm::mat4& proj() const override;
-		const glm::mat4& viewProj() const override;
-		const glm::vec3& position() const override;
+		[[nodiscard]] const glm::mat4& view() const noexcept override;
+		[[nodiscard]] const glm::mat4& proj() const noexcept override;
+		[[nodiscard]] const glm::mat4& viewProj() const noexcept override;
+		[[nodiscard]] const glm::vec3& position() const noexcept override;
 
 	private:
 		void RecalcProj();

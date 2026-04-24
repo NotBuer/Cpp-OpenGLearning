@@ -30,13 +30,13 @@ private:
 	engine::renderer::RenderDevice m_RenderDevice;
 	engine::renderer::SceneRenderer m_SceneRenderer{ m_RenderDevice };
 
-	engine::renderer::RenderPassDesc world3D{ true, true, {0.15f,0.15f,0.18f,1.f} };
+	//engine::renderer::RenderPassDesc world3D{ true, true, true, {0.15f,0.15f,0.18f,1.f} };
 
 	std::unique_ptr<engine::renderer::PerspectiveCamera> m_PerspectiveCam = nullptr;
 	std::unique_ptr<engine::renderer::OrthographicCamera> m_OrthographicCam = nullptr;
 
 	//std::unique_ptr<engine::renderer::SpriteBatch> m_SpriteBatch = nullptr;
-	std::unique_ptr<engine::renderer::Immediate3D> m_Immediate3D = nullptr;
+	//std::unique_ptr<engine::renderer::Immediate3D> m_Immediate3D = nullptr;
 
 	std::optional<engine::graphics::Texture2D> m_GrassTex;
 	std::optional<engine::graphics::Texture2D> m_FaceTex;

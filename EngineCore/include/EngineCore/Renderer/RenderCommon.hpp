@@ -15,6 +15,7 @@ namespace engine::renderer
 	{
 		bool clearColor = true;
 		bool clearDepth = false;
+		bool useBlend = false;
 		glm::vec4 clearValue{ 0, 0, 0, 1 };
 		Viewport viewport{ 0, 0, 0, 0 };
 		// TODO: framebuffer...

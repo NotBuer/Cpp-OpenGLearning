@@ -22,8 +22,9 @@ namespace engine::renderer
 
 	void RenderDevice::BeginPass(const RenderPassDesc& d)
 	{
+		// TODO: Decouple render state to "cleared depth"
 		SetDepthTest(d.clearDepth);
-		SetBlend(d.clearDepth);
+		SetBlend(d.useBlend);
 
 		if (d.clearColor || d.clearDepth)
 		{

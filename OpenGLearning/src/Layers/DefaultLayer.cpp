@@ -107,8 +107,11 @@ void DefaultLayer::OnUpdate(float dt)
 	if (dir != glm::vec3{ 0.0f })
 	{
 		dir = glm::normalize(dir);
-		m_PerspectiveCam->MoveLocal(dir * 10.0f * dt);
-		m_OrthographicCam->SetPosition(dir * 10.0f * dt);
+
+		glm::vec3 delta = dir * 10.0f * dt;
+
+		m_PerspectiveCam->MoveLocal(delta);
+		m_OrthographicCam->SetPosition(m_OrthographicCam->position() + delta);
 	}
 
 	if (input.cursorX() == input.deltaX() && input.cursorY() == input.deltaY()) return;
@@ -119,8 +122,8 @@ void DefaultLayer::OnUpdate(float dt)
 		(static_cast<float>(input.deltaY()) * sensitivity * dt)
 	);
 
-	m_RenderView.camera.proj = m_OrthographicCam->proj();
 	m_RenderView.camera.view = m_OrthographicCam->view();
+	m_RenderView.camera.proj = m_OrthographicCam->proj();
 	m_RenderView.camera.position = m_OrthographicCam->position();
 }
 
@@ -131,13 +134,11 @@ void DefaultLayer::OnRender()
 	float aspectRatio = static_cast<float>(width) / static_cast<float>(height);
 
 	engine::renderer::RenderPassDesc renderPass{
-		.clearColor = true, .clearDepth = true,
+		.clearColor = true, .clearDepth = true, .useBlend = true,
 		.clearValue = {0.15f, 0.15f, 0.18f, 1.f},
 		.viewport = {0, 0, width, height} };
 
 	m_SceneRenderer.beginPass(renderPass);
-
-	m_RenderView.clear();
 
 	m_Scene->buildRenderView(m_RenderView);
 

@@ -5,10 +5,10 @@
 
 namespace engine::renderer
 {
-	struct QuadVertex
+	struct QuadCommand
 	{
-		glm::vec3 pos;
+		glm::vec2 min;
+		glm::vec2 size;
 		glm::vec4 color;
-		glm::vec2 uv;
 	};
 }

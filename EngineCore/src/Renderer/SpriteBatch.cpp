@@ -3,6 +3,7 @@
 #include "EngineCore/Renderer/SpriteBatch.hpp"
 #include "EngineCore/IO/AssetPath.hpp"
 #include "EngineCore/Renderer/QuadVertex.hpp"
+#include "EngineCore/Renderer/QuadCommand.hpp"
 
 namespace engine::renderer
 {
@@ -15,7 +16,7 @@ namespace engine::renderer
 
 	SpriteBatch::~SpriteBatch() { Shutdown(); }
 
-	void SpriteBatch::Init(bool useShaders)
+	void SpriteBatch::Init()
 	{
 		// Buffers.
 		glGenVertexArrays(1, &m_VAO);
@@ -39,16 +40,13 @@ namespace engine::renderer
 		glEnableVertexAttribArray(2); // uv
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(QuadVertex), (const void*)offsetof(QuadVertex, uv));
 
-		if (useShaders)
+		std::string log;
+		if (!m_Shader->Compile(
+			engine::graphics::Shader::LoadFromSource(engine::io::shader("basic-ecs.vert").c_str()),
+			engine::graphics::Shader::LoadFromSource(engine::io::shader("basic-ecs.frag").c_str()),
+			&log))
 		{
-			std::string log;
-			if (!m_Shader->Compile(
-				engine::graphics::Shader::LoadFromSource(engine::io::shader("basic.vert").c_str()),
-				engine::graphics::Shader::LoadFromSource(engine::io::shader("basic.frag").c_str()),
-				&log))
-			{
-				std::cerr << "SHADER COMPILE ERROR: " << log << std::endl;
-			}
+			std::cerr << "SHADER COMPILE ERROR: " << log << std::endl;
 		}
 
 		m_Vertices.reserve(MaxVerts);
@@ -69,7 +67,6 @@ namespace engine::renderer
 
 	void SpriteBatch::SetProjection(const glm::mat4& proj) { m_Proj = proj; }
 
-	//[[deprecated("This function is obsolete due to the new architecture changes")]] 
 	void SpriteBatch::Begin(const glm::mat4& view, const glm::mat4& proj, bool useDeviceDefaults)
 	{
 		m_View = view;
@@ -121,26 +118,26 @@ namespace engine::renderer
 		m_Indices.push_back(base + 0);
 	}
 
-	void SpriteBatch::DrawQuads(std::span<const QuadVertex> quads)
+	void SpriteBatch::DrawQuads(std::span<const QuadCommand> quads)
 	{
 		if (!m_Begun) return;
 
-		if (m_Vertices.size() + 4 > MaxVerts || m_Indices.size() + 6 > MaxIndices)
+		for (const QuadCommand& quad : quads)
 		{
-			End();
-			Begin(m_View, m_Proj);
-		}
+			if (m_Vertices.size() + 4 > MaxVerts || m_Indices.size() + 6 > MaxIndices)
+			{
+				End();
+				Begin(m_View, m_Proj);
+			}
 
-		for (const QuadVertex& quad : quads)
-		{
-			float x = quad.pos.x, y = quad.pos.y;
-			float w = 1, h = 1; // Not using any other scale than 1 for now...
+			float x = quad.min.x, y = quad.min.y;
+			float w = quad.size.x, h = quad.size.y;
 			std::uint32_t base = static_cast<std::uint32_t>(m_Vertices.size());
 
-			m_Vertices.push_back({ { x,		y,	   0.f }, quad.color, {0.f, 0.f} });
-			m_Vertices.push_back({ { x + w, y,	   0.f }, quad.color, {1.f, 0.f} });
-			m_Vertices.push_back({ { x + w, y + h, 0.f }, quad.color, {1.f, 1.f} });
-			m_Vertices.push_back({ { x,		y + h, 0.f }, quad.color, {0.f, 1.f} });
+			m_Vertices.push_back({ { x,		y,	   0.f }, quad.color, {0.f, 0.f} }); // Bottom left
+			m_Vertices.push_back({ { x + w, y,	   0.f }, quad.color, {1.f, 0.f} }); // Bottom righ
+			m_Vertices.push_back({ { x + w, y + h, 0.f }, quad.color, {1.f, 1.f} }); // Top right
+			m_Vertices.push_back({ { x,		y + h, 0.f }, quad.color, {0.f, 1.f} }); // Top left
 
 			m_Indices.push_back(base + 0);
 			m_Indices.push_back(base + 1);

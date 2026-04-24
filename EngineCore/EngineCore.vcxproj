@@ -167,6 +167,7 @@
     <ClInclude Include="include\EngineCore\Renderer\Immediate3D.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\OrthographicCamera.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\PerspectiveCamera.hpp" />
+    <ClInclude Include="include\EngineCore\Renderer\QuadCommand.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\QuadVertex.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\RenderCommon.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\RenderDevice.hpp" />

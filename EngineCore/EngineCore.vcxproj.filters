@@ -138,6 +138,9 @@
     <ClInclude Include="include\EngineCore\Scene\Entities\EntityLimits.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\EngineCore\Renderer\QuadCommand.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\Window.cpp">
