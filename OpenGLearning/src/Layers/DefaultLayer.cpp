@@ -31,7 +31,9 @@ DefaultLayer::DefaultLayer(const std::string& name, const engine::platform::Wind
 	m_OrthographicCam(
 		std::make_unique<engine::renderer::OrthographicCamera>(
 			static_cast<float>(window.getFramebufferWidth()),
-			static_cast<float>(window.getFramebufferHeight())
+			static_cast<float>(window.getFramebufferHeight()),
+			-10.0f,
+			10.0f
 		)
 	)//,
 	//m_SpriteBatch(std::make_unique<engine::renderer::SpriteBatch>(m_RenderDevice)),
@@ -40,7 +42,7 @@ DefaultLayer::DefaultLayer(const std::string& name, const engine::platform::Wind
 	m_RenderView.camera = engine::renderer::CameraData{
 		.view = m_OrthographicCam->view(),
 		.proj = m_OrthographicCam->proj(),
-		.position = { 0.0f, 0.0f, 10.0f }
+		.position = m_OrthographicCam->position()
 	};
 }
 
@@ -51,14 +53,14 @@ void DefaultLayer::OnAttach()
 	m_RenderView.reserve(255);
 
 	auto entity1 = m_Scene->createEntity();
-	//auto entity2 = m_Scene->createEntity();
-	//auto entity3 = m_Scene->createEntity();
-	//auto entity4 = m_Scene->createEntity();
+	auto entity2 = m_Scene->createEntity();
+	auto entity3 = m_Scene->createEntity();
+	auto entity4 = m_Scene->createEntity();
 
-	m_Scene->addComponent(entity1, components::Transform(glm::vec3{ -0.5f, -0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1.0f)));
-	//m_Scene->addComponent(entity2, components::Transform(glm::vec3{ -0.5f,  0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1.0f)));
-	//m_Scene->addComponent(entity3, components::Transform(glm::vec3{  0.5f, -0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1.0f)));
-	//m_Scene->addComponent(entity4, components::Transform(glm::vec3{  0.5f,  0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1.0f)));
+	m_Scene->addComponent(entity1, components::Transform(glm::vec3{ -50, -50, 0 }, glm::mat4(1.0f), glm::vec3(100, 100, 1)));
+	//m_Scene->addComponent(entity2, components::Transform(glm::vec3{ -50,  50, 0 }, glm::mat4(1.0f), glm::vec3(100, 100, 1)));
+	//m_Scene->addComponent(entity3, components::Transform(glm::vec3{  50, -50, 0 }, glm::mat4(1.0f), glm::vec3(100, 100, 1)));
+	m_Scene->addComponent(entity4, components::Transform(glm::vec3{  50,  50, 0 }, glm::mat4(1.0f), glm::vec3(100, 100, 1)));
 
 	//m_SpriteBatch->Init();
 	//m_Immediate3D->Init();
@@ -74,8 +76,8 @@ void DefaultLayer::OnAttach()
 	//m_PerspectiveCam->SetPosition({ 0.0f, 0.0f, 10.0f });
 	//m_OrthographicCam->SetPosition({ 0.0f, 0.0f, 10.0f });
 
-	m_GrassTex = engine::graphics::Texture2D::fromFile(engine::io::sprites("grass-sprite-test.png"), engine::graphics::TextureParams{});
-	m_FaceTex = engine::graphics::Texture2D::fromFile(engine::io::sprites("face-sprite-test.png"), engine::graphics::TextureParams{});
+	//m_GrassTex = engine::graphics::Texture2D::fromFile(engine::io::sprites("grass-sprite-test.png"), engine::graphics::TextureParams{});
+	//m_FaceTex = engine::graphics::Texture2D::fromFile(engine::io::sprites("face-sprite-test.png"), engine::graphics::TextureParams{});
 }
 
 void DefaultLayer::OnDetach()

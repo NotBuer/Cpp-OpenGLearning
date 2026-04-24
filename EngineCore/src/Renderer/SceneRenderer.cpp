@@ -33,7 +33,7 @@ namespace engine::renderer
 		// TODO: Validate this call redundancy, as the call above already defines m_Proj matrix.
 		//m_SpriteBatch->SetProjection(renderView.camera.proj); 
 
-		glm::mat4 model{};
+		glm::mat4 model{1.0f};
 
 		// TODO: Validate if SceneRenderer should know gl low level calls...
 		glUniformMatrix4fv(glGetUniformLocation(m_SpriteBatch->shader().id(), "model"), 1, GL_FALSE, glm::value_ptr(model));

@@ -10,7 +10,7 @@ namespace engine::renderer
 		m_height(height),
 		m_near(near),
 		m_far(far),
-		m_pos(0.0f, 0.0f, 3.0f),
+		m_pos(0.0f, 0.0f, 0.0f),
 		m_rotation(0.0f),
 		m_view(1.0f),
 		m_proj(1.0f),

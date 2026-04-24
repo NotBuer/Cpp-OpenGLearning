@@ -3,10 +3,10 @@
 out vec4 outColor;
 
 in vec4 ourColor;
-in vec2 texCoord;
+//in vec2 texCoord;
 
-uniform sampler2D u_tex;
-uniform sampler2D u_tex2;
+//uniform sampler2D u_tex;
+//uniform sampler2D u_tex2;
 
 void main() 
 {

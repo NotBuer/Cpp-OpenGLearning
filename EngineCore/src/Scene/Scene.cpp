@@ -33,7 +33,7 @@ namespace engine::scene
 				engine::renderer::QuadCommand{
 					.min{transform.position.x, transform.position.y},
 					.size{transform.scale.x, transform.scale.y},
-					.color{1.f, 0.f, 0.f, 1.f} 
+					.color{1.f, 1.f, 1.f, 1.f} 
 				}
 			);
 		}
