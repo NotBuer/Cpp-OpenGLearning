@@ -6,10 +6,10 @@ namespace engine::renderer
 	class OrthographicCamera final : public Camera
 	{
 	public:
-		OrthographicCamera(float width, float height, float near = -1.f, float far = 1.f);
+		OrthographicCamera(float worldHeight, float aspectRatio, float near = -1.f, float far = 1.f);
 		~OrthographicCamera() override;
 
-		void SetViewPort(float width, float height, float near = -1.f, float far = 1.f);
+		void SetViewPort(float aspectRatio);
 		void SetPosition(const glm::vec3& p);
 		void SetRotation(float radians);
 
@@ -24,7 +24,8 @@ namespace engine::renderer
 		void RecalcViewProj();
 
 		float m_width;
-		float m_height;
+		float m_worldHeight;
+		float m_aspectRatio;
 		float m_near;
 		float m_far;
 

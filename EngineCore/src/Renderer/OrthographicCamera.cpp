@@ -5,9 +5,9 @@
 
 namespace engine::renderer
 {
-	OrthographicCamera::OrthographicCamera(float width, float height, float near, float far) :
-		m_width(width),
-		m_height(height),
+	OrthographicCamera::OrthographicCamera(float worldHeight, float aspectRatio, float near, float far) :
+		m_worldHeight(worldHeight),
+		m_aspectRatio(aspectRatio),
 		m_near(near),
 		m_far(far),
 		m_pos(0.0f, 0.0f, 0.0f),
@@ -16,16 +16,15 @@ namespace engine::renderer
 		m_proj(1.0f),
 		m_viewProj(1.0f)
 	{
-		RecalcProj();
+		SetViewPort(aspectRatio);
 		RecalcView();
-		RecalcViewProj();
 	}
 
 	OrthographicCamera::~OrthographicCamera() = default;
 
-	void OrthographicCamera::SetViewPort(float width, float height, float near, float far)
+	void OrthographicCamera::SetViewPort(float aspectRatio)
 	{
-		m_width = width; m_height = height; m_near = near; m_far = far;
+		m_width = m_worldHeight * aspectRatio;
 		RecalcProj();
 		RecalcViewProj();
 	}
@@ -51,7 +50,7 @@ namespace engine::renderer
 
 	void OrthographicCamera::RecalcProj()
 	{
-		m_proj = glm::ortho(-m_width * 0.5f, m_width * 0.5f, -m_height * 0.5f, m_height * 0.5f, m_near, m_far);
+		m_proj = glm::ortho(-m_width * 0.5f, m_width * 0.5f, -m_worldHeight * 0.5f, m_worldHeight * 0.5f, m_near, m_far);
 	}
 
 	void OrthographicCamera::RecalcView()

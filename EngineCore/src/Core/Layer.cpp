@@ -37,8 +37,8 @@ namespace engine::core
 	{
 		std::cout << "Layer: " << m_Name << "-> default" << std::endl;
 
-		(void)e;
-		(void)ctx;
+		//(void)e;
+		//(void)ctx;
 		return false;
 	}
 }

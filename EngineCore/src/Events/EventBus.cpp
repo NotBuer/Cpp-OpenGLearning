@@ -76,9 +76,20 @@ namespace engine::events
 	static constexpr std::uint32_t kImmCap = 64;		// Must be power of two.
 	static constexpr std::uint32_t kFrameCap = 1024;	// Must be power of two.
 
+	EventBus::EventBus()
+		: m_impl(new Impl())
+	{
+	}
+
+	EventBus::~EventBus()
+	{
+		delete m_impl;
+		m_impl = nullptr;
+	}
+
 	EventBus::Impl::Impl()
 	{
-		imm.cap = kImmCap - 1u; frame.cap = kFrameCap - 1u;
+		imm.cap = kImmCap; frame.cap = kFrameCap;
 		imm.mask = imm.cap - 1u; frame.mask = frame.cap - 1u;
 		imm.buf = new EventSlot[imm.cap]; frame.buf = new EventSlot[frame.cap];
 	}
@@ -91,8 +102,6 @@ namespace engine::events
 	// Immediate is for high-priority events (resize, focus, close).
 	void EventBus::pushImmediate(const EventSlot& e) noexcept
 	{
-		if (!m_impl) m_impl = new Impl();
-
 		const EventType t = static_cast<EventType>(e.header.type);
 
 		if (t == EventType::WindowResized || t == EventType::WindowFocusChanged)
@@ -122,8 +131,6 @@ namespace engine::events
 	// Frame is for normal/low-priority events (input).
 	void EventBus::pushFrame(const EventSlot& e) noexcept
 	{
-		if (!m_impl) m_impl = new Impl();
-
 		const EventType t = static_cast<EventType>(e.header.type);
 
 		if (!m_impl->frame.push(e))

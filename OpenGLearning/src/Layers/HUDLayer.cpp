@@ -20,8 +20,9 @@ void HUDLayer::OnRender()
 
 bool HUDLayer::OnEvent(const engine::events::EventSlot& e, engine::events::EventContext& ctx)
 {
-	std::printf("HUDLayer received event of type: %d\n", e.header.type);
+	//std::printf("HUDLayer received event of type: %d\n", e.header.type);
 
+	(void)e;
 	(void)ctx;
-	return true;
+	return false;
 }

@@ -30,8 +30,8 @@ DefaultLayer::DefaultLayer(const std::string& name, const engine::platform::Wind
 	),
 	m_OrthographicCam(
 		std::make_unique<engine::renderer::OrthographicCamera>(
-			static_cast<float>(window.getFramebufferWidth()),
-			static_cast<float>(window.getFramebufferHeight()),
+			20.f,				
+			(static_cast<float>(window.getFramebufferWidth()) / static_cast<float>(window.getFramebufferHeight())),
 			-10.0f,
 			10.0f
 		)
@@ -39,11 +39,7 @@ DefaultLayer::DefaultLayer(const std::string& name, const engine::platform::Wind
 	//m_SpriteBatch(std::make_unique<engine::renderer::SpriteBatch>(m_RenderDevice)),
 	//m_Immediate3D(std::make_unique<engine::renderer::Immediate3D>(m_RenderDevice))
 {
-	m_RenderView.camera = engine::renderer::CameraData{
-		.view = m_OrthographicCam->view(),
-		.proj = m_OrthographicCam->proj(),
-		.position = m_OrthographicCam->position()
-	};
+
 }
 
 void DefaultLayer::OnAttach()
@@ -52,15 +48,26 @@ void DefaultLayer::OnAttach()
 
 	m_RenderView.reserve(255);
 
+	glm::mat4 proj = glm::perspective(
+		glm::radians(50.0f),
+		static_cast<float>(window().getFramebufferWidth() / window().getFramebufferHeight()),
+		0.1f, 100.0f);
+
+	m_RenderView.camera = engine::renderer::CameraData{
+		.view = m_OrthographicCam->view(),
+		.proj = m_OrthographicCam->proj(),
+		.position = m_OrthographicCam->position()
+	};
+
 	auto entity1 = m_Scene->createEntity();
 	auto entity2 = m_Scene->createEntity();
 	auto entity3 = m_Scene->createEntity();
 	auto entity4 = m_Scene->createEntity();
 
-	m_Scene->addComponent(entity1, components::Transform(glm::vec3{ -50, -50, 0 }, glm::mat4(1.0f), glm::vec3(100, 100, 1)));
+	m_Scene->addComponent(entity1, components::Transform(glm::vec3{ -0.5, -0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1, 1, 1)));
 	//m_Scene->addComponent(entity2, components::Transform(glm::vec3{ -50,  50, 0 }, glm::mat4(1.0f), glm::vec3(100, 100, 1)));
 	//m_Scene->addComponent(entity3, components::Transform(glm::vec3{  50, -50, 0 }, glm::mat4(1.0f), glm::vec3(100, 100, 1)));
-	m_Scene->addComponent(entity4, components::Transform(glm::vec3{  50,  50, 0 }, glm::mat4(1.0f), glm::vec3(100, 100, 1)));
+	m_Scene->addComponent(entity4, components::Transform(glm::vec3{  0.5f,  0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1, 1, 1)));
 
 	//m_SpriteBatch->Init();
 	//m_Immediate3D->Init();
@@ -101,8 +108,13 @@ void DefaultLayer::OnUpdate(float dt)
 
 	glm::vec3 dir{ 0.0f };
 
-	if (input.isKeyDown(KeyCode::W)) dir.z += 1.0f;
-	if (input.isKeyDown(KeyCode::S)) dir.z -= 1.0f;
+	// TODO: 
+	// After implementing basic ImGUI stuff:
+	// Need to create a shortcut in the UI menu to change the perspective here.
+	// In 2D the W and S key should move Y axis.
+	// Is 3D the A and D key should move the Z axis.
+	if (input.isKeyDown(KeyCode::W)) dir.y += 1.0f;
+	if (input.isKeyDown(KeyCode::S)) dir.y -= 1.0f;
 	if (input.isKeyDown(KeyCode::A)) dir.x -= 1.0f;
 	if (input.isKeyDown(KeyCode::D)) dir.x += 1.0f;
 
@@ -248,25 +260,18 @@ void DefaultLayer::OnRender()
 
 bool DefaultLayer::OnEvent(const engine::events::EventSlot& e, engine::events::EventContext& ctx)
 {
-	//using EventType = engine::events::EventType;
-	//using KeyCode = engine::platform::KeyCode;
+	using EventType = engine::events::EventType;
 
-	//EventType eventType = static_cast<EventType>(e.header.type);
-
-	//if (eventType == EventType::KeyPressed)
-	//{
-	//	const auto& keyData = e.payload.kp;
-	//	// Do stuff...
-	//	return true;
-	//}
-
-	//if (eventType == EventType::KeyReleased)
-	//{
-	//	const auto& keyData = e.payload.kr;
-	//	// Do stuff...
-	//	return true;
-	//}
+	EventType eventType = static_cast<EventType>(e.header.type);
+	
+	if (eventType == EventType::WindowResized) 
+	{
+		const auto& keyData = e.payload.wr;
+		m_OrthographicCam->SetViewPort(static_cast<float>(keyData.fbWidth) / static_cast<float>(keyData.fbHeight));
+		(void)ctx;
+		return true;
+	}
 
 	(void)ctx;
-	return true;
+	return false;
 }

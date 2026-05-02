@@ -16,7 +16,13 @@ namespace engine::events
 	class EventBus
 	{
 	public:
-		EventBus() = default;
+		EventBus();
+		~EventBus();
+
+		EventBus(const EventBus&) = delete;				// Copy constructor.
+		EventBus& operator=(const EventBus&) = delete;  // Copy assignment constructor.
+		EventBus(EventBus&&) = delete;					// Move constructor.
+		EventBus& operator=(EventBus&&) = delete;		// Move assignment constructor.
 
 		// Producers (GLFW callbacks)
 		void pushImmediate(const EventSlot& e) noexcept; 

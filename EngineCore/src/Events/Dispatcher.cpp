@@ -27,9 +27,9 @@ namespace engine::events
 
 		// Top -> bottom (UI/Overlay first).
 		const std::size_t n = layers.size();
-		for (std::size_t i = 0; i < n; i++)
+		for (std::size_t i = n; i > 0; --i)
 		{
-			engine::core::Layer* L = layers.at(i);
+			engine::core::Layer* L = layers.at(i - 1);
 
 			if (!L) continue;
 

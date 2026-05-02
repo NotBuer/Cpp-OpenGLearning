@@ -14,9 +14,8 @@ namespace engine::core
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-		auto impl = std::make_unique<Impl>();
-
-		m_window = std::make_unique<engine::platform::Window>(m_specs.width, m_specs.height, m_specs.title.c_str(), impl->events);
+		m_impl = std::make_unique<Impl>();
+		m_window = std::make_unique<engine::platform::Window>(m_specs.width, m_specs.height, m_specs.title.c_str(), m_impl->events);
 		m_layerstack = std::make_unique<engine::core::Layerstack>();
 
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -24,8 +23,6 @@ namespace engine::core
 			std::cerr << "Failed to initialize GLAD" << std::endl;
 			Close();
 		};
-
-		m_impl = std::move(impl);
 	}
 
 	Application::~Application() = default;
