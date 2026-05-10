@@ -175,6 +175,7 @@
     <ClInclude Include="include\EngineCore\Renderer\RenderView.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\SpriteBatch.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\VoxelVertex.hpp" />
+    <ClInclude Include="include\EngineCore\Scene\Components\Sprite.hpp" />
     <ClInclude Include="include\EngineCore\Scene\Components\Transform.hpp" />
     <ClInclude Include="include\EngineCore\Scene\Containers\SparseSet.hpp" />
     <ClInclude Include="include\EngineCore\Scene\Entities\EntityId.hpp" />

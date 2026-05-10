@@ -2,6 +2,7 @@
 #include <string>
 #include "EngineCore/Scene/Containers/SparseSet.hpp"
 #include "EngineCore/Scene/Components/Transform.hpp"
+#include "EngineCore/Scene/Components/Sprite.hpp"
 #include "EngineCore/Renderer/RenderView.hpp"
 #include "EngineCore/Scene/Entities/EntityId.hpp"
 #include "EngineCore/Scene/Entities/EntityManager.hpp"
@@ -23,6 +24,10 @@ namespace engine::scene
 			{
 				return m_transforms;
 			}
+			else if constexpr (std::is_same_v<T, engine::scene::components::Sprite>)
+			{
+				return m_sprites;
+			}
 			else
 			{
 				// Since no objects can have a size of 0, it "throws" right on instantiation.
@@ -36,6 +41,10 @@ namespace engine::scene
 			if constexpr (std::is_same_v<T, engine::scene::components::Transform>)
 			{
 				return m_transforms;
+			}
+			else if constexpr (std::is_same_v<T, engine::scene::components::Sprite>)
+			{
+				return m_sprites;
 			}
 			else
 			{
@@ -107,5 +116,6 @@ namespace engine::scene
 		engine::scene::entities::EntityManager m_entityManager;
 
 		engine::scene::containers::SparseSet<engine::scene::components::Transform> m_transforms;
+		engine::scene::containers::SparseSet<engine::scene::components::Sprite> m_sprites;
 	};
 }

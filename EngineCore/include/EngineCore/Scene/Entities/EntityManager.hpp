@@ -14,6 +14,8 @@ namespace engine::scene::entities
 		void destroy(EntityId id);
 		bool isAlive(EntityId id) const;
 
+		std::span<const bool> alive() const noexcept { return m_alive; };
+
 	private:
 		std::array<EntityGeneration, kMaxEntities> m_generations{};
 		std::array<bool, kMaxEntities> m_alive{};

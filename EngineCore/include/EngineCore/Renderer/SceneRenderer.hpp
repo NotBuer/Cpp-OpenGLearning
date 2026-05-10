@@ -2,6 +2,7 @@
 #include "EngineCore/Renderer/RenderCommon.hpp"
 #include "EngineCore/Renderer/RenderView.hpp"
 #include "EngineCore/Renderer/SpriteBatch.hpp"
+#include "EngineCore/Graphics/Texture2D.hpp"
 
 namespace engine::renderer { class RenderDevice; }
 
@@ -20,5 +21,10 @@ namespace engine::renderer
 		RenderDevice& m_RenderDevice;
 
 		std::unique_ptr<engine::renderer::SpriteBatch> m_SpriteBatch = nullptr;
+
+		std::vector<std::optional<engine::graphics::Texture2D>> m_Textures;
+
+		//std::optional<engine::graphics::Texture2D> m_grassTex;
+		//std::optional<engine::graphics::Texture2D> m_faceTex;
 	};
 }

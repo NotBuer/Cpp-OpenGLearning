@@ -98,7 +98,7 @@ namespace engine::scene::containers
 		}
 
 		[[nodiscard]] std::span<const T> components() const { return { m_dense_components.data(), m_count }; }
-
+		[[nodiscard]] std::span<const entities::EntityId> entities() const { return { m_dense_entities.data(), m_count }; }
 		[[nodiscard]] std::size_t size() const { return m_count; }
 
 	private:

@@ -1,9 +1,11 @@
 #include "pch.h"
+#include "gtc/type_ptr.hpp"
 #include "EngineCore/Renderer/detail/GL.hpp"
 #include "EngineCore/Renderer/SpriteBatch.hpp"
 #include "EngineCore/IO/AssetPath.hpp"
 #include "EngineCore/Renderer/QuadVertex.hpp"
 #include "EngineCore/Renderer/QuadCommand.hpp"
+#include "EngineCore/Graphics/Shader.hpp"
 
 namespace engine::renderer
 {
@@ -67,10 +69,19 @@ namespace engine::renderer
 
 	void SpriteBatch::SetProjection(const glm::mat4& proj) { m_Proj = proj; }
 
-	void SpriteBatch::Begin(const glm::mat4& view, const glm::mat4& proj, bool useDeviceDefaults)
+	void SpriteBatch::Begin(const glm::mat4& view, const glm::mat4& proj,
+		std::span<const std::optional<engine::graphics::Texture2D>> textures,
+		bool useDeviceDefaults)
 	{
 		m_View = view;
 		m_Proj = proj;
+
+		shader().Bind();
+		textures[0]->bind(0);
+		shader().setInt("u_tex", 0);
+		textures[1]->bind(1);
+		shader().setInt("u_tex2", 1);
+		applyCameraUniforms(m_View, m_Proj);
 
 		if (useDeviceDefaults)
 		{
@@ -95,11 +106,11 @@ namespace engine::renderer
 	{
 		if (!m_Begun) return;
 
-		if (m_Vertices.size() + 4 > MaxVerts || m_Indices.size() + 6 > MaxIndices)
-		{
-			End();
-			Begin(m_View, m_Proj);
-		}
+		//if (m_Vertices.size() + 4 > MaxVerts || m_Indices.size() + 6 > MaxIndices)
+		//{
+		//	End();
+		//	Begin(m_View, m_Proj);
+		//}
 
 		float x = min.x, y = min.y;
 		float w = size.x, h = size.y;
@@ -118,7 +129,7 @@ namespace engine::renderer
 		m_Indices.push_back(base + 0);
 	}
 
-	void SpriteBatch::DrawQuads(std::span<const QuadCommand> quads)
+	void SpriteBatch::DrawQuads(std::span<const QuadCommand> quads, std::span<const std::optional<engine::graphics::Texture2D>> textures)
 	{
 		if (!m_Begun) return;
 
@@ -127,7 +138,7 @@ namespace engine::renderer
 			if (m_Vertices.size() + 4 > MaxVerts || m_Indices.size() + 6 > MaxIndices)
 			{
 				End();
-				Begin(m_View, m_Proj);
+				Begin(m_View, m_Proj, textures);
 			}
 
 			float x = quad.min.x, y = quad.min.y;
@@ -167,5 +178,12 @@ namespace engine::renderer
 	{
 		m_Device->BindVertexArray(m_VAO);
 		m_Device->DrawIndexed(static_cast<uint32_t>(m_Indices.size()));
+	}
+
+	void SpriteBatch::applyCameraUniforms(const glm::mat4& view, const glm::mat4& proj) const
+	{
+		shader().setMat4("model", glm::mat4{1.0f});
+		shader().setMat4("view", view);
+		shader().setMat4("proj", proj);
 	}
 }

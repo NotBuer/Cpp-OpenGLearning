@@ -23,17 +23,20 @@ namespace engine::scene
 	{
 		out.clear();
 
-		std::uint16_t count = 0;
+		for (const auto& spriteEntity : m_sprites.entities())
+		{
+			const auto& transform = m_transforms.tryGet(spriteEntity);
 
-		for (const auto& transform : m_transforms.components()) {
+			if (transform == nullptr) continue;
 
-			float x = transform.position.x, y = transform.position.y;
+			const auto& spriteComponent = m_sprites.tryGet(spriteEntity);
 
 			out.quads.push_back(
 				engine::renderer::QuadCommand{
-					.min{transform.position.x, transform.position.y},
-					.size{transform.scale.x, transform.scale.y},
-					.color{1.f, 1.f, 1.f, 1.f} 
+					.min{transform->position.x, transform->position.y},
+					.size{transform->scale.x, transform->scale.y},
+					.textureId{spriteComponent->textureId},
+					.color{spriteComponent->color}
 				}
 			);
 		}
@@ -53,6 +56,7 @@ namespace engine::scene
 		// Leaving the removal of components "manually" for now.
 		// Later on will implement a better way to do it as the engine components count grows.
 		removeComponent<components::Transform>(id);
+		removeComponent<components::Sprite>(id);
 
 		m_entityManager.destroy(id);
 	}

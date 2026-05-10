@@ -9,11 +9,11 @@ out vec2 texCoord;
 
 uniform mat4 model;
 uniform mat4 view;
-uniform mat4 projection;
+uniform mat4 proj;
 
 void main() 
 {
-	gl_Position = projection * view * model * vec4(aPos, 1.0f);
+	gl_Position = proj * view * model * vec4(aPos, 1.0f);
 	ourColor = aColor;
 	texCoord = vec2(aTexCoord.x, aTexCoord.y);
 }
