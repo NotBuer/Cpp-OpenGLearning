@@ -8,7 +8,7 @@
 #include "EngineCore/Graphics/Shader.hpp"
 #include "EngineCore/Renderer/RenderDevice.hpp"
 #include "EngineCore/Renderer/QuadVertex.hpp"
-#include "EngineCore/Renderer/QuadCommand.hpp"
+#include "EngineCore/Renderer/ResolvedQuadCommand.hpp"
 #include "EngineCore/Graphics/Texture2D.hpp"
 
 // Forward declaration
@@ -22,19 +22,19 @@ namespace engine::renderer
 		explicit SpriteBatch(RenderDevice& device);
 		~SpriteBatch();
 
-		void Init();
-		void Shutdown();
+		void init();
+		void shutdown();
 
 		void SetProjection(const glm::mat4& proj);
 
-		void Begin(const glm::mat4& view, const glm::mat4& proj,
-			std::span<const std::optional<engine::graphics::Texture2D>> textures,
-			bool useDeviceDefaults = true);
+		void Begin(const glm::mat4& view, const glm::mat4& proj, bool useDeviceDefaults = true);
 
 		void End();
 
+		// TODO: Completely obsolete now, remove later.
 		void DrawQuad(const glm::vec2& min, const glm::vec2& size, const glm::vec4& color);
-		void DrawQuads(std::span<const QuadCommand> quads, std::span<const std::optional<engine::graphics::Texture2D>> textures);
+
+		void DrawQuads(const std::span<const engine::renderer::ResolvedQuadCommand> quads);
 
 		const graphics::Shader& shader() const { return *m_Shader; }
 		const glm::mat4& proj() const { return m_Proj; }
@@ -48,7 +48,9 @@ namespace engine::renderer
 
 	private:
 		RenderDevice* m_Device{};
+
 		std::unique_ptr<graphics::Shader> m_Shader = nullptr;
+
 		unsigned m_VAO{}, m_VBO{}, m_EBO{};
 
 		std::vector<QuadVertex> m_Vertices;

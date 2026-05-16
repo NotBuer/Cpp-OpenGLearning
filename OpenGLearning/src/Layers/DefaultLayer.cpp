@@ -11,6 +11,7 @@
 #include "EngineCore/Platform/Time.hpp"
 #include "EngineCore/Platform/GlfwAdpter.hpp"
 #include "EngineCore/Events/Types.hpp"
+#include "EngineCore/Assets/Handles.hpp"
 
 namespace entities = engine::scene::entities;
 namespace components = engine::scene::components;
@@ -48,6 +49,9 @@ void DefaultLayer::OnAttach()
 
 	m_RenderView.reserve(255);
 
+	m_AssetManager.init();
+	m_SceneRenderer.init();
+
 	glm::mat4 proj = glm::perspective(
 		glm::radians(50.0f),
 		static_cast<float>(window().getFramebufferWidth() / window().getFramebufferHeight()),
@@ -69,8 +73,8 @@ void DefaultLayer::OnAttach()
 	//m_Scene->addComponent(entity3, components::Transform(glm::vec3{  50, -50, 0 }, glm::mat4(1.0f), glm::vec3(100, 100, 1)));
 	m_Scene->addComponent(entity4, components::Transform(glm::vec3{  0.5f,  0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1, 1, 1)));
 
-	m_Scene->addComponent(entity1, components::Sprite(0, glm::vec4(0.25f, 0.25f, 0.25f, 1.f)));
-	//m_Scene->addComponent(entity4, components::Sprite(1, glm::vec4(1.0f)));
+	m_Scene->addComponent(entity1, components::Sprite(engine::assets::TextureHandle{.id=3}, glm::vec4(0.25f, 0.25f, 0.25f, 1.f)));
+	m_Scene->addComponent(entity4, components::Sprite(engine::assets::TextureHandle{.id=2}, glm::vec4(1.0f)));
 
 	//m_SpriteBatch->Init();
 	//m_Immediate3D->Init();
@@ -94,6 +98,9 @@ void DefaultLayer::OnDetach()
 {
 	m_PerspectiveCam = nullptr;
 	m_OrthographicCam = nullptr;
+
+	m_SceneRenderer.shutdown();
+	m_AssetManager.shutdown();
 
 	//m_SpriteBatch->Shutdown();
 	//m_Immediate3D->ShutDown();

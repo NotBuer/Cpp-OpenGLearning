@@ -13,7 +13,7 @@ namespace engine::renderer
 	class RenderDevice
 	{
 	public:
-		void Init();
+		void init();
 
 		void BeginPass(const RenderPassDesc& desc);
 

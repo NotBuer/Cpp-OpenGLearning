@@ -4,7 +4,7 @@
 
 namespace engine::renderer
 {
-	void RenderDevice::Init()
+	void RenderDevice::init()
 	{
 		if (m_Initialized) return;
 

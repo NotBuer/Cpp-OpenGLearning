@@ -60,6 +60,12 @@
     <Image Include="..\assets\sprites\face-sprite-test.png">
       <Filter>assets\sprites</Filter>
     </Image>
+    <Image Include="..\assets\sprites\untextured-test.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\assets\sprites\white-fallback-test.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameApp.hpp">

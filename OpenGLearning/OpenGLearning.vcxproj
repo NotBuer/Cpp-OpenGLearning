@@ -175,6 +175,8 @@
   <ItemGroup>
     <Image Include="..\assets\sprites\face-sprite-test.png" />
     <Image Include="..\assets\sprites\grass-sprite-test.png" />
+    <Image Include="..\assets\sprites\untextured-test.png" />
+    <Image Include="..\assets\sprites\white-fallback-test.png" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Layers\HUDLayer.hpp" />

@@ -2,6 +2,7 @@
 #include <vec2.hpp>
 #include <vec3.hpp>
 #include <vec4.hpp>
+#include "EngineCore/Assets/Handles.hpp"
 
 namespace engine::renderer
 {
@@ -9,7 +10,7 @@ namespace engine::renderer
 	{
 		glm::vec2 min;
 		glm::vec2 size;
-		std::uint16_t textureId;
+		engine::assets::TextureHandle textureHandle;
 		glm::vec4 color;
 	};
 }

@@ -35,7 +35,7 @@ namespace engine::scene
 				engine::renderer::QuadCommand{
 					.min{transform->position.x, transform->position.y},
 					.size{transform->scale.x, transform->scale.y},
-					.textureId{spriteComponent->textureId},
+					.textureHandle{spriteComponent->textureHandle},
 					.color{spriteComponent->color}
 				}
 			);

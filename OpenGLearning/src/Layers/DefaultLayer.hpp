@@ -11,6 +11,7 @@
 #include "EngineCore/Scene/Scene.hpp"
 #include "EngineCore/Renderer/RenderView.hpp"
 #include "EngineCore/Renderer/SceneRenderer.hpp"
+#include "EngineCore/Assets/AssetManager.hpp"
 
 class DefaultLayer final : public engine::core::Layer
 {
@@ -28,7 +29,8 @@ private:
 	engine::renderer::RenderView m_RenderView;
 
 	engine::renderer::RenderDevice m_RenderDevice;
-	engine::renderer::SceneRenderer m_SceneRenderer{ m_RenderDevice };
+	engine::assets::AssetManager m_AssetManager;
+	engine::renderer::SceneRenderer m_SceneRenderer{ m_RenderDevice, m_AssetManager };
 
 	//engine::renderer::RenderPassDesc world3D{ true, true, true, {0.15f,0.15f,0.18f,1.f} };
 

@@ -4,21 +4,20 @@
 #include "EngineCore/Renderer/SpriteBatch.hpp"
 #include "EngineCore/IO/AssetPath.hpp"
 #include "EngineCore/Renderer/QuadVertex.hpp"
-#include "EngineCore/Renderer/QuadCommand.hpp"
 #include "EngineCore/Graphics/Shader.hpp"
 
 namespace engine::renderer
 {
-	SpriteBatch::SpriteBatch(RenderDevice& dev) : 
-		m_Device(&dev),
+	SpriteBatch::SpriteBatch(RenderDevice& device) : 
+		m_Device(&device),
 		m_Shader(std::make_unique<graphics::Shader>())
 	{
 	
 	}
 
-	SpriteBatch::~SpriteBatch() { Shutdown(); }
+	SpriteBatch::~SpriteBatch() { shutdown(); }
 
-	void SpriteBatch::Init()
+	void SpriteBatch::init()
 	{
 		// Buffers.
 		glGenVertexArrays(1, &m_VAO);
@@ -55,7 +54,7 @@ namespace engine::renderer
 		m_Indices.reserve(MaxIndices);
 	}
 
-	void SpriteBatch::Shutdown()
+	void SpriteBatch::shutdown()
 	{
 		if (m_Shader)
 		{
@@ -69,18 +68,12 @@ namespace engine::renderer
 
 	void SpriteBatch::SetProjection(const glm::mat4& proj) { m_Proj = proj; }
 
-	void SpriteBatch::Begin(const glm::mat4& view, const glm::mat4& proj,
-		std::span<const std::optional<engine::graphics::Texture2D>> textures,
-		bool useDeviceDefaults)
+	void SpriteBatch::Begin(const glm::mat4& view, const glm::mat4& proj, bool useDeviceDefaults)
 	{
 		m_View = view;
 		m_Proj = proj;
 
 		shader().Bind();
-		textures[0]->bind(0);
-		shader().setInt("u_tex", 0);
-		textures[1]->bind(1);
-		shader().setInt("u_tex2", 1);
 		applyCameraUniforms(m_View, m_Proj);
 
 		if (useDeviceDefaults)
@@ -97,20 +90,26 @@ namespace engine::renderer
 	void SpriteBatch::End()
 	{
 		if (!m_Begun) return;
-		Upload();
-		Flush();
+
+		// TODO: 
+		// Letting this commented out for now, 
+		// As I want to test quad-by-quad texture batching flush.
+		//Upload();
+		//Flush();
+
 		m_Begun = false;
 	}
 
+	// TODO: Completely obsolete now, remove later.
 	void SpriteBatch::DrawQuad(const glm::vec2& min, const glm::vec2& size, const glm::vec4& color)
 	{
 		if (!m_Begun) return;
 
-		//if (m_Vertices.size() + 4 > MaxVerts || m_Indices.size() + 6 > MaxIndices)
-		//{
-		//	End();
-		//	Begin(m_View, m_Proj);
-		//}
+		if (m_Vertices.size() + 4 > MaxVerts || m_Indices.size() + 6 > MaxIndices)
+		{
+			End();
+			Begin(m_View, m_Proj);
+		}
 
 		float x = min.x, y = min.y;
 		float w = size.x, h = size.y;
@@ -129,17 +128,22 @@ namespace engine::renderer
 		m_Indices.push_back(base + 0);
 	}
 
-	void SpriteBatch::DrawQuads(std::span<const QuadCommand> quads, std::span<const std::optional<engine::graphics::Texture2D>> textures)
+	void SpriteBatch::DrawQuads(const std::span<const ResolvedQuadCommand> quads)
 	{
 		if (!m_Begun) return;
 
-		for (const QuadCommand& quad : quads)
+		for (const ResolvedQuadCommand& quad : quads)
 		{
 			if (m_Vertices.size() + 4 > MaxVerts || m_Indices.size() + 6 > MaxIndices)
 			{
 				End();
-				Begin(m_View, m_Proj, textures);
+				Begin(m_View, m_Proj);
 			}
+
+			quad.texture.bind(0);
+			shader().setInt("u_tex", 0);
+			quad.texture.bind(1);
+			shader().setInt("u_tex2", 1);
 
 			float x = quad.min.x, y = quad.min.y;
 			float w = quad.size.x, h = quad.size.y;
@@ -156,6 +160,9 @@ namespace engine::renderer
 			m_Indices.push_back(base + 2);
 			m_Indices.push_back(base + 3);
 			m_Indices.push_back(base + 0);
+
+			Upload();
+			Flush();
 		}
 	}
 

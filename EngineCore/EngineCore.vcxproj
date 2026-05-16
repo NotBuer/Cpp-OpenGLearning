@@ -141,6 +141,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\EngineCore\Assets\AssetManager.hpp" />
+    <ClInclude Include="include\EngineCore\Assets\Handles.hpp" />
     <ClInclude Include="include\EngineCore\Core\Application.hpp" />
     <ClInclude Include="include\EngineCore\Core\Assert.hpp" />
     <ClInclude Include="include\EngineCore\Core\BuildConfig.hpp" />
@@ -171,6 +173,7 @@
     <ClInclude Include="include\EngineCore\Renderer\QuadVertex.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\RenderCommon.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\RenderDevice.hpp" />
+    <ClInclude Include="include\EngineCore\Renderer\ResolvedQuadCommand.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\SceneRenderer.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\RenderView.hpp" />
     <ClInclude Include="include\EngineCore\Renderer\SpriteBatch.hpp" />
@@ -185,6 +188,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Assets\AssetManager.cpp" />
     <ClCompile Include="src\Renderer\SceneRenderer.cpp" />
     <ClCompile Include="src\Scene\Entities\EntityManager.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
