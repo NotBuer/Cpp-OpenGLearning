@@ -100,34 +100,6 @@ namespace engine::renderer
 		m_Begun = false;
 	}
 
-	// TODO: Completely obsolete now, remove later.
-	void SpriteBatch::DrawQuad(const glm::vec2& min, const glm::vec2& size, const glm::vec4& color)
-	{
-		if (!m_Begun) return;
-
-		if (m_Vertices.size() + 4 > MaxVerts || m_Indices.size() + 6 > MaxIndices)
-		{
-			End();
-			Begin(m_View, m_Proj);
-		}
-
-		float x = min.x, y = min.y;
-		float w = size.x, h = size.y;
-		std::uint32_t base = static_cast<std::uint32_t>(m_Vertices.size());
-
-		m_Vertices.push_back({ { x,		y,	   0.f }, color, {0.f, 0.f} });
-		m_Vertices.push_back({ { x + w, y,	   0.f }, color, {1.f, 0.f} });
-		m_Vertices.push_back({ { x + w, y + h, 0.f }, color, {1.f, 1.f} });
-		m_Vertices.push_back({ { x,		y + h, 0.f }, color, {0.f, 1.f} });
-
-		m_Indices.push_back(base + 0);
-		m_Indices.push_back(base + 1);
-		m_Indices.push_back(base + 2);
-		m_Indices.push_back(base + 2);
-		m_Indices.push_back(base + 3);
-		m_Indices.push_back(base + 0);
-	}
-
 	void SpriteBatch::DrawQuads(const std::span<const ResolvedQuadCommand> quads)
 	{
 		if (!m_Begun) return;

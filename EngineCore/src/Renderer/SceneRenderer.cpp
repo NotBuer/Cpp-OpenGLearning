@@ -35,8 +35,8 @@ namespace engine::renderer
 	void SceneRenderer::render(const engine::renderer::RenderView& renderView)
 	{
 		// Update the vector capacity to always match when renderView size exceeds.
-		if (m_CommandOut.size() < renderView.quads.size())
-			m_CommandOut.reserve(renderView.quads.size());
+		if (m_CommandOut.capacity() < renderView.quads.capacity())
+			m_CommandOut.reserve(renderView.quads.capacity());
 
 		m_SpriteBatch->Begin(renderView.camera.view, renderView.camera.proj, false);
 		m_SpriteBatch->DrawQuads(quadCommandResolver(renderView.quads));

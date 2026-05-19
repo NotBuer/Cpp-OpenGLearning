@@ -31,9 +31,6 @@ namespace engine::renderer
 
 		void End();
 
-		// TODO: Completely obsolete now, remove later.
-		void DrawQuad(const glm::vec2& min, const glm::vec2& size, const glm::vec4& color);
-
 		void DrawQuads(const std::span<const engine::renderer::ResolvedQuadCommand> quads);
 
 		const graphics::Shader& shader() const { return *m_Shader; }

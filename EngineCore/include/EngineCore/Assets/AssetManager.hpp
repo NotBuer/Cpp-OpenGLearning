@@ -5,8 +5,6 @@
 
 namespace engine::assets
 {
-	using TextureHandle = engine::assets::TextureHandle;
-
 	class AssetManager
 	{
 	public:

@@ -23,8 +23,8 @@ namespace engine::assets
 	[[nodiscard]] const engine::graphics::Texture2D* AssetManager::tryGetTexture(engine::assets::TextureHandle handle) const
 	{
 		// Fallback to white texture.
-		// For now using 0 as white texture intentional.
-		if (handle.id == 0)
+		// For now using 1 as white texture intentional.
+		if (handle.id == 1)
 			return whiteTexture();
 
 		size_t index = static_cast<size_t>(handle.id);
@@ -40,11 +40,17 @@ namespace engine::assets
 
 	[[nodiscard]] const engine::graphics::Texture2D* AssetManager::missingTexture() const
 	{
+		if (!m_Textures[0].has_value())
+			throw std::runtime_error("The default 'Missing Texture' was not found");
+
 		return &*m_Textures[0];
 	}
 
 	[[nodiscard]] const engine::graphics::Texture2D* AssetManager::whiteTexture() const
 	{
+		if (!m_Textures[1].has_value())
+			throw std::runtime_error("The default 'White Texture' was not found");
+
 		return &*m_Textures[1];
 	}
 }
