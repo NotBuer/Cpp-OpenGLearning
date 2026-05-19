@@ -33,7 +33,7 @@ namespace engine::scene::containers
 		{
 			if (e.index >= m_sparse.size()) return false;
 
-			const std::uint16_t denseIndex = m_sparse[e.index];
+			const size_t denseIndex = m_sparse[e.index];
 			if (denseIndex == entities::kInvalidEntityIndex) return false;
 			if (denseIndex < 0) return false;
 			if (static_cast<std::size_t>(denseIndex) >= m_count) return false;
@@ -81,7 +81,7 @@ namespace engine::scene::containers
 			if (!has(e)) return;
 
 			const std::uint32_t denseIndex = static_cast<std::uint32_t>(m_sparse[e.index]);
-			const std::uint32_t lastIndex = m_count - 1;
+			const std::uint32_t lastIndex = static_cast<std::uint32_t>(m_count - 1);
 
 			if (denseIndex != lastIndex)
 			{
