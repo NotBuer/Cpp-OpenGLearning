@@ -29,6 +29,9 @@ namespace engine::renderer
 
 		void Begin(const glm::mat4& view, const glm::mat4& proj, bool useDeviceDefaults = true);
 
+		void BeginBatch();
+		void Submit();
+
 		void End();
 
 		void DrawQuads(const std::span<const engine::renderer::ResolvedQuadCommand> quads);
@@ -37,7 +40,6 @@ namespace engine::renderer
 		const glm::mat4& proj() const { return m_Proj; }
 
 	private:
-		void StartBatch();
 		void Upload();
 		void Flush();
 

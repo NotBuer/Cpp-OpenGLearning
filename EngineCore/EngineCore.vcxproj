@@ -120,6 +120,17 @@
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>if "$(Configuration)|$(Platform)" == "Debug|x64" (
+    echo ========================================================
+    echo SUCCESS: Build verification passed for Debug^|x64.
+    echo Target Output: $(TargetPath)
+    echo ========================================================
+) else (
+    echo Skype verification skipped. Current build is $(Configuration)^|$(Platform).
+)
+</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>

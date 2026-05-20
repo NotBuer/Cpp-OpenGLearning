@@ -84,19 +84,24 @@ namespace engine::renderer
 		}
 
 		m_Begun = true;
-		StartBatch();
+		BeginBatch();
 	}
 
+	void SpriteBatch::BeginBatch()
+	{
+		m_Vertices.clear();
+		m_Indices.clear();
+	}
+
+	void SpriteBatch::Submit()
+	{
+		Upload();
+		Flush();
+	}
 	void SpriteBatch::End()
 	{
 		if (!m_Begun) return;
-
-		// TODO: 
-		// Letting this commented out for now, 
-		// As I want to test quad-by-quad texture batching flush.
-		//Upload();
-		//Flush();
-
+		Submit();
 		m_Begun = false;
 	}
 
@@ -104,18 +109,23 @@ namespace engine::renderer
 	{
 		if (!m_Begun) return;
 
+		std::uint16_t lastTextureSortKey = 0;
+		std::size_t count = 0;
+
+		// In order for this implementation work well:
+		// The quads that arrive here must be pre-sorted by the caller.
 		for (const ResolvedQuadCommand& quad : quads)
 		{
-			if (m_Vertices.size() + 4 > MaxVerts || m_Indices.size() + 6 > MaxIndices)
+			if ((lastTextureSortKey != quad.textureSortKey && count != 0)
+				|| m_Vertices.size() + 4 > MaxVerts || m_Indices.size() + 6 > MaxIndices)
 			{
-				End();
-				Begin(m_View, m_Proj);
+				// Flush the current batch but keep the Begin/End session alive.
+				Submit();
+				BeginBatch();
 			}
 
-			quad.texture.bind(0);
+			quad.texture->bind(0);
 			shader().setInt("u_tex", 0);
-			quad.texture.bind(1);
-			shader().setInt("u_tex2", 1);
 
 			float x = quad.min.x, y = quad.min.y;
 			float w = quad.size.x, h = quad.size.y;
@@ -133,15 +143,9 @@ namespace engine::renderer
 			m_Indices.push_back(base + 3);
 			m_Indices.push_back(base + 0);
 
-			Upload();
-			Flush();
+			lastTextureSortKey = quad.textureSortKey;
+			count++;
 		}
-	}
-
-	void SpriteBatch::StartBatch()
-	{
-		m_Vertices.clear();
-		m_Indices.clear();
 	}
 
 	void SpriteBatch::Upload()

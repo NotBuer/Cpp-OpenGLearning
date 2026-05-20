@@ -64,17 +64,19 @@ void DefaultLayer::OnAttach()
 	};
 
 	auto entity1 = m_Scene->createEntity();
-	//auto entity2 = m_Scene->createEntity();
-	//auto entity3 = m_Scene->createEntity();
+	auto entity2 = m_Scene->createEntity();
+	auto entity3 = m_Scene->createEntity();
 	auto entity4 = m_Scene->createEntity();
 
 	m_Scene->addComponent(entity1, components::Transform(glm::vec3{ -0.5, -0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1, 1, 1)));
-	//m_Scene->addComponent(entity2, components::Transform(glm::vec3{ -50,  50, 0 }, glm::mat4(1.0f), glm::vec3(100, 100, 1)));
-	//m_Scene->addComponent(entity3, components::Transform(glm::vec3{  50, -50, 0 }, glm::mat4(1.0f), glm::vec3(100, 100, 1)));
-	m_Scene->addComponent(entity4, components::Transform(glm::vec3{  0.5f,  0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1, 1, 1)));
+	m_Scene->addComponent(entity2, components::Transform(glm::vec3{ -0.5,  0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1, 1, 1)));
+	m_Scene->addComponent(entity3, components::Transform(glm::vec3{  0.5, -0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1, 1, 1)));
+	m_Scene->addComponent(entity4, components::Transform(glm::vec3{  0.5f, 0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1, 1, 1)));
 
-	m_Scene->addComponent(entity1, components::Sprite(engine::assets::TextureHandle{.id=3}, glm::vec4(0.25f, 0.25f, 0.25f, 1.f)));
-	m_Scene->addComponent(entity4, components::Sprite(engine::assets::TextureHandle{.id=2}, glm::vec4(1.0f)));
+	m_Scene->addComponent(entity1, components::Sprite(engine::assets::TextureHandle{ .id = 1 }, glm::vec4(0.25f, 1.f, 0.25f, 1.f)));
+	m_Scene->addComponent(entity2, components::Sprite(engine::assets::TextureHandle{ .id = 2 }, glm::vec4(1.f, 0.25f, 0.25f, 1.f)));
+	m_Scene->addComponent(entity3, components::Sprite(engine::assets::TextureHandle{ .id = 3 }, glm::vec4(0.25f, 0.25f, 1.f, 1.f)));
+	m_Scene->addComponent(entity4, components::Sprite(engine::assets::TextureHandle{ .id = 2 }, glm::vec4(1.f, 0.5f, 0.25f, 1.f)));
 
 	//m_SpriteBatch->Init();
 	//m_Immediate3D->Init();

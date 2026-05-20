@@ -2,6 +2,7 @@
 #include <vec2.hpp>
 #include <vec4.hpp>
 #include "EngineCore/Graphics/Texture2D.hpp"
+#include "EngineCore/Assets/Handles.hpp"
 
 namespace engine::renderer
 {
@@ -9,14 +10,16 @@ namespace engine::renderer
 	{
 		glm::vec2 min;
 		glm::vec2 size;
-		const engine::graphics::Texture2D& texture;
+		std::uint16_t textureSortKey;
+		const engine::graphics::Texture2D* texture;
 		glm::vec4 color;
 
 		ResolvedQuadCommand(
 			glm::vec2 min,
 			glm::vec2 size,
-			const engine::graphics::Texture2D& texture,
+			std::uint16_t textureSortKey,
+			const engine::graphics::Texture2D* texture,
 			glm::vec4 color
-		): min(min), size(size), texture(texture), color(color) {}
+		): min(min), size(size), textureSortKey(textureSortKey), texture(texture), color(color) {}
 	};
 }
