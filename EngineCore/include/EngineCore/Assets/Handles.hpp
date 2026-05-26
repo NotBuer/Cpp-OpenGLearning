@@ -3,11 +3,10 @@
 
 namespace engine::assets
 {
-	// Here 0 means invalid id.
-
+	// Default initialize as white-blank.
 	struct TextureHandle
 	{
-		std::uint16_t id = 0;
+		std::uint16_t id = 1;
 	};
 
 	struct ShaderHandle

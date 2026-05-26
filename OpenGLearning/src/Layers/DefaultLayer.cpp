@@ -12,9 +12,11 @@
 #include "EngineCore/Platform/GlfwAdpter.hpp"
 #include "EngineCore/Events/Types.hpp"
 #include "EngineCore/Assets/Handles.hpp"
+#include "EngineCore/Assets/AssetManager.hpp"
 
 namespace entities = engine::scene::entities;
 namespace components = engine::scene::components;
+namespace assets = engine::assets;
 
 DefaultLayer::DefaultLayer(const std::string& name, const engine::platform::Window& window) :
 	engine::core::Layer(name, window),
@@ -73,10 +75,10 @@ void DefaultLayer::OnAttach()
 	m_Scene->addComponent(entity3, components::Transform(glm::vec3{  0.5, -0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1, 1, 1)));
 	m_Scene->addComponent(entity4, components::Transform(glm::vec3{  0.5f, 0.5f, 0 }, glm::mat4(1.0f), glm::vec3(1, 1, 1)));
 
-	m_Scene->addComponent(entity1, components::Sprite(engine::assets::TextureHandle{ .id = 1 }, glm::vec4(0.25f, 1.f, 0.25f, 1.f)));
-	m_Scene->addComponent(entity2, components::Sprite(engine::assets::TextureHandle{ .id = 2 }, glm::vec4(1.f, 0.25f, 0.25f, 1.f)));
-	m_Scene->addComponent(entity3, components::Sprite(engine::assets::TextureHandle{ .id = 3 }, glm::vec4(0.25f, 0.25f, 1.f, 1.f)));
-	m_Scene->addComponent(entity4, components::Sprite(engine::assets::TextureHandle{ .id = 2 }, glm::vec4(1.f, 0.5f, 0.25f, 1.f)));
+	m_Scene->addComponent(entity1, components::Sprite(assets::AssetManager::missing(), glm::vec4(1.0f)));
+	m_Scene->addComponent(entity2, components::Sprite(assets::AssetManager::white(), glm::vec4(1.f, 0.25f, 0.25f, 1.f)));
+	m_Scene->addComponent(entity3, components::Sprite(assets::AssetManager::grass(), glm::vec4(0.25f, 0.25f, 1.f, 1.f)));
+	m_Scene->addComponent(entity4, components::Sprite(assets::AssetManager::face(), glm::vec4(1.f, 0.5f, 0.25f, 1.f)));
 
 	//m_SpriteBatch->Init();
 	//m_Immediate3D->Init();
