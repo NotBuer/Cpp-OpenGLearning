@@ -4,7 +4,7 @@ param(
 
     [string]$Configuration = "Debug",
     [string]$Platform = "x64",
-    [string]$PlatformToolset = "v143"
+    [string]$PlatformToolset = "v145"
 )
 
 $ErrorActionPreference = "Stop"
@@ -17,6 +17,10 @@ if (-not (Test-Path -LiteralPath $solutionPath)) {
 }
 
 $msbuildCandidates = @(
+    "C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Current\Bin\MSBuild.exe",
+    "C:\Program Files\Microsoft Visual Studio\18\Professional\MSBuild\Current\Bin\MSBuild.exe",
+    "C:\Program Files\Microsoft Visual Studio\18\Enterprise\MSBuild\Current\Bin\MSBuild.exe",
+    "C:\Program Files\Microsoft Visual Studio\18\BuildTools\MSBuild\Current\Bin\MSBuild.exe",
     "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe",
     "C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Current\Bin\MSBuild.exe",
     "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe",
@@ -27,8 +31,8 @@ $msbuildPath = $msbuildCandidates | Where-Object { Test-Path -LiteralPath $_ } |
 
 if (-not $msbuildPath) {
     throw @"
-MSBuild.exe was not found in the expected Visual Studio 2022 locations.
-Install Visual Studio Build Tools 2022 or update tools\msbuild.ps1 with your MSBuild path.
+MSBuild.exe was not found in the expected Visual Studio 18 or Visual Studio 2022 locations.
+Install the matching Visual Studio Build Tools or update tools\msbuild.ps1 with your MSBuild path.
 "@
 }
 

@@ -17,7 +17,7 @@
         "-Platform",
         "x64",
         "-PlatformToolset",
-        "v143"
+        "v145"
       ],
       "group": {
         "kind": "build",
@@ -31,7 +31,7 @@
       },
       "options": {
         "env": {
-          "VSCODE_MSVC_ASAN_BIN": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
+          "VSCODE_MSVC_ASAN_BIN": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64"
         }
       }
     },
@@ -51,7 +51,7 @@
         "-Platform",
         "x64",
         "-PlatformToolset",
-        "v143"
+        "v145"
       ],
       "group": "build",
       "problemMatcher": "$msCompile",
@@ -62,7 +62,7 @@
       },
       "options": {
         "env": {
-          "VSCODE_MSVC_ASAN_BIN": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
+          "VSCODE_MSVC_ASAN_BIN": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64"
         }
       }
     },
@@ -84,7 +84,7 @@
       },
       "options": {
         "env": {
-          "VSCODE_MSVC_ASAN_BIN": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
+          "VSCODE_MSVC_ASAN_BIN": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64"
         }
       }
     }

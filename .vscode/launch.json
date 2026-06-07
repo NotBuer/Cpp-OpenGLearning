@@ -12,7 +12,7 @@
       "environment": [
         {
           "name": "PATH",
-          "value": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64;${env:PATH}"
+          "value": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64;${env:PATH}"
         }
       ],
       "externalConsole": false,
