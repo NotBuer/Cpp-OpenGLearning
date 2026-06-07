@@ -90,6 +90,10 @@ Makefile
 # =================================================================
 *.idea/
 *.vscode/
+!.vscode/
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/settings.json
 
 # =================================================================
 # Logs / OS cruft

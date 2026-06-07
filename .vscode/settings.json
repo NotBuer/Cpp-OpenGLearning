@@ -1,0 +1,6 @@
+{
+  "files.exclude": {
+    "**/.vs": true
+  },
+  "terminal.integrated.defaultProfile.windows": "PowerShell"
+}

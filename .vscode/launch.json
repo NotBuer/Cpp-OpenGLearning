@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug OpenGLearning (Debug|x64)",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}\\OpenGLearning\\x64\\Debug\\OpenGLearning.exe",
+      "cwd": "${workspaceFolder}\\OpenGLearning\\x64\\Debug",
+      "args": [],
+      "stopAtEntry": false,
+      "environment": [
+        {
+          "name": "PATH",
+          "value": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64;${env:PATH}"
+        }
+      ],
+      "externalConsole": false,
+      "preLaunchTask": "Build Debug|x64"
+    }
+  ]
+}

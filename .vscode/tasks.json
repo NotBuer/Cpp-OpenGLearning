@@ -1,0 +1,92 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build Debug|x64",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\tools\\msbuild.ps1",
+        "-Target",
+        "Build",
+        "-Configuration",
+        "Debug",
+        "-Platform",
+        "x64",
+        "-PlatformToolset",
+        "v143"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": "$msCompile",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      },
+      "options": {
+        "env": {
+          "VSCODE_MSVC_ASAN_BIN": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
+        }
+      }
+    },
+    {
+      "label": "Rebuild Debug|x64",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\tools\\msbuild.ps1",
+        "-Target",
+        "Rebuild",
+        "-Configuration",
+        "Debug",
+        "-Platform",
+        "x64",
+        "-PlatformToolset",
+        "v143"
+      ],
+      "group": "build",
+      "problemMatcher": "$msCompile",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      },
+      "options": {
+        "env": {
+          "VSCODE_MSVC_ASAN_BIN": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
+        }
+      }
+    },
+    {
+      "label": "Run Debug|x64",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-ExecutionPolicy",
+        "Bypass",
+        "-Command",
+        "$env:PATH = \"${env:VSCODE_MSVC_ASAN_BIN};$env:PATH\"; & \"${workspaceFolder}\\OpenGLearning\\x64\\Debug\\OpenGLearning.exe\""
+      ],
+      "dependsOn": "Build Debug|x64",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "options": {
+        "env": {
+          "VSCODE_MSVC_ASAN_BIN": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
+        }
+      }
+    }
+  ]
+}
