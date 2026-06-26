@@ -11,7 +11,7 @@ namespace engine::core
 	{
 	public:
 		explicit Layer(const std::string& name, const engine::platform::Window& window);
-		virtual ~Layer();
+		virtual ~Layer() noexcept;
 
 		virtual void OnAttach();
 		virtual void OnDetach();

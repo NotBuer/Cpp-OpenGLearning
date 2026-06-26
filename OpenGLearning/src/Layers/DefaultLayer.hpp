@@ -12,17 +12,22 @@
 #include "EngineCore/Renderer/RenderView.hpp"
 #include "EngineCore/Renderer/SceneRenderer.hpp"
 #include "EngineCore/Assets/AssetManager.hpp"
+#include "Debug/IDebugOverlayDataSource.hpp"
+#include "Debug/DebugOverlaySnapshot.hpp"
 
-class DefaultLayer final : public engine::core::Layer
+class DefaultLayer final : public engine::core::Layer, public IDebugOverlayDataSource
 {
 public:
 	DefaultLayer(const std::string& name, const engine::platform::Window& window);
+	~DefaultLayer() noexcept override = default;
 
 	void OnAttach() override;
 	void OnDetach() override;
 	void OnUpdate(float dt) override;
 	void OnRender() override;
 	bool OnEvent(const engine::events::EventSlot& e, engine::events::EventContext& ctx) override;
+	
+	const DebugOverlaySnapshot& debugOverlaySnapshot() const override;
 
 private:
 	std::unique_ptr<engine::scene::Scene> m_Scene = nullptr;
@@ -42,5 +47,8 @@ private:
 
 	//std::optional<engine::graphics::Texture2D> m_GrassTex;
 	//std::optional<engine::graphics::Texture2D> m_FaceTex;
+
+	mutable DebugOverlaySnapshot m_DebugOverlaySnapshot{};
+	CameraMode m_CameraMode = CameraMode::Orthographic2D;
 };
 

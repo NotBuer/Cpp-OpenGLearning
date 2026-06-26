@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include "EngineCore/Renderer/detail/GL.hpp"
 #include "EngineCore/Events/InputState.hpp"
 #include "EngineCore/Events/EventBus.hpp"

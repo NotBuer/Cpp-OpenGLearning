@@ -161,7 +161,7 @@
     <ClCompile Include="..\external\imgui\imgui_draw.cpp" />
     <ClCompile Include="..\external\imgui\imgui_tables.cpp" />
     <ClCompile Include="..\external\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="src\Layers\HUDLayer.cpp" />
+    <ClCompile Include="src\Layers\DebugOverlayLayer.cpp" />
     <ClCompile Include="src\Layers\DefaultLayer.cpp" />
     <ClCompile Include="src\GameApp.cpp" />
     <ClCompile Include="src\Main.cpp" />
@@ -194,7 +194,7 @@
     <ClInclude Include="..\external\imgui\imstb_rectpack.h" />
     <ClInclude Include="..\external\imgui\imstb_textedit.h" />
     <ClInclude Include="..\external\imgui\imstb_truetype.h" />
-    <ClInclude Include="src\Layers\HUDLayer.hpp" />
+    <ClInclude Include="src\Layers\DebugOverlayLayer.hpp" />
     <ClInclude Include="src\Layers\DefaultLayer.hpp" />
     <ClInclude Include="src\GameApp.hpp" />
   </ItemGroup>

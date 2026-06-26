@@ -2,5 +2,6 @@
   "files.exclude": {
     "**/.vs": true
   },
-  "terminal.integrated.defaultProfile.windows": "PowerShell"
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "C_Cpp.clang_format_style": "file"
 }

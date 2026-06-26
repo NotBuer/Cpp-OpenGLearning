@@ -11,7 +11,7 @@ namespace engine::core
 
 	}
 
-	Layer::~Layer() = default;
+	Layer::~Layer() noexcept = default;
 
 	void Layer::OnAttach()
 	{

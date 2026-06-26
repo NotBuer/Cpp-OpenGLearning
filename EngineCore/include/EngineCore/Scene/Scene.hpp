@@ -104,7 +104,8 @@ namespace engine::scene
 			registry<T>().remove(id);
 		}
 
-		const std::string& getName() const { return m_name; }
+		const std::string& getName() const noexcept { return m_name; }
+		std::size_t entityCount() noexcept { return m_entityManager.aliveCount(); }
 
 		engine::scene::entities::EntityId createEntity();
 		void destroyEntity(engine::scene::entities::EntityId id);

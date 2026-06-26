@@ -289,3 +289,12 @@ bool DefaultLayer::OnEvent(const engine::events::EventSlot& e, engine::events::E
 	(void)ctx;
 	return false;
 }
+
+const DebugOverlaySnapshot& DefaultLayer::debugOverlaySnapshot() const
+{
+	m_DebugOverlaySnapshot.entityCount = m_Scene->entityCount();
+	m_DebugOverlaySnapshot.quadCount = m_RenderView.quads.size();
+	// m_DebugOverlaySnapshot.drawCallCount = ;
+	m_DebugOverlaySnapshot.cameraMode = m_CameraMode;
+	return m_DebugOverlaySnapshot;
+}
