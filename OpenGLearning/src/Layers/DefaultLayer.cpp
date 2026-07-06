@@ -153,6 +153,9 @@ void DefaultLayer::OnUpdate(float dt)
 	m_RenderView.camera.view = m_OrthographicCam->view();
 	m_RenderView.camera.proj = m_OrthographicCam->proj();
 	m_RenderView.camera.position = m_OrthographicCam->position();
+
+	m_DebugOverlaySnapshot.frameTimeMs = dt * 1000.0f;
+	m_DebugOverlaySnapshot.fps = (dt > 0.0f) ? (1.0f / dt) : 0.0f;
 }
 
 void DefaultLayer::OnRender()
@@ -292,9 +295,13 @@ bool DefaultLayer::OnEvent(const engine::events::EventSlot& e, engine::events::E
 
 const DebugOverlaySnapshot& DefaultLayer::debugOverlaySnapshot() const
 {
+	m_DebugOverlaySnapshot.framebufferWidth = window().getFramebufferWidth();
+	m_DebugOverlaySnapshot.framebufferHeight = window().getFramebufferHeight();
 	m_DebugOverlaySnapshot.entityCount = m_Scene->entityCount();
 	m_DebugOverlaySnapshot.quadCount = m_RenderView.quads.size();
 	// m_DebugOverlaySnapshot.drawCallCount = ;
+	// m_DebugOverlaySnapshot.flushCount = ;
+	// m_DebugOverlaySnapshot.textureSwitchCount = ;
 	m_DebugOverlaySnapshot.cameraMode = m_CameraMode;
 	return m_DebugOverlaySnapshot;
 }

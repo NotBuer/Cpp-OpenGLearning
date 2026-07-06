@@ -3,5 +3,6 @@
     "**/.vs": true
   },
   "terminal.integrated.defaultProfile.windows": "PowerShell",
-  "C_Cpp.clang_format_style": "file"
+  "C_Cpp.clang_format_style": "file",
+  "cmake.ignoreCMakeListsMissing": true
 }

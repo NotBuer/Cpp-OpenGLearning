@@ -5,19 +5,20 @@
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
 
-namespace
-{
-	struct HudOverlayState
-	{
-		float frameTimeMs = 0.0f;
-		float fps = 0.0f;
-	};
+// namespace
+// {
+// 	struct HudOverlayState
+// 	{
+// 		float frameTimeMs = 0.0f;
+// 		float fps = 0.0f;
+// 	};
 
-	HudOverlayState g_HudState;
-}
+// 	HudOverlayState g_HudState;
+// }
 
-DebugOverlayLayer::DebugOverlayLayer(const std::string& name, const engine::platform::Window& window) : 
-	engine::core::Layer(name, window)
+DebugOverlayLayer::DebugOverlayLayer(
+	const std::string& name, const engine::platform::Window& window, const IDebugOverlayDataSource& dataSource) : 
+	engine::core::Layer(name, window), m_DataSource(dataSource)
 {
 
 }
@@ -45,8 +46,8 @@ void DebugOverlayLayer::OnDetach()
 
 void DebugOverlayLayer::OnUpdate(float dt)
 {
-	g_HudState.frameTimeMs = dt * 1000.0f;
-	g_HudState.fps = (dt > 0.0f) ? (1.0f / dt) : 0.0f;
+	// g_HudState.frameTimeMs = dt * 1000.0f;
+	// g_HudState.fps = (dt > 0.0f) ? (1.0f / dt) : 0.0f;
 }
 
 void DebugOverlayLayer::OnRender()
@@ -67,8 +68,16 @@ void DebugOverlayLayer::OnRender()
 
 	if (ImGui::Begin("HUD", nullptr, flags))
 	{
-		ImGui::Text("Frame: %.2f ms (%.1f FPS)", g_HudState.frameTimeMs, g_HudState.fps);
-		ImGui::Text("Framebuffer: %ux%u", window().getFramebufferWidth(), window().getFramebufferHeight());
+		auto debugSnapshot = m_DataSource.debugOverlaySnapshot();
+
+		ImGui::Text("Frame: %.2f ms (%.1f FPS)", debugSnapshot.frameTimeMs, debugSnapshot.fps);
+		ImGui::Text("Framebuffer: %ux%u", debugSnapshot.framebufferWidth, debugSnapshot.framebufferHeight);
+		ImGui::Text("Entities:", debugSnapshot.entityCount);
+		ImGui::Text("Quads:", debugSnapshot.quadCount);
+		// ImGui::Text("Draw Calls:", 0);
+		// ImGui::Text("Flushes:", 0);
+		// ImGui::Text("Texture Switches:", 0);
+		ImGui::Text("Camera:", debugSnapshot.cameraMode);
 
 		const ImGuiIO& io = ImGui::GetIO();
 		ImGui::Text("Mouse capture: %s", io.WantCaptureMouse ? "yes" : "no");

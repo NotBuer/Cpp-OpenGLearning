@@ -6,6 +6,9 @@
 
 GameApp::GameApp(const engine::core::ApplicationSpecs& specs) : engine::core::Application(specs)
 {	
-	layerstack().PushLayer(std::make_unique<DefaultLayer>("Default Layer", window()));
-	layerstack().PushLayer(std::make_unique<DebugOverlayLayer>("Debug Overlay Layer", window()));
+	auto defaultLayer = std::make_unique<DefaultLayer>("Default Layer", window());
+	DefaultLayer& debugSource = *defaultLayer;
+
+	layerstack().PushLayer(std::move(defaultLayer));
+	layerstack().PushLayer(std::make_unique<DebugOverlayLayer>("Debug Overlay Layer", window(), debugSource));
 }
